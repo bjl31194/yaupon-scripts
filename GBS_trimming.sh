@@ -13,8 +13,8 @@
 #SBATCH --cpus-per-task=4		                            # Number of cores per task
 #SBATCH --mem=10gb			                                # Total memory for job
 #SBATCH --time=8:00:00  		                            # Time limit hrs:min:sec
-#SBATCH --output=/scratch/trimming.%j.out			          # Standard output
-#SBATCH --error=/scratch/trimming.%j.err                # Error log
+#SBATCH --output=trimming.%j.out			          # Standard output
+#SBATCH --error=trimming.%j.err                # Error log
 #SBATCH --mail-user=bjl31194@uga.edu                    # Where to send mail
 #SBATCH --mail-type=END,FAIL                            # Mail events (BEGIN, END, FAIL, ALL)
 
