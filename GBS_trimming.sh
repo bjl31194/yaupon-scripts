@@ -43,7 +43,7 @@ fastx_trimmer -Q 33 -f 6 -l 86 -i $j -o ${j}_trimmed.fq
 
 done
 
-for k in ${DATADIR}*.2.fq;
+for k in ${DATADIR}/*.2.fq;
 
 do
 fastx_trimmer -Q 33 -f 6 -l 96 -i $k -o ${k}_trimmed.fq
