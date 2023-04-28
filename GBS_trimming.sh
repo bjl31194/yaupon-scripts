@@ -20,7 +20,7 @@
 
 #set input and output directory variables
 OUTDIR="/scratch/bjl31194/yaupon/sequences/Fastqc_results/trimmed_reads"
-DATADIR="/bjl31194/yaupon/sequences/Yaupon_barcode_filter_reads"
+DATADIR="/home/bjl31194/yaupon/sequences/Yaupon_barcode_filter_reads"
 
 #if output directory doesn't exist, create it
 if [ ! -d $OUTDIR ]
