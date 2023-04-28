@@ -32,17 +32,20 @@ fi
 module load FASTX-Toolkit/0.0.14-GCCcore-8.3.0
 
 #trimming
+
+cd ${OUTDIR}
+
 for j in ${DATADIR}/*.1.fq;
 
 do
 
-fastx_trimmer -Q 33 -f 6 -l 86 -i $j -o ${OUTDIR}/${j}_trimmed.fq
+fastx_trimmer -Q 33 -f 6 -l 86 -i $j -o ${j}_trimmed.fq
 
 done
 
 for k in ${DATADIR}*.2.fq;
 
 do
-fastx_trimmer -Q 33 -f 6 -l 96 -i $k -o ${OUTDIR}/${k}_trimmed.fq
+fastx_trimmer -Q 33 -f 6 -l 96 -i $k -o ${k}_trimmed.fq
 
 done
