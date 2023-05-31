@@ -26,7 +26,7 @@ ml picard/2.21.6-Java-11
 ml SAMtools/1.10-iccifort-2019.5.281
 
 #makes index files
-gunzip JYEU.hipmer.GA-F-4_assembly.fasta.gz > JYEU.hipmer.GA-F-4_assembly.fasta
-bowtie2-build JYEU.hipmer.GA-F-4_assembly.fasta JYEU.hipmer.GA-F-4_assembly
+
+bowtie2-build -f JYEU.hipmer.GA-F-4_assembly.fasta JYEU.hipmer.GA-F-4_assembly
 samtools faidx JYEU.hipmer.GA-F-4_assembly.fasta
 java -jar $EBROOTPICARD/picard.jar CreateSequenceDictionary R=JYEU.hipmer.GA-F-4_assembly.fasta O=JYEU.hipmer.GA-F-4_assembly.dict
