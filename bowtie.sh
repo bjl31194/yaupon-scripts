@@ -7,7 +7,7 @@
 # Run Information: This script is run manually.
 
 ## SLURM PARAMETERS ##
-#SBATCH --job-name=indexing	                            # Job name
+#SBATCH --job-name=bowtie	                            # Job name
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
 #SBATCH --cpus-per-task=4		                            # Number of cores per task
