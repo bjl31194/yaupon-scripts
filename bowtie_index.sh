@@ -2,12 +2,12 @@
 
 ## ABOUT THIS SCRIPT ##
 # Author: Ben Long (adapted from Shreena Pradhan)
-# Date : 4.28.2021
-# Description: trims GBS reads using fastx_trimmer
+# Date : 05.31.2023
+# Description: indexes a reference genome for aligning reads
 # Run Information: This script is run manually.
 
 ## SLURM PARAMETERS ##
-#SBATCH --job-name=trimming	                            # Job name
+#SBATCH --job-name=indexing	                            # Job name
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
 #SBATCH --cpus-per-task=4		                            # Number of cores per task
@@ -18,31 +18,14 @@
 #SBATCH --mail-user=bjl31194@uga.edu                    # Where to send mail
 #SBATCH --mail-type=END,FAIL                            # Mail events (BEGIN, END, FAIL, ALL)
 
-#set input and output directory variables
-OUTDIR="/scratch/bjl31194/yaupon/sequences/Fastqc_results/trimmed_reads"
-DATADIR="/bjl31194/yaupon/sequences/Yaupon_barcode_filter_reads"
-
-#if output directory doesn't exist, create it
-if [ ! -d $OUTDIR ]
-then
-    mkdir -p $OUTDIR
-fi
+cd /scratch/bjl31194/yaupon/references
 
 #load modules
-module load FASTX-Toolkit/0.0.14-GCCcore-8.3.0
+ml Bowtie2/2.4.1-GCC-8.3.0
+ml picard/2.21.6-Java-11
+ml SAMtools/1.10-iccifort-2019.5.281
 
-#trimming
-for j in ${DATADIR}/*.1.fq;
-
-do
-
-fastx_trimmer -Q 33 -f 6 -l 86 -i $j -o ${OUTDIR}/${j}_trimmed.fq
-
-done
-
-for k in ${DATADIR}*.2.fq;
-
-do
-fastx_trimmer -Q 33 -f 6 -l 96 -i $k -o ${OUTDIR}/${k}_trimmed.fq
-
-done
+#makes index files
+bowtie2-build JYEU.hipmer.GA-F-4_assembly.fasta.gz
+samtools faidx JYEU.hipmer.GA-F-4_assembly.fasta.gz
+java -jar $EBROOTPICARD/picard.jar CreateSequenceDictionary R=JYEU.hipmer.GA-F-4_assembly.fasta.gz O=JYEU.hipmer.GA-F-4_assembly.dict
