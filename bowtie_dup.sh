@@ -10,3 +10,4 @@ do
   echo "${f1}"
   sed 's|pqX|'$f1'|g' ~/yaupon/bowtie/bowtie.sh > ~/yaupon/bowtie/subbowtie_$f1.sh  #replace preset keyword ychX
   echo "sbatch ~/yaupon/bowtie/subbowtie_$f1.sh" >> ~/yaupon/bowtie/qbowtie.sh
+done
