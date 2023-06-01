@@ -25,6 +25,6 @@ ml GATK/4.3.0.0-GCCcore-8.3.0-Java-1.8
 
 gatk --java-options "-Xmx10g" HaplotypeCaller  \
    -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta \
-   -I P2_A01.Gr.sorted.bam \
-   -O P2_A01.g.vcf.gz \
+   -I Ivo.Gr.sorted.bam \
+   -O Ivo.g.vcf.gz \
    -ERC GVCF
