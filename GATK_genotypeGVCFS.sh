@@ -3,7 +3,7 @@
 ## ABOUT THIS SCRIPT ##
 # Author: Ben Long (adapted from Shreena Pradhan)
 # Date : 06.01.2023
-# Description: genotypes GVCF calls made by hapcaller
+# Description: genotypes GVCF calls made by HaplotypeCaller
 # Run Information: This script is run manually.
 
 ## SLURM PARAMETERS ##

@@ -2,7 +2,7 @@
 
 ## ABOUT THIS SCRIPT ##
 # Author: Ben Long (adapted from Shreena Pradhan)
-# Date : 05.31.2023
+# Date : 06.01.2023
 # Description: calls variants using GATK haplotype caller
 # Run Information: This script is run manually.
 
