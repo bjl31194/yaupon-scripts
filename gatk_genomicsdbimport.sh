@@ -31,6 +31,7 @@ gatk --java-options "-Xmx8g -Xms8g" \
        -L JYEU.hipmer.GA-F-4_scaffolds.intervals.list \
        --sample-name-map cohort1.sample_map \
        --tmp-dir /lscratch/$SLURM_JOBID/tmp \
-       --reader-threads 4
+       --reader-threads 4 \
+       --merge-contigs-into-num-partitions 100
 
 cp -r /lscratch/${SLURM_JOB_ID} /scratch/bjl31194/output
