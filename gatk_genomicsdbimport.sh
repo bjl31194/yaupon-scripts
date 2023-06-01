@@ -11,7 +11,7 @@
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
 #SBATCH --cpus-per-task=4		                            # Number of cores per task
-#SBATCH --mem=10gb			                                # Total memory for job
+#SBATCH --mem=16gb			                                # Total memory for job
 #SBATCH --time=8:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/scratch/bjl31194/output/gatk_gdbi.%j.out			          # Standard output
 #SBATCH --error=/scratch/bjl31194/output/gatk_gdbi.%j.err                # Error log
@@ -25,7 +25,7 @@ ml GATK/4.3.0.0-GCCcore-8.3.0-Java-1.8
 
 mkdir -p /lscratch/$SLURM_JOBID/tmp;
 
-gatk --java-options "-Xmx8g -Xms8g" \
+gatk --java-options "-Xmx14g -Xms14g" \
        GenomicsDBImport \
        --genomicsdb-workspace-path /scratch/bjl31194/yaupon/yaupon_db \
        -L JYEU.hipmer.GA-F-4_scaffolds.intervals.list \
