@@ -25,5 +25,5 @@ ml GATK/4.3.0.0-GCCcore-8.3.0-Java-1.8
 
 gatk --java-options "-Xmx8g" GenotypeGVCFs \
    -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta \
-   -V gendb:yaupon_db \
+   -V yaupon_db \
    -O yaupon_cohort1_genotyped.vcf.gz
