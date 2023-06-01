@@ -30,7 +30,7 @@ gatk --java-options "-Xmx8g -Xms8g" \
        --genomicsdb-workspace-path /scratch/bjl31194/yaupon/yaupon_db \
        -L JYEU.hipmer.GA-F-4_scaffoldnumbers.list \
        --sample-name-map cohort1.sample_map \
-       --tmp-dir=/lscratch/$SLURM_JOBID/tmp \
+       --tmp-dir /lscratch/$SLURM_JOBID/tmp \
        --reader-threads 4
 
 cp -r /lscratch/${SLURM_JOB_ID} /scratch/bjl31194/output
