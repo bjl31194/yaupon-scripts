@@ -31,5 +31,4 @@ gatk --java-options "-Xmx40g -Xms40g" \
        -L JYEU.hipmer.GA-F-4_scaffolds.intervals.list \
        --sample-name-map cohort1.sample_map \
        --tmp-dir /scratch/bjl31194/$SLURM_JOBID/tmp \
-       --merge-contigs-into-num-partitions 25 \
        --merge-input-intervals true
