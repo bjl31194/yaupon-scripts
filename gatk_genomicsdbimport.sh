@@ -2,7 +2,7 @@
 
 ## ABOUT THIS SCRIPT ##
 # Author: Ben Long (adapted from Shreena Pradhan)
-# Date : 06.01.2023
+# Date : 06.05.2023
 # Description: creates merged genomicsdb from gvcf files
 # Run Information: This script is run manually.
 
@@ -11,8 +11,8 @@
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
 #SBATCH --cpus-per-task=4		                            # Number of cores per task
-#SBATCH --mem=50gb			                                # Total memory for job
-#SBATCH --time=8:00:00  		                            # Time limit hrs:min:sec
+#SBATCH --mem=64gb			                                # Total memory for job
+#SBATCH --time=24:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/scratch/bjl31194/output/gatk_gdbi.%j.out			          # Standard output
 #SBATCH --error=/scratch/bjl31194/output/gatk_gdbi.%j.err                # Error log
 #SBATCH --mail-user=bjl31194@uga.edu                    # Where to send mail
@@ -25,10 +25,10 @@ ml GATK/4.3.0.0-GCCcore-8.3.0-Java-1.8
 
 mkdir -p /scratch/bjl31194/$SLURM_JOBID/tmp;
 
-gatk --java-options "-Xmx40g -Xms40g" \
+gatk --java-options "-Xmx50g -Xms50g" \
        GenomicsDBImport \
        --genomicsdb-workspace-path /scratch/bjl31194/yaupon/yaupon_db \
        -L JYEU.hipmer.GA-F-4_scaffolds.intervals.list \
        --sample-name-map cohort1.sample_map \
        --tmp-dir /scratch/bjl31194/$SLURM_JOBID/tmp \
-       --merge-input-intervals true
+       --merge-contigs-into-num-partitions 100
