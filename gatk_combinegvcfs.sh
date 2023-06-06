@@ -25,5 +25,43 @@ ml GATK/4.3.0.0-GCCcore-8.3.0-Java-1.8
 
 gatk CombineGVCFs \
    -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta \
-   --variant cohort1.sample_map \
+   -V P2_A01.g.vcf.gz \
+   -V P2_A03.g.vcf.gz \
+   -V P2_A04.g.vcf.gz \
+   -V P2_A05.g.vcf.gz \
+   -V P2_B01.g.vcf.gz \
+   -V P2_B02.g.vcf.gz \
+   -V P2_B03.g.vcf.gz \
+   -V P2_B04.g.vcf.gz \
+   -V P2_B05.g.vcf.gz \
+   -V P2_C01.g.vcf.gz \
+   -V P2_C02.g.vcf.gz \
+   -V P2_C03.g.vcf.gz \
+   -V P2_C04.g.vcf.gz \
+   -V P2_C05.g.vcf.gz \
+   -V P2_D01.g.vcf.gz \
+   -V P2_D02.g.vcf.gz \
+   -V P2_D03.g.vcf.gz \
+   -V P2_D04.g.vcf.gz \
+   -V P2_D05.g.vcf.gz \
+   -V P2_E01.g.vcf.gz \
+   -V P2_E02.g.vcf.gz \
+   -V P2_E03.g.vcf.gz \
+   -V P2_E04.g.vcf.gz \
+   -V P2_E05.g.vcf.gz \
+   -V P2_F01.g.vcf.gz \
+   -V P2_F02.g.vcf.gz \
+   -V P2_F03.g.vcf.gz \
+   -V P2_F04.g.vcf.gz \
+   -V P2_F05.g.vcf.gz \
+   -V P2_G01.g.vcf.gz \
+   -V P2_G02.g.vcf.gz \
+   -V P2_G03.g.vcf.gz \
+   -V P2_G04.g.vcf.gz \
+   -V P2_G05.g.vcf.gz \
+   -V P2_H01.g.vcf.gz \
+   -V P2_H02.g.vcf.gz \
+   -V P2_H03.g.vcf.gz \
+   -V P2_H04.g.vcf.gz \
+   -V P2_H05.g.vcf.gz \
    -O yaupon_cohort1_combinedGVCF.g.vcf.gz

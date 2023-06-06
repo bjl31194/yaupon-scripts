@@ -13,8 +13,8 @@
 #SBATCH --cpus-per-task=4		                            # Number of cores per task
 #SBATCH --mem=64gb			                                # Total memory for job
 #SBATCH --time=24:00:00  		                            # Time limit hrs:min:sec
-#SBATCH --output=/scratch/bjl31194/output/gatk.%j.out			          # Standard output
-#SBATCH --error=/scratch/bjl31194/output/gatk.%j.err                # Error log
+#SBATCH --output=/scratch/bjl31194/output/gatkug.%j.out			          # Standard output
+#SBATCH --error=/scratch/bjl31194/output/gatkug.%j.err                # Error log
 #SBATCH --mail-user=bjl31194@uga.edu                    # Where to send mail
 #SBATCH --mail-type=END,FAIL                            # Mail events (BEGIN, END, FAIL, ALL)
 
