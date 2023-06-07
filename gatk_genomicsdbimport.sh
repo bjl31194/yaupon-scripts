@@ -12,7 +12,7 @@
 #SBATCH --ntasks=1			                                # Single task job
 #SBATCH --cpus-per-task=4		                            # Number of cores per task
 #SBATCH --mem=64gb			                                # Total memory for job
-#SBATCH --time=24:00:00  		                            # Time limit hrs:min:sec
+#SBATCH --time=72:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/scratch/bjl31194/output/gatk_gdbi.%j.out			          # Standard output
 #SBATCH --error=/scratch/bjl31194/output/gatk_gdbi.%j.err                # Error log
 #SBATCH --mail-user=bjl31194@uga.edu                    # Where to send mail
@@ -31,4 +31,6 @@ gatk --java-options "-Xmx50g -Xms50g" \
        -L JYEU.hipmer.GA-F-4_scaffolds.intervals.list \
        --sample-name-map cohort1.sample_map \
        --tmp-dir /scratch/bjl31194/$SLURM_JOBID/tmp \
-       --merge-contigs-into-num-partitions 100
+       --merge-contigs-into-num-partitions 50 \
+       --merge-input-intervals true \
+       --genomicsdb-shared-posixfs-optimizations true
