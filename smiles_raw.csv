@@ -1,0 +1,296 @@
+,Name,Compound
+0,"(1R,3S,4S)-1,8-Epoxy-p-menthan-3-ol glucoside",CC1(C2CCC(O1)(CC2OC3C(C(C(C(O3)CO)O)O)O)C)C
+1,"(3b,9R)-5-Megastigmene-3,9-diol 9-[apiosyl-(1-6)-glucoside]",
+2,"(3beta,8beta)-3-Hydroxy-7(11)-eremophilen-12,8-olide",CC1C(CCC2C1(CC3=C(C(=O)OC3C2)C)C)O
+3,(7'R)-(+)-Lyoniresinol 9'-glucoside,COC1=CC(=CC(=C1O)OC)C2C(C(CC3=CC(=C(C(=C23)OC)O)OC)CO)COC4C(C(C(C(O4)CO)O)O)O
+4,(7'R)-(+)-Lyoniresinol 9'-glucoside,COC1=CC(=CC(=C1O)OC)C2C(C(CC3=CC(=C(C(=C23)OC)O)OC)CO)COC4C(C(C(C(O4)CO)O)O)O
+5,(7'R)-(+)-Lyoniresinol 9'-glucoside,COC1=CC(=CC(=C1O)OC)C2C(C(CC3=CC(=C(C(=C23)OC)O)OC)CO)COC4C(C(C(C(O4)CO)O)O)O
+6,1-Hexanol arabinosylglucoside,CCCCCCOC1C(C(C(C(O1)COC2C(C(C(O2)CO)O)O)O)O)O
+7,1-Hexanol arabinosylglucoside,CCCCCCOC1C(C(C(C(O1)COC2C(C(C(O2)CO)O)O)O)O)O
+8,"1-Hydroxyhexane-1,2,6-tricarboxylate",C(CCC(=O)O)CC(C(C(=O)O)O)C(=O)O
+9,"1-Hydroxypentane-1,2,5-tricarboxylate",C(CC(C(C(=O)O)O)C(=O)O)CC(=O)O
+10,1-O-Galloyl-beta-D-glucose,C1=C(C=C(C(=C1O)O)O)C(=O)OC2C(C(C(C(O2)CO)O)O)O
+11,1-Pyrroline-4-hydroxy-2-carboxylate,C1C(CN=C1C(=O)O)O
+12,"1,2,10-Trihydroxydihydro-trans-linalyl oxide 7-O-beta-D-glucopyranoside",CC(C)(C1CCC(O1)(CO)C(CO)O)OC2C(C(C(C(O2)CO)O)O)O
+13,"10-hydroperoxy-8E,12Z-octadecadienoic acid",CCCCCC=CCC(C=CCCCCCCC(=O)O)OO
+14,10-Hydroxymorroniside,COC(=O)C1=COC(C2C1CC(OC2CO)O)OC3C(C(C(C(O3)CO)O)O)O
+15,11-O-Demethyl-17-O-deacetylvindoline,CCC12C=CCN3C1C4(CC3)C(C(C2O)(C(=O)OC)O)N(C5=C4C=CC(=C5)O)C
+16,11-O-Demethylpradinone I,CC1=CC2=C(C3=C(C4=C(C=C3C(C2O)O)C(=O)C5=C(C4=O)C=C(C=C5O)O)O)C(=C1C(=O)O)O
+17,12-epi-Scalaradial,CC(=O)OC1CC2C3(CCCC(C3CCC2(C4C1(C(C(=CC4)C=O)C=O)C)C)(C)C)C
+18,13C-Cinnamic acid (IS),
+19,"2-(4-Hydroxyphenyl)-5,6,7,8-tetrahydroxy-4H-1-benzopyran-4-one",C1=CC(=CC=C1C2=CC(=O)C3=C(C(=C(C(=C3O2)O)O)O)O)O
+20,"2-Amino-4,6-dinitrotoluene",CC1=C(C=C(C=C1[N+](=O)[O-])[N+](=O)[O-])N
+21,2-C-Methyl-D-erythritol 4-phosphate,CC(CO)(C(COP(=O)(O)O)O)O
+22,2-Hydroxy-5-methylquinone,CC1=CC(=O)C(=O)C=C1O
+23,"2-Hydroxy-6-oxo-6-(2-hydroxyphenoxy)-hexa-2,4-dienoate",C1=CC=C(C(=C1)O)OC(=O)C=CC=C(C(=O)O)O
+24,2-Hydroxyethyl methacrylate,CC(=C)C(=O)OCCO
+25,2-Methyl-4-chlorophenoxybutyric acid,CC1=C(C=CC(=C1)Cl)OCCCC(=O)O
+26,2-Methyl-4-chlorophenoxybutyric acid,CC1=C(C=CC(=C1)Cl)OCCCC(=O)O
+27,2-Methyl-4-chlorophenoxybutyric acid,CC1=C(C=CC(=C1)Cl)OCCCC(=O)O
+28,2-Methyl-4-chlorophenoxybutyric acid,CC1=C(C=CC(=C1)Cl)OCCCC(=O)O
+29,"2,2',3-Trihydroxy-3'-methoxy-5,5'-dicarboxybiphenyl",COC1=CC(=CC(=C1O)C2=C(C(=CC(=C2)C(=O)O)O)O)C(=O)O
+30,"2,3-Butanediol glucoside",CC(C(C)OC1C(C(C(C(O1)CO)O)O)O)O
+31,"2,4-Dichloro-3-oxoadipate",C(C(C(=O)C(C(=O)[O-])Cl)Cl)C(=O)[O-]
+32,"2,6-Dihydroxypseudooxynicotine",CNCCCC(=O)C1=C(NC(=O)C=C1)O
+33,"2',7-Dihydroxy-4'-methoxy-8-prenylflavan 2',7-diglucoside",CC(=CCC1=C(C=CC2=C1OC(CC2)C3=C(C=C(C=C3)OC)OC4C(C(C(C(O4)CO)O)O)O)OC5C(C(C(C(O5)CO)O)O)O)C
+34,"3-(2-Methylpropanoyloxy)-8-(2-methylbutanoyloxy)-9,10-epoxy-p-mentha-1,3,5-triene",CCC(C)C(=O)OCC1(CO1)C2=C(C=C(C=C2)C)OC(=O)C(C)C
+35,"3-(3,5-Dihydroxyphenyl)-2-propenoic acid",C1=C(C=C(C=C1O)O)C=CC(=O)O
+36,"3-(3,5-Dihydroxyphenyl)-2-propenoic acid",C1=C(C=C(C=C1O)O)C=CC(=O)O
+37,3-Dehydro-L-threonate,C(C(=O)C(C(=O)[O-])O)O
+38,3-Furoic acid,C1=COC=C1C(=O)O
+39,3-Furoic acid,C1=COC=C1C(=O)O
+40,3-O-Feruloylquinic acid,COC1=C(C=CC(=C1)C=CC(=O)OC2CC(CC(C2O)O)(C(=O)O)O)O
+41,3-O-Protocatechuoylceanothic acid,CC(=C)C1CCC2(C1C3CCC4C(C3(CC2)C)(CCC5C4(C(C(C5(C)C)OC(=O)C6=CC(=C(C=C6)O)O)C(=O)O)C)C)C(=O)O
+42,"3,4-Dicaffeoyl-1,5-quinolactone",C1C2C(C(CC1(C(=O)O2)O)OC(=O)C=CC3=CC(=C(C=C3)O)O)OC(=O)C=CC4=CC(=C(C=C4)O)O
+43,"3,4-Dicaffeoyl-1,5-quinolactone",C1C2C(C(CC1(C(=O)O2)O)OC(=O)C=CC3=CC(=C(C=C3)O)O)OC(=O)C=CC4=CC(=C(C=C4)O)O
+44,"3,4-Dihydroxybenzoic acid",C1=CC(=C(C=C1C(=O)O)O)O
+45,"3,5-Dihydroxy-phenylglycine",C1=C(C=C(C=C1O)O)C(C(=O)O)N
+46,"3,6'-Disinapoyl sucrose",COC1=CC(=CC(=C1O)OC)C=CC(=O)OCC2C(C(C(C(O2)OC3(C(C(C(O3)CO)O)OC(=O)C=CC4=CC(=C(C(=C4)OC)O)OC)CO)O)O)O
+47,"3,9-Dimethyluric acid",CN1C2=C(C(=O)NC(=O)N2C)NC1=O
+48,3'-Amino-3'-deoxy-AMP,C1=NC(=C2C(=N1)N(C=N2)C3C(C(C(O3)COP(=O)(O)O)N)O)N
+49,3'-Amino-3'-deoxy-AMP,C1=NC(=C2C(=N1)N(C=N2)C3C(C(C(O3)COP(=O)(O)O)N)O)N
+50,4-Acetamido-2-amino-6-nitrotoluene,CC1=C(C=C(C=C1[N+](=O)[O-])NC(=O)C)N
+51,"4-Feruloyl-1,5-quinolactone",COC1=C(C=CC(=C1)C=CC(=O)OC2C(CC3(CC2OC3=O)O)O)O
+52,4-O-beta-D-Glucosyl-sinapate,
+53,4-O-beta-D-Glucosyl-sinapate,
+54,4-O-Caffeoylshikimic acid,C1C(C(C(C=C1C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O
+55,4-O-Caffeoylshikimic acid,C1C(C(C(C=C1C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O
+56,4-O-Caffeoylshikimic acid,C1C(C(C(C=C1C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O
+57,4-O-Caffeoylshikimic acid,C1C(C(C(C=C1C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O
+58,4-O-Feruloylquinic acid,COC1=C(C=CC(=C1)C=CC(=O)OC2C(CC(CC2O)(C(=O)O)O)O)O
+59,"4,5-Chrysenedicarboxylate",C1=CC=C2C3=C(C(=CC2=C1)C(=O)O)C4=C(C=CC=C4C(=O)O)C=C3
+60,"4,5-Chrysenedicarboxylate",C1=CC=C2C3=C(C(=CC2=C1)C(=O)O)C4=C(C=CC=C4C(=O)O)C=C3
+61,"4,7-Didehydroneophysalin B",CC12CC3C4(C56C1C(C7C=CC8=CC=CC(=O)C8(C7CCC5(C(=O)O4)O)C)(C(=O)O6)OCC2C(=O)O3)C
+62,4'-O-methyl-(-)-epicatechin-3'-O-beta-glucuronide,COCC1=C(C=C(C=C1)C2C(CC3=C(C=C(C=C3O2)O)O)O)OC4C(C(C(C(O4)C(=O)O)O)O)O
+63,5-O-Feruloylquinic acid,COC1=C(C=CC(=C1)C=CC(=O)OC2CC(CC(C2O)O)(C(=O)O)O)O
+64,5-O-Feruloylquinic acid,COC1=C(C=CC(=C1)C=CC(=O)OC2CC(CC(C2O)O)(C(=O)O)O)O
+65,5-O-Feruloylquinic acid,COC1=C(C=CC(=C1)C=CC(=O)OC2CC(CC(C2O)O)(C(=O)O)O)O
+66,5'-O-beta-D-Glucosylpyridoxine,CC1=NC=C(C(=C1O)CO)COC2C(C(C(C(O2)CO)O)O)O
+67,"6-(2-Carboxyethyl)-7-hydroxy-2,2-dimethyl-4-chromanone glucoside",CC1(CC(=O)C2=C(O1)C=C(C(=C2)CCC(=O)O)OC3C(C(C(C(O3)CO)O)O)O)C
+68,"6-[2,3-Dihydroxy-1-(hydroxymethyl)propyl]-1,2-dihydro-7-hydroxy-9-methoxy-cyclopenta[c][1]benzopyran-3,4-dione",COC1=C2C3=C(C(=O)CC3)C(=O)OC2=C(C(=C1)O)C(CO)C(CO)O
+69,"6-[2,3-Dihydroxy-1-(hydroxymethyl)propyl]-1,2-dihydro-7-hydroxy-9-methoxy-cyclopenta[c][1]benzopyran-3,4-dione",COC1=C2C3=C(C(=O)CC3)C(=O)OC2=C(C(=C1)O)C(CO)C(CO)O
+70,6-APA,CC1(C(N2C(S1)C(C2=O)N)C(=O)O)C
+71,6-Gingerol,CCCCCC(CC(=O)CCC1=CC(=C(C=C1)O)OC)O
+72,6-O-Glucosylmaltose,C(C1C(C(C(C(O1)OCC2C(C(C(C(O2)O)O)O)OC3C(C(C(C(O3)CO)O)O)O)O)O)O)O
+73,6'-Methoxypolygoacetophenoside,
+74,"6S,9R-Dihydroxy-4,7E-megastigmadien-3-one 9-[apiosyl-(1-6)-glucoside]",
+75,7-Hydroxy-2-methyl-4-oxo-4H-1-benzopyran-5-carboxylic acid 7-glucoside,CC1=CC(=O)C2=C(C=C(C=C2O1)OC3C(C(C(C(O3)CO)O)O)O)C(=O)O
+76,7-Hydroxy-6-methoxy-alpha-pyrufuran,COC1=C(C=CC2=C1OC3=C2C(=C(C(=C3OC)OC)O)OC)O
+77,7-Hydroxy-6-methoxy-alpha-pyrufuran,COC1=C(C=CC2=C1OC3=C2C(=C(C(=C3OC)OC)O)OC)O
+78,7-Hydroxychlorophyll a,
+79,"7,8-Dihydrovomifoliol 9-[apiosyl-(1-6)-glucoside]",
+80,"9alpha-Fluoro-11beta,17alpha,21-trihydroxy-6alpha-methylpregna-1,4-diene-3,20-dione",CC1CC2C3CCC(C3(CC(C2(C4(C1=CC(=O)C=C4)C)F)O)C)(C(=O)CO)O
+81,Acetyljujuboside B,CC1C(C(C(C(O1)OC2C(C(COC2OC3CCC4(C5CCC6C7C(CC(OC78CC6(C5(CCC4C3(C)C)C)CO8)C=C(C)C)(C)O)C)O)OC9C(C(C(C(O9)COC(=O)C)O)O)OC1C(C(C(CO1)O)O)O)O)O)O
+82,Acetyljujuboside B,CC1C(C(C(C(O1)OC2C(C(COC2OC3CCC4(C5CCC6C7C(CC(OC78CC6(C5(CCC4C3(C)C)C)CO8)C=C(C)C)(C)O)C)O)OC9C(C(C(C(O9)COC(=O)C)O)O)OC1C(C(C(CO1)O)O)O)O)O)O
+83,Acuminoside,CC(=CCCC(=CCOC1C(C(C(C(O1)COC2C(C(CO2)(CO)O)O)O)O)O)C)C
+84,Acutoside B,CC1C(C(C(C(O1)OC2C(C(COC2OC(=O)C34CCC(CC3C5=CCC6C7(CCC(C(C7CCC6(C5(CC4)C)C)(C)C)OC8C(C(C(C(O8)CO)O)O)OC9C(C(C(C(O9)CO)O)O)O)C)(C)C)O)O)O)O)OC1C(C(C(CO1)O)O)O
+85,Aesculin,C1=CC(=O)OC2=CC(=C(C=C21)OC3C(C(C(C(O3)CO)O)O)O)O
+86,Agavasaponin D,CC1CCC2(C(C3C(O2)CC4C3(C(=O)CC5C4CCC6C5(CCC(C6)OC7C(C(C(C(O7)CO)OC8C(C(C(C(O8)CO)OC9C(C(C(C(O9)CO)O)OC2C(C(C(C(O2)C)O)O)O)OC2C(C(C(CO2)O)O)O)O)O)O)O)C)C)C)OC1
+87,Akeboside Ste,CC1C(C(C(C(O1)OCC2C(C(C(C(O2)OC3C(C(COC3OC4CCC5(C(C4(C)C)CCC6(C5CC=C7C6(CCC8(C7CC(CC8)(C)C)C(=O)O)C)C)C)O)O)O)O)O)O)O)O
+88,Akeboside Stf,CC1C(C(C(C(O1)OCC2C(C(C(C(O2)OC3C(C(COC3OC4CCC5(C(C4(C)CO)CCC6(C5CC=C7C6(CCC8(C7CC(CC8)(C)C)C(=O)O)C)C)C)O)O)O)O)O)O)O)O
+89,Akeboside Stf,CC1C(C(C(C(O1)OCC2C(C(C(C(O2)OC3C(C(COC3OC4CCC5(C(C4(C)CO)CCC6(C5CC=C7C6(CCC8(C7CC(CC8)(C)C)C(=O)O)C)C)C)O)O)O)O)O)O)O)O
+90,alpha-(p-Methoxyphenyl)-2-pyridineacrylonitrile,COC1=CC=C(C=C1)C(=CC2=CC=CC=N2)C#N
+91,Apimaysin,CC1C(C(C(C(O1)OC2C(C(=O)C(OC2C3=C(C4=C(C=C3O)OC(=CC4=O)C5=CC=C(C=C5)O)O)C)O)O)O)O
+92,Arabinosylhypoxanthine,C1=NC2=C(C(=O)N1)N=CN2C3C(C(C(O3)CO)O)O
+93,Araliasaponin I,CC1(CCC2(C(C1)C3=CCC4C5(CCC(C(C5CCC4(C3(CC2O)C)C)(C)C)OC6C(C(C(CO6)O)OC7C(C(C(C(O7)CO)O)O)O)O)C)C(=O)OC8C(C(C(C(O8)CO)O)O)O)C
+94,Araliasaponin I,CC1(CCC2(C(C1)C3=CCC4C5(CCC(C(C5CCC4(C3(CC2O)C)C)(C)C)OC6C(C(C(CO6)O)OC7C(C(C(C(O7)CO)O)O)O)O)C)C(=O)OC8C(C(C(C(O8)CO)O)O)O)C
+95,Araliasaponin III,
+96,Araliasaponin III,
+97,Ascorbic acid,C(C(C1C(=C(C(=O)O1)O)O)O)O
+98,Asiatic/Rotundic acid,
+99,Asiaticoside,CC1CCC2(CCC3(C(=CCC4C3(CCC5C4(CC(C(C5(C)CO)O)O)C)C)C2C1C)C)C(=O)OC6C(C(C(C(O6)COC7C(C(C(C(O7)CO)OC8C(C(C(C(O8)C)O)O)O)O)O)O)O)O
+100,Asiaticoside,CC1CCC2(CCC3(C(=CCC4C3(CCC5C4(CC(C(C5(C)CO)O)O)C)C)C2C1C)C)C(=O)OC6C(C(C(C(O6)COC7C(C(C(C(O7)CO)OC8C(C(C(C(O8)C)O)O)O)O)O)O)O)O
+101,Asiaticoside B,CC1C(C(C(C(O1)OC2C(OC(C(C2O)O)OCC3C(C(C(C(O3)OC(=O)C45CCC(CC4C6=CCC7C8(CC(C(C(C8C(CC7(C6(CC5)C)C)O)(C)CO)O)O)C)(C)C)O)O)O)CO)O)O)O
+102,Asparagoside F,CC1CCC2(C(C3C(O2)CC4C3(CCC5C4CCC6C5(CCC(C6)OC7C(C(C(C(O7)CO)OC8C(C(C(C(O8)CO)OC9C(C(C(CO9)O)O)O)O)O)OC2C(C(C(C(O2)CO)O)O)O)O)C)C)C)OC1
+103,Aucubin,C1=COC(C2C1C(C=C2CO)O)OC3C(C(C(C(O3)CO)O)O)O
+104,Avenacoside A,CC1C2C(CC3C2(CCC4C3CC=C5C4(CCC(C5)OC6C(C(C(C(O6)CO)OC7C(C(C(C(O7)CO)O)O)O)O)OC8C(C(C(C(O8)C)O)O)O)C)C)OC19CCC(O9)(C)COC1C(C(C(C(O1)CO)O)O)O
+105,Avenacoside B,CC1C2C(CC3C2(CCC4C3CC=C5C4(CCC(C5)OC6C(C(C(C(O6)CO)OC7C(C(C(C(O7)CO)O)OC8C(C(C(C(O8)CO)O)O)O)O)O)OC9C(C(C(C(O9)C)O)O)O)C)C)OC11CCC(O1)(C)COC1C(C(C(C(O1)CO)O)O)O
+106,bayogenin 3-O-cellobioside,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CC(C(C5(C)CO)OC6C(C(C(C(O6)CO)OC7C(C(C(C(O7)CO)O)O)O)O)O)O)C)C)C2C1)C)C(=O)O)C
+107,bayogenin 3-O-cellobioside,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CC(C(C5(C)CO)OC6C(C(C(C(O6)CO)OC7C(C(C(C(O7)CO)O)O)O)O)O)O)C)C)C2C1)C)C(=O)O)C
+108,Benzal chloride,C1=CC=C(C=C1)C(Cl)Cl
+109,Benzyl beta-primeveroside,C1C(C(C(C(O1)OCC2C(C(C(C(O2)OCC3=CC=CC=C3)O)O)O)O)O)O
+110,Benzyl beta-primeveroside,C1C(C(C(C(O1)OCC2C(C(C(C(O2)OCC3=CC=CC=C3)O)O)O)O)O)O
+111,beta-D-Glc-(1-4)-alpha-L-Rha-(1-3)-beta-D-Glc,
+112,Botrydial,CC1CC(C2C(CC(C2(C1C=O)O)(C)C=O)(C)C)OC(=O)C
+113,Bruceantin,CC1=C(C(=O)CC2(C1CC3C45C2C(C(C(C4C(C(=O)O3)OC(=O)C=C(C)C(C)C)(OC5)C(=O)OC)O)O)C)O
+114,Butocarboxim,CC(C(=NOC(=O)NC)C)SC
+115,Byakangelicin,CC(C)(C(COC1=C2C(=C(C3=C1OC(=O)C=C3)OC)C=CO2)O)O
+116,Caffeoquinone,C1=CC(=O)C(=O)C=C1C=CC(=O)O
+117,Caffeoyl beta-D-glucose,C1=CC(=C(C=C1C=CC(=O)C2(C(C(C(C(O2)CO)O)O)O)O)O)O
+118,Caffeoyl beta-D-glucose,C1=CC(=C(C=C1C=CC(=O)C2(C(C(C(C(O2)CO)O)O)O)O)O)O
+119,Caffeoyl-feruloylquinic acid,
+120,Caffeoyl-feruloylquinic acid,
+121,Caffeoyl-feruloylquinic acid,
+122,Caffeoyl-feruloylquinic acid,
+123,Caffeoylquinic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O)O
+124,Caffeoylsinapoylquinic acid,
+125,Calenduloside G methyl ester,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(C(O6)C(=O)OC)O)OC7C(C(C(C(O7)CO)O)O)O)O)C)C)C2C1)C)C(=O)O)C
+126,Calenduloside G methyl ester,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(C(O6)C(=O)OC)O)OC7C(C(C(C(O7)CO)O)O)O)O)C)C)C2C1)C)C(=O)O)C
+127,Calenduloside H methyl ester,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(C(O6)C(=O)OC)O)OC7C(C(C(C(O7)CO)O)O)O)O)C)C)C2C1)C)C(=O)OC8C(C(C(C(O8)CO)O)O)O)C
+128,Calenduloside H methyl ester,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(C(O6)C(=O)OC)O)OC7C(C(C(C(O7)CO)O)O)O)O)C)C)C2C1)C)C(=O)OC8C(C(C(C(O8)CO)O)O)O)C
+129,Cefadroxil,CC1=C(N2C(C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)SC1)C(=O)O
+130,Ceposide D,CC1CCC2(C(C3C(O2)CC4C3(CCC5C4CC=C6C5(CCC(C6)OC7C(C(C(CO7)O)O)OC8C(C(C(C(O8)C)OC9C(C(C(C(O9)CO)O)OC2C(C(C(C(O2)CO)O)O)O)OC2C(C(C(C(O2)CO)O)O)O)O)O)C)C)C)OC1
+131,Ceposide D,CC1CCC2(C(C3C(O2)CC4C3(CCC5C4CC=C6C5(CCC(C6)OC7C(C(C(CO7)O)O)OC8C(C(C(C(O8)C)OC9C(C(C(C(O9)CO)O)OC2C(C(C(C(O2)CO)O)O)O)OC2C(C(C(C(O2)CO)O)O)O)O)O)C)C)C)OC1
+132,Chlorogenic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O)O
+133,Chlorogenic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O)O
+134,Chlorogenic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O)O
+135,Chlorogenic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC(=C(C=C2)O)O)O)O
+136,Chlorogenic acid-crypto,
+137,Chlorogenic acid-neo,
+138,Cinchonain Ib,C1C(C(OC2=C1C(=CC3=C2C(CC(=O)O3)C4=CC(=C(C=C4)O)O)O)C5=CC(=C(C=C5)O)O)O
+139,Cinegalline,COC1=C(C=C(C=C1O)C(=O)OC2CCN3CC4CC(C3C2)CN5C4CCCC5=O)O
+140,cis-3-Hexenyl b-primeveroside,CCC=CCCOC1C(C(C(C(O1)COC2C(C(C(CO2)O)O)O)O)O)O
+141,cis-p-Coumaric acid,C1=CC(=CC=C1C=CC(=O)O)O
+142,Citrusin B,COC1=CC(=CC(=C1OC(CO)C(C2=CC(=C(C=C2)OC3C(C(C(C(O3)CO)O)O)O)OC)O)OC)C=CCO
+143,Citrusin B,COC1=CC(=CC(=C1OC(CO)C(C2=CC(=C(C=C2)OC3C(C(C(C(O3)CO)O)O)O)OC)O)OC)C=CCO
+144,Citrusin F,COC(=O)CCC1=CC(=C(C=C1)OC2C(C(C(C(O2)COC3C(C(C(C(O3)CO)O)O)O)O)O)O)O
+145,Congmuyenoside A,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)CO)OC6C(C(C(C(O6)CO)O)OC7C(C(C(C(O7)CO)O)O)O)OC8C(C(C(C(O8)CO)O)O)O)C)C)C2C1)C)C(=O)O)C
+146,Congmuyenoside B,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)CO)OC6C(C(C(C(O6)CO)O)OC7C(C(C(C(O7)CO)O)OC8C(C(C(C(O8)CO)O)O)O)O)OC9C(C(C(C(O9)CO)O)O)O)C)C)C2C1)C)C(=O)O)C
+147,Corchoionol C 9-glucoside,CC1=CC(=O)CC(C1(C=CC(C)OC2C(C(C(C(O2)CO)O)O)O)O)(C)C
+148,Crosatoside A,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3=C(C=C(C=C3)C4=C(C(=O)C5=C(C=C(C=C5O4)O)O)O)OC)CO)O)O)O)O)O
+149,Cyclocalopin D,CC1COC(=O)C2C1C34CC(C(=C(C3O)OC5C(C(C(C(O5)CO)O)O)O)COC(=O)C)OC4(O2)C
+150,D-glycero-D-manno-Heptose 1-phosphate,C(C(C1C(C(C(C(O1)OP(=O)(O)O)O)O)O)O)O
+151,d6-Benzoic acid (IS),
+152,Dehydrochorismic acid,C=C(C(=O)O)OC1=C(C=CC(=C1)C(=O)O)O
+153,Dehydrochorismic acid,C=C(C(=O)O)OC1=C(C=CC(=C1)C(=O)O)O
+154,Dehydroxymethylflazine,C1=CC=C2C(=C1)C3=CC(=NC(=C3N2)C4=CC=CO4)C(=O)O
+155,Dicaffeoylquinic acid,
+156,Dicaffeoylquinic acid,
+157,Dicaffeoylquinic acid,
+158,Dicaffeoylquinic acid,
+159,Dicaffeoylquinic acid,
+160,Dicaffeoylquinic acid,
+161,Diketo-gulonic acid,C(C(C(C(=O)C(=O)C(=O)O)O)O)O
+162,Diketo-gulonic acid,C(C(C(C(=O)C(=O)C(=O)O)O)O)O
+163,Doisynoestrol,CCC1C2=C(CCC1(C)C(=O)O)C3=C(C=C2)C=C(C=C3)OC
+164,Eriojaposide A,CC1=CC(=O)CC(C1C=CC(C)OC2C(C(C(C(O2)COC3C(C(C(CO3)O)O)O)O)O)O)(C)C
+165,Eupafolin 4'-glucoside,COC1=C(C2=C(C=C1O)OC(=CC2=O)C3=CC(=C(C=C3)OC4C(C(C(C(O4)CO)O)O)O)O)O
+166,Fisetin,C1=CC(=C(C=C1C2=C(C(=O)C3=C(O2)C=C(C=C3)O)O)O)O
+167,Fluacrypyrim,CC(C)OC1=NC(=CC(=N1)OCC2=CC=CC=C2C(=COC)C(=O)OC)C(F)(F)F
+168,Formononetin 7-O-glucoside-6''-O-malonate,COC1=CC=C(C=C1)C2=COC3=C(C2=O)C=CC(=C3)OC4C(C(C(C(O4)COC(=O)CC(=O)O)O)O)O
+169,Formononetin 7-O-glucoside-6''-O-malonate,COC1=CC=C(C=C1)C2=COC3=C(C2=O)C=CC(=C3)OC4C(C(C(C(O4)COC(=O)CC(=O)O)O)O)O
+170,Formononetin 7-O-glucoside-6''-O-malonate,COC1=CC=C(C=C1)C2=COC3=C(C2=O)C=CC(=C3)OC4C(C(C(C(O4)COC(=O)CC(=O)O)O)O)O
+171,Formononetin 7-O-glucoside-6''-O-malonate,COC1=CC=C(C=C1)C2=COC3=C(C2=O)C=CC(=C3)OC4C(C(C(C(O4)COC(=O)CC(=O)O)O)O)O
+172,Formononetin 7-O-glucoside-6''-O-malonate,COC1=CC=C(C=C1)C2=COC3=C(C2=O)C=CC(=C3)OC4C(C(C(C(O4)COC(=O)CC(=O)O)O)O)O
+173,Formononetin 7-O-glucoside-6''-O-malonate,COC1=CC=C(C=C1)C2=COC3=C(C2=O)C=CC(=C3)OC4C(C(C(C(O4)COC(=O)CC(=O)O)O)O)O
+174,Formylpyruvate,C(C=O)C(=O)C(=O)O
+175,FR 900098,CC(=O)N(CCCP(=O)(O)O)O
+176,Fraxin,COC1=C(C(=C2C(=C1)C=CC(=O)O2)OC3C(C(C(C(O3)CO)O)O)O)O
+177,Fraxin,COC1=C(C(=C2C(=C1)C=CC(=O)O2)OC3C(C(C(C(O3)CO)O)O)O)O
+178,Furocoumarinic acid glucoside,C1=COC2=CC(=C(C=C21)C=CC(=O)O)OC3C(C(C(C(O3)CO)O)O)O
+179,Fusarenone X,CC1=CC2C(C(C1=O)O)(C3(C(C(C(C34CO4)O2)O)OC(=O)C)C)CO
+180,Ganglioside GT3 (d18:0/25:0),CCCCCCCCCCCCCCCCCCCCCCCCC(=O)NC(COC1C(C(C(C(O1)CO)OC2C(C(C(C(O2)CO)O)OC3(CC(C(C(O3)C(C(CO)OC4(CC(C(C(O4)C(C(CO)OC5(CC(C(C(O5)C(C(CO)O)O)NC(=O)C)O)C(=O)O)O)NC(=O)C)O)C(=O)O)O)NC(=O)C)O)C(=O)O)O)O)O)C(CCCCCCCCCCCCCCC)O
+181,Garcimangosone D,C1=CC=C(C=C1)C(=O)C2=C(C=C(C=C2OC3C(C(C(C(O3)CO)O)O)O)O)O
+182,Glucoconvallatoxoloside,CC1C(C(C(C(O1)OC2CCC3(C4CCC5(C(CCC5(C4CCC3(C2)O)O)C6=CC(=O)OC6)C)CO)O)O)OC7C(C(C(C(O7)CO)OC8C(C(C(C(O8)CO)O)O)O)O)O
+183,Glycinoeclepin B,CC(CC(C=C(C)C(=O)O)O)C1(CC=C2C1(C(CC(=C2C(=O)O)CC34CCC(O3)C(C4=O)(C)C)OC(=O)C)C)C
+184,glycochenodeoxycholic acid 7-sulfate,CC(CCC(=O)NCC(=O)O)C1CCC2C1(CCC3C2C(CC4C3(CCC(C4)O)C)OS(=O)(=O)O)C
+185,Goyaglycoside g,CC(CC=CC(C)(C)OC1C(C(C(C(O1)CO)O)O)O)C2CCC3(C2(CCC45C3C=CC6(C4CCC(C6(C)C)OC7C(C(C(C(O7)CO)O)O)O)OC5OC)C)C
+186,Graecunin E,CC1CCC2(C(C3C(O2)CC4C3(CCC5C4CC=C6C5(CCC(C6)OC7C(C(C(C(O7)COC8C(C(C(C(O8)C)O)O)OC9C(C(C(C(O9)CO)OC2C(C(C(C(O2)CO)O)O)O)O)O)O)O)O)C)C)C)OC1
+187,Hebevinoside VIII,CC(CCC=C(C)C)C1C(CC2(C1(CCC3(C2C(C=C4C3CCC(C4(C)C)OC5C(C(C(CO5)OC(=O)C)O)O)O)C)C)C)OC6C(C(C(C(O6)COC(=O)C)OC(=O)C)O)O
+188,Hebevinoside VIII,CC(CCC=C(C)C)C1C(CC2(C1(CCC3(C2C(C=C4C3CCC(C4(C)C)OC5C(C(C(CO5)OC(=O)C)O)O)O)C)C)C)OC6C(C(C(C(O6)COC(=O)C)OC(=O)C)O)O
+189,Helianthoside A,CC1C(C(C(C(O1)OC2C(C(OC(C2O)OC3C(OC(C(C3O)O)OC4CCC5(C(C4(C)C)CCC6(C5CC=C7C6(CC(C8(C7CC(CC8)(C)C)C(=O)O)O)C)C)C)COC9C(C(C(CO9)O)O)O)C)O)O)O)O
+190,Hovenidulcioside B1,CC1CC(OC1=O)CC(C(C)C2CCC3C4(CCC(C(C4CCC3(C25CC(=O)OC5)C)(C)C)OC6C(C(C(C(O6)CO)O)O)OC7C(C(C(C(O7)C)O)O)O)C)OC(=O)C
+191,Ilicifolinoside A,CC(=CCO)COC1C(C(C(C(O1)CO)O)O)O
+192,Isochorismate,C=C(C(=O)O)OC1C=CC=C(C1O)C(=O)O
+193,Isomaltose,C(C1C(C(C(C(O1)OCC2C(C(C(C(O2)O)O)O)O)O)O)O)O
+194,Isotectorigenin 4'-glucoside 7-rhamnoside,CC1C(C(C(C(O1)OC2=C(C3=C(C(=C2)O)C(=O)C(=CO3)C4=CC=C(C=C4)OC5C(C(C(C(O5)CO)O)O)O)OC)O)O)O
+195,Jaceidin,COC1=C(C=CC(=C1)C2=C(C(=O)C3=C(O2)C=C(C(=C3O)OC)O)OC)O
+196,Kaempferol 3-O-sinapoyl-caffeoyl-sophoroside 7-O-glucoside,COC1=CC(=CC(=C1O)OC)C=CC(=O)OCC2C(C(C(C(O2)OC3C(C(C(OC3OC4=C(OC5=CC(=CC(=C5C4=O)O)OC6C(C(C(C(O6)CO)O)O)O)C7=CC=C(C=C7)O)COC(=O)C=CC8=CC(=C(C=C8)O)O)O)O)O)O)O
+197,Kaempferol 3-O-_-D-glucosyl-(1-2)-_-D-glucosyl-(1-2)-_-D-glucoside,
+198,Kanokoside A,CC(C)CC(=O)OC1C2C(C3C(C2(CO)O)O3)C(=CO1)COC4C(C(C(C(O4)CO)O)O)O
+199,"L-Fucono-1,5-lactone",CC1C(C(C(C(=O)O1)O)O)O
+200,L-trans-5-Hydroxy-2-piperidinecarboxylic acid,C1CC(NCC1O)C(=O)O
+201,L-Xylonate,C(C(C(C(C(=O)[O-])O)O)O)O
+202,Lablaboside A,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3C(C(C(OC3OC4CCC5(C(C4(C)C)CCC6(C5CC=C7C6(CCC8(C7CC(CC8)(C)C)C(=O)OC9C(C(C(C(O9)CO)O)O)O)C)C)C)C(=O)O)O)O)CO)O)O)O)O)O
+203,Lamiide,CC1(C(CC2(C1C(OC=C2C(=O)OC)OC3C(C(C(C(O3)CO)O)O)O)O)O)O
+204,Larixinic Acid,CC1=C(C(=O)C=CO1)O
+205,Lauryl hydrogen sulfate,
+206,Linalool oxide D 3-[apiosyl-(1-6)-glucoside],
+207,Lucuminic acid,C1C(C(C(C(O1)OCC2C(C(C(C(O2)OC(C3=CC=CC=C3)C(=O)O)O)O)O)O)O)O
+208,Matesaponin 4,CC1CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(CO6)O)OC7C(C(C(C(O7)CO)O)O)O)OC8C(C(C(C(O8)C)O)O)O)C)C)C2C1C)C)C(=O)OC9C(C(C(C(O9)COC1C(C(C(C(O1)CO)O)O)O)O)O)O
+209,Matesaponin 4,CC1CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(CO6)O)OC7C(C(C(C(O7)CO)O)O)O)OC8C(C(C(C(O8)C)O)O)O)C)C)C2C1C)C)C(=O)OC9C(C(C(C(O9)COC1C(C(C(C(O1)CO)O)O)O)O)O)O
+210,Medicagenic acid 3-O-[b-D-glucosyl-(1-2)-b-D-glucoside] 28-O-[b-D-xylosyl-(1-4)-a-L-rhamnosyl-(1-2)-a-L-arabinosyl] ester,
+211,Melilotussaponin O1,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3C(C(C(OC3OC4CCC5(C(C4(C)CO)CCC6(C5CC=C7C6(CCC8(C7CC(CC8O)(C)C)C)C)C)C)C(=O)O)O)O)CO)O)OC9C(C(C(CO9)O)O)O)O)O)O
+212,Melilotussaponin O1,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3C(C(C(OC3OC4CCC5(C(C4(C)CO)CCC6(C5CC=C7C6(CCC8(C7CC(CC8O)(C)C)C)C)C)C)C(=O)O)O)O)CO)O)OC9C(C(C(CO9)O)O)O)O)O)O
+213,Melilotussaponin O1,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3C(C(C(OC3OC4CCC5(C(C4(C)CO)CCC6(C5CC=C7C6(CCC8(C7CC(CC8O)(C)C)C)C)C)C)C(=O)O)O)O)CO)O)OC9C(C(C(CO9)O)O)O)O)O)O
+214,"Methyl (3b,11x)-3-Hydroxy-8-oxo-6-eremophilen-12-oate",CC1C(CCC2C1(C=C(C(=O)C2)C(C)C(=O)OC)C)O
+215,Methyl oxalate,COC(=O)C(=O)OC
+216,Momordin IIa,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(C(O6)C(=O)OC)O)OC7C(C(C(CO7)O)O)O)O)C)C)C2C1)C)C(=O)OC8C(C(C(C(O8)CO)O)O)O)C
+217,Morroniside,CC1C2C(CC(O1)O)C(=COC2OC3C(C(C(C(O3)CO)O)O)O)C(=O)OC
+218,Morroniside,CC1C2C(CC(O1)O)C(=COC2OC3C(C(C(C(O3)CO)O)O)O)C(=O)OC
+219,Myxothiazol A,CC(C)C=CC=CC(C)C1=NC(=CS1)C2=NC(=CS2)C=CC(C(C)C(=CC(=O)N)OC)OC
+220,N-(2-Methoxyphenyl)-N'-(2-naphtyl)urea,COC1=CC=CC=C1NC(=O)NC2=CC3=CC=CC=C3C=C2
+221,Neurokinin A,CC(C)CC(C(=O)NC(CCSC)C(=O)N)NC(=O)CNC(=O)C(C(C)C)NC(=O)C(CC1=CC=CC=C1)NC(=O)C(CO)NC(=O)C(CC(=O)O)NC(=O)C(C(C)O)NC(=O)C(CCCCN)NC(=O)C(CC2=CN=CN2)N
+222,O-Feruloylgalactarate,COC1=C(C=CC(=C1)C=CC(=O)OC(C(C(C(C(=O)O)O)O)O)C(=O)O)O
+223,Oleoside dimethyl ester,CC=C1C(C(=COC1OC2C(C(C(C(O2)CO)O)O)O)C(=O)OC)CC(=O)OC
+224,Oxaloglutarate,C(CC(=O)O)C(C(=O)C(=O)O)C(=O)O
+225,Oxaloglutarate,C(CC(=O)O)C(C(=O)C(=O)O)C(=O)O
+226,p-Coumaroyl quinic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC=C(C=C2)O)O)O
+227,p-Coumaroyl quinic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC=C(C=C2)O)O)O
+228,p-Coumaroyl quinic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC=C(C=C2)O)O)O
+229,p-Coumaroyl quinic acid,C1C(C(C(CC1(C(=O)O)O)OC(=O)C=CC2=CC=C(C=C2)O)O)O
+230,p-Coumaroyl-D-glucose,C1=CC(=CC=C1C=CC(=O)C(=O)C(C(C(C(CO)O)O)O)O)O
+231,Phrymarolin I,CC(=O)OC12COC(C1COC2OC3=C(C=C4C(=C3)OCO4)OC)C5=CC6=C(C=C5OC)OCO6
+232,Phrymarolin I,CC(=O)OC12COC(C1COC2OC3=C(C=C4C(=C3)OCO4)OC)C5=CC6=C(C=C5OC)OCO6
+233,Phrymarolin I,CC(=O)OC12COC(C1COC2OC3=C(C=C4C(=C3)OCO4)OC)C5=CC6=C(C=C5OC)OCO6
+234,Phrymarolin I,CC(=O)OC12COC(C1COC2OC3=C(C=C4C(=C3)OCO4)OC)C5=CC6=C(C=C5OC)OCO6
+235,Phytolaccoside A,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)CO)OC6C(C(C(CO6)O)O)O)C)C)C2C1)C)C(=O)O)C(=O)OC
+236,Pimelea factor P2,CC1CCCCCCCC23OC4C5C6C(O6)(C(C7(C(C1C(C7OC(=O)C8=CC=CC=C8)C)C5(O2)C(CC4(O3)C(=C)C)C)O)O)CO
+237,Pisumsaponin II,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3C(C(C(OC3OC4CCC5(C(C4(C)C=O)CCC6(C5CC=C7C6(CCC8(C7CC(CC8O)(C)C)C)C)C)C)C(=O)O)O)O)CO)O)O)O)O)O
+238,Pitheduloside B,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(C(O6)COC7C(C(C(CO7)O)O)OC8C(C(C(CO8)O)O)O)O)O)O)C)C)C2C1)C)C(=O)O)C
+239,Pitheduloside F,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(C(O6)COC7C(C(C(CO7)O)O)OC8C(C(C(CO8)O)O)O)O)O)OC9C(C(C(C(O9)CO)O)O)O)C)C)C2C1)C)C(=O)O)C
+240,Pitheduloside F,CC1(CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(C(O6)COC7C(C(C(CO7)O)O)OC8C(C(C(CO8)O)O)O)O)O)OC9C(C(C(C(O9)CO)O)O)O)C)C)C2C1)C)C(=O)O)C
+241,Plumieride,CC(C1=CC2(C=CC3C2C(OC=C3C(=O)OC)OC4C(C(C(C(O4)CO)O)O)O)OC1=O)O
+242,Plumieride,CC(C1=CC2(C=CC3C2C(OC=C3C(=O)OC)OC4C(C(C(C(O4)CO)O)O)O)OC1=O)O
+243,Polygalacin D,
+244,Primulasaponin,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3C(C(OC(C3OC4C(C(C(C(O4)CO)O)O)O)OC5CCC6(C(C5(C)C)CCC7(C6CCC89C7(CC(C1(C8CC(CC1)(C)C)CO9)O)C)C)C)C(=O)O)O)CO)O)O)O)O)O
+245,Prochlorperazine,CN1CCN(CC1)CCCN2C3=CC=CC=C3SC4=C2C=C(C=C4)Cl
+246,Prupaside,COC1=CC(=CC(=C1O)OC)CC2COC(C2COC3C(C(C(CO3)O)O)O)C4=CC(=C(C(=C4)OC)O)OC
+247,Puerarin xyloside,C1C(C(C(C(O1)OC2=C(C3=C(C=C2)C(=O)C(=CO3)C4=CC=C(C=C4)O)C5C(C(C(C(O5)CO)O)O)O)O)O)O
+248,Puerarin xyloside,C1C(C(C(C(O1)OC2=C(C3=C(C=C2)C(=O)C(=CO3)C4=CC=C(C=C4)O)C5C(C(C(C(O5)CO)O)O)O)O)O)O
+249,Quassimarin,CCC(C)(C(=O)OC1C2C3(C(C(C4C2(CO3)C(CC5C4(C(C(=O)C=C5C)O)C)OC1=O)O)O)C)OC(=O)C
+250,Quercetin-3-glucoside,C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)OC4C(C(C(C(O4)CO)O)O)O)O)O
+251,Quercetin-3-O-_-L-rhamnopyranosyl _-pyranoside,
+252,Quinic acid,C1C(C(C(CC1(C(=O)O)O)O)O)O
+253,Quinic acid,C1C(C(C(CC1(C(=O)O)O)O)O)O
+254,Quinic acid,C1C(C(C(CC1(C(=O)O)O)O)O)O
+255,Quinic acid,C1C(C(C(CC1(C(=O)O)O)O)O)O
+256,Rehmaionoside B,CC(C=CC1(C(CCCC1(C)OC2C(C(C(C(O2)CO)O)O)O)(C)C)O)O
+257,Rehmaionoside B,CC(C=CC1(C(CCCC1(C)OC2C(C(C(C(O2)CO)O)O)O)(C)C)O)O
+258,Rehmaionoside B,CC(C=CC1(C(CCCC1(C)OC2C(C(C(C(O2)CO)O)O)O)(C)C)O)O
+259,Rhodojaponin IV,CC(=O)OC1CC23CC(C(C2OC(=O)C)CCC3C(C4C1(C(C(C4)O)(C)C)O)(C)O)(C)O
+260,Rhodojaponin IV,CC(=O)OC1CC23CC(C(C2OC(=O)C)CCC3C(C4C1(C(C(C4)O)(C)C)O)(C)O)(C)O
+261,Rinderine,CC(C)C(C(C)O)(C(=O)OCC1=CCN2C1C(CC2)O)O
+262,S-Methyl GSH,CSCC(C(=O)NCC(=O)O)NC(=O)CCC(C(=O)O)N
+263,Saikosaponin A,CC1C(C(C(C(O1)OC2CCC3(C(C2(C)CO)CCC4(C3C=CC56C4(CC(C7(C5CC(CC7)(C)C)CO6)O)C)C)C)O)OC8C(C(C(C(O8)CO)O)O)O)O
+264,Saikosaponin A,CC1C(C(C(C(O1)OC2CCC3(C(C2(C)CO)CCC4(C3C=CC56C4(CC(C7(C5CC(CC7)(C)C)CO6)O)C)C)C)O)OC8C(C(C(C(O8)CO)O)O)O)O
+265,Saikosaponin BK1,CC1C(C(C(C(O1)OC2C(OC(C(C2O)O)OC3CCC4(C(C3(C)C)CCC5(C4C=CC6=C7CC(CCC7(C(CC65C)O)CO)(C)C)C)C)COC8C(C(C(C(O8)CO)O)O)O)O)O)O
+266,Saikosaponin BK1,CC1C(C(C(C(O1)OC2C(OC(C(C2O)O)OC3CCC4(C(C3(C)C)CCC5(C4C=CC6=C7CC(CCC7(C(CC65C)O)CO)(C)C)C)C)COC8C(C(C(C(O8)CO)O)O)O)O)O)O
+267,Saikosaponin BK1,CC1C(C(C(C(O1)OC2C(OC(C(C2O)O)OC3CCC4(C(C3(C)C)CCC5(C4C=CC6=C7CC(CCC7(C(CC65C)O)CO)(C)C)C)C)COC8C(C(C(C(O8)CO)O)O)O)O)O)O
+268,Saikosaponin BK1,CC1C(C(C(C(O1)OC2C(OC(C(C2O)O)OC3CCC4(C(C3(C)C)CCC5(C4C=CC6=C7CC(CCC7(C(CC65C)O)CO)(C)C)C)C)COC8C(C(C(C(O8)CO)O)O)O)O)O)O
+269,Sambacin,CC=C1C(OC=C2C1=CC(=O)OCC3C(C(CC3C(C)CO)OC2=O)C)OC4C(C(C(C(O4)CO)O)O)O
+270,Sambacin,CC=C1C(OC=C2C1=CC(=O)OCC3C(C(CC3C(C)CO)OC2=O)C)OC4C(C(C(C(O4)CO)O)O)O
+271,Sanguisorbin E,CC1CCC2(CCC3(C(=CCC4C3(CCC5C4(CCC(C5(C)C)OC6C(C(C(CO6)O)O)O)C)C)C2C1C)C)C(=O)OC7C(C(C(C(O7)CO)O)OC(=O)C)O
+272,Sapindoside A,CC1C(C(C(C(O1)OC2C(C(COC2OC3CCC4(C(C3(C)CO)CCC5(C4CC=C6C5(CCC7(C6CC(CC7)(C)C)C(=O)O)C)C)C)O)O)O)O)O
+273,Scopolin,COC1=C(C=C2C(=C1)C=CC(=O)O2)OC3C(C(C(C(O3)CO)O)O)O
+274,sec-o-Glucosylhamaudol,CC1=CC(=O)C2=C(C3=C(C=C2O1)OC(C(C3)OC4C(C(C(C(O4)CO)O)O)O)(C)C)O
+275,Sesamolinol 4'-O-b-D-glucosyl (1-6)-O-b-D-glucoside,
+276,Shikimic acid,C1C(C(C(C=C1C(=O)O)O)O)O
+277,Soyasapogenol B 3-O-[a-L-rhamnosyl-(1-4)-b-D-galactosyl-(1-4)-b-D-glucuronide],
+278,Soyasapogenol B 3-O-[a-L-rhamnosyl-(1-4)-b-D-galactosyl-(1-4)-b-D-glucuronide],
+279,Soyasaponin I,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3C(C(C(OC3OC4CCC5(C(C4(C)CO)CCC6(C5CC=C7C6(CCC8(C7CC(CC8O)(C)C)C)C)C)C)C(=O)O)O)O)CO)O)O)O)O)O
+280,Soyasaponin I,CC1C(C(C(C(O1)OC2C(C(C(OC2OC3C(C(C(OC3OC4CCC5(C(C4(C)CO)CCC6(C5CC=C7C6(CCC8(C7CC(CC8O)(C)C)C)C)C)C)C(=O)O)O)O)CO)O)O)O)O)O
+281,Soyasaponin III,CC1(CC2C3=CCC4C5(CCC(C(C5CCC4(C3(CCC2(C(C1)O)C)C)C)(C)CO)OC6C(C(C(C(O6)C(=O)O)O)O)OC7C(C(C(C(O7)CO)O)O)O)C)C
+282,Soyasaponin III,CC1(CC2C3=CCC4C5(CCC(C(C5CCC4(C3(CCC2(C(C1)O)C)C)C)(C)CO)OC6C(C(C(C(O6)C(=O)O)O)O)OC7C(C(C(C(O7)CO)O)O)O)C)C
+283,Sweroside,C=CC1C2CCOC(=O)C2=COC1OC3C(C(C(C(O3)CO)O)O)O
+284,Tetradecyl sulfate,CCCCCCCCCCCCCCOS(=O)(=O)[O-]
+285,Theobromine,CN1C=NC2=C1C(=O)NC(=O)N2C
+286,Tragopogonsaponin Q,CC1(CCC2(C(C1)C3=CCC4C5(CCC(C(C5CCC4(C3(CC2O)C)C)(C)C)O)C)C(=O)OC6C(C(C(CO6)O)OC7C(C(C(C(O7)CO)O)O)O)OC(=O)C=CC8=CC=C(C=C8)OC9C(C(C(C(O9)CO)O)O)O)C
+287,Tragopogonsaponin Q,CC1(CCC2(C(C1)C3=CCC4C5(CCC(C(C5CCC4(C3(CC2O)C)C)(C)C)O)C)C(=O)OC6C(C(C(CO6)O)OC7C(C(C(C(O7)CO)O)O)O)OC(=O)C=CC8=CC=C(C=C8)OC9C(C(C(C(O9)CO)O)O)O)C
+288,Tragopogonsaponin R,CC1(CCC2(C(C1)C3=CCC4C5(CCC(C(C5CCC4(C3(CC2O)C)C)(C)C)OC6C(C(C(C(O6)C(=O)O)O)O)O)C)C(=O)OC7C(C(C(CO7)O)OC8C(C(C(C(O8)CO)O)O)O)OC(=O)CCC9=CC(=C(C=C9)OC1C(C(C(C(O1)CO)O)O)O)OC)C
+289,Tsangane L 3-glucoside,CC1=C(C(CC(C1)OC2C(C(C(C(O2)CO)O)O)O)(C)C)CCC(C)O
+290,Vat Yellow 4,C1=CC=C2C(=C1)C3=C4C(=CC=C5C4=C(C=C3)C(=O)C6=CC=CC=C65)C2=O
+291,Veranisatin C,CC1CC(C2(C13CC(C(C24COC4=O)(C(=O)OC)O)OC(=O)C3O)O)O
+292,Veranisatin C,CC1CC(C2(C13CC(C(C24COC4=O)(C(=O)OC)O)OC(=O)C3O)O)O
+293,Verbenalin,CC1CC(=O)C2C1C(OC=C2C(=O)OC)OC3C(C(C(C(O3)CO)O)O)O
+294,Xylobiose,C1C(C(C(C(O1)OC2COC(C(C2O)O)O)O)O)O

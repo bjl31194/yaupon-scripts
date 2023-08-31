@@ -27,3 +27,10 @@ gatk --java-options "-Xmx64g" GenotypeGVCFs \
    -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta \
    -V gendb://yaupon_db \
    -O yaupon_cohort1_genotyped.vcf.gz
+
+###FILTERING
+
+gatk VariantsToTable \
+     -V yaupon_cohort1_genotyped.vcf.gz \
+     -F CHROM -F POS -F TYPE -F QD -F MQ -GF AD \
+     -O yaupon_cohort1_genotyped.table
