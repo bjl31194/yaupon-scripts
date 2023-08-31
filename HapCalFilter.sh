@@ -22,5 +22,6 @@ cd /scratch/bjl31194/yaupon/vcf
 
 ml GATK/3.8-1-Java-1.8.0_144
 
-java -jar $EBROOTGATK/GenomeAnalysisTK.jar -T SelectVariants \ -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta -o outputhapF.vcf --variant yaupon_cohort1_genotyped.vcf -restrictAllelesTo BIALLELIC
+java -jar $EBROOTGATK/GenomeAnalysisTK.jar -T SelectVariants -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta -o outputhapF.vcf --variant yaupon_cohort1_genotyped.vcf -restrictAllelesTo BIALLELIC
+
 java -jar $EBROOTGATK/GenomeAnalysisTK.jar -T VariantFiltration -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta -V outputhapF.vcf --filterExpression "QD <= 10.00" --filterName "QD_10" -o cohort1_biallelicQD10_fromHC_SNPs.vcf
