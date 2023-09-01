@@ -23,13 +23,20 @@ cd /scratch/bjl31194/yaupon/vcf
 
 ml GATK/4.3.0.0-GCCcore-8.3.0-Java-1.8
 
-gatk VariantFiltration \
+gatk SelectVariants \
    -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta \
-   -V yaupon_cohort1_genotyped.vcf.gz \
-   -O cohort1_QD10_SNPs.vcf.gz \
-   -filter "QD < 10.00" --filter-name "QD10"
+   -V yaupon_cohort1_genotyped.vcf \
+   --select-type-to-include SNP \
+   --restrict-alleles-to BIALLELIC \
+   -O cohort1_biallelic_SNPs.vcf \
+
+gatk VariantFiltration \
+    -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta \
+    -V cohort1_biallelic_SNPs.vcf \
+    -O cohort1_biallelic_QD08_SNPs.vcf \
+    --filterExpression "QD > 8.00" \
 
 gatk VariantsToTable \
-     -V cohort1_biallelicQD10_fromHC_SNPs.vcf.gz \
+     -V cohort1_QD10_SNPs.vcf.gz \
      -F CHROM -F POS -F TYPE -F QD -F MQ -GF AD \
      -O yaupon_cohort1_genotyped_filtered.table
