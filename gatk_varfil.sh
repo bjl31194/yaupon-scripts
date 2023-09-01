@@ -34,6 +34,7 @@ gatk VariantFiltration \
     -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta \
     -V cohort1_biallelic_SNPs.vcf \
     -O cohort1_biallelic_QD08_SNPs.vcf \
+    --filter-name "QD08" \
     --filter-expression "QD > 8.00" \
 
 gatk VariantsToTable \
