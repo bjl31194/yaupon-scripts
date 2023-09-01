@@ -33,11 +33,11 @@ gatk SelectVariants \
 gatk VariantFiltration \
     -R /scratch/bjl31194/yaupon/references/JYEU.hipmer.GA-F-4_assembly.fasta \
     -V cohort1_biallelic_SNPs.vcf \
-    -O cohort1_biallelic_QD08_SNPs.vcf \
-    --filter-name "QD08" \
-    --filter-expression "QD > 8.00" \
+    -O cohort1_biallelic_QD10_SNPs.vcf \
+    --filter-name "QD10" \
+    --filter-expression "QD > 10.00" \
 
 gatk VariantsToTable \
-     -V cohort1_QD10_SNPs.vcf.gz \
+     -V cohort1_biallelic_QD10_SNPs.vcf \
      -F CHROM -F POS -F TYPE -F QD -F MQ -GF AD \
      -O yaupon_cohort1_genotyped_filtered.table
