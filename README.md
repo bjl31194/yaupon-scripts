@@ -1,2 +1,2 @@
 # yaupon
- analysis scripts for yaupon sequence data
+ analysis scripts for yaupon sequence and metabolomics data
