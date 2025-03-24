@@ -34,7 +34,7 @@ ml Trimmomatic/0.39-Java-13
 #fastqc /scratch/bjl31194/yaupon/wgs/plate1/raw_reads/*.fastq.gz --outdir $OUTDIR
 
 # trim Illumina adapters
-java -jar trimmomatic/trimmomatic-0.39.jar \
+java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar \
     PE \
     -trimlog /scratch/bjl31194/yaupon/wgs/plate1/trimlog.txt \
     25055FL-01-01-01_S56_L006_R1_001.fastq.gz \
