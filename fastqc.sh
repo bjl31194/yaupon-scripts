@@ -18,7 +18,7 @@
 
 #set input and output directory variables
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plate1/trimmed_reads"
-DATADIR="/work/gene8940/instructor_data"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/raw_reads"
 
 #if output directory doesn't exist, create it
 if [ ! -d $OUTDIR ]
@@ -37,13 +37,13 @@ ml Trimmomatic/0.39-Java-13
 java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar \
     PE \
     -trimlog /scratch/bjl31194/yaupon/wgs/plate1/trimlog.txt \
-    25055FL-01-01-01_S56_L006_R1_001.fastq.gz \
-    25055FL-01-01-01_S56_L006_R2_001.fastq.gz \
+    $DATADIR/25055FL-01-01-01_S56_L006_R1_001.fastq.gz \
+    $DATADIR/25055FL-01-01-01_S56_L006_R2_001.fastq.gz \
     $OUTDIR/01_S56_R1_paired.fastq.gz \
     $OUTDIR/01_S56_R1_unpaired.fastq.gz \
     $OUTDIR/01_S56_R2_paired.fastq.gz \
     $OUTDIR/01_S56_R2_unpaired.fastq.gz \
-    ILLUMINACLIP:TruSeq3-SE.fa:2:30:10:2:True \
+    ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:2:True \
     LEADING:3 \
     TRAILING:3 \
     MINLEN:30
