@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=40gb
 #SBATCH --time=24:00:00
-#SBATCH --array=1-3
+#SBATCH --array=1-96
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -32,4 +32,4 @@ R2='/scratch/bjl31194/yaupon/wgs/plate1/raw_reads/'${name}'_L006_R2_001.fastq.gz
 ml fastp/0.23.2-GCC-11.3.0
 
 # trim adapter sequences, remove reads shorter than 21nt, quality filtering, remove polyG tails
-fastp -w 8 --dont_overwrite --in1 $R1 --in2 $R2 --out1 ${name}_R1_trimmed.fastq.gz --out2 ${name}_R2_trimmed.fastq.gz --unpaired1 ${name}_U.fastq.gz --unpaired2 ${name}_U.fastq.gz --failed_out ${name}_failed.fastq.gz -j ${name}.fastp_report.json -h ${name}.fastp_report.html
+fastp -w 8 --in1 $R1 --in2 $R2 --out1 ${name}_R1_trimmed.fastq.gz --out2 ${name}_R2_trimmed.fastq.gz --unpaired1 ${name}_U.fastq.gz --unpaired2 ${name}_U.fastq.gz --failed_out ${name}_failed.fastq.gz -j ${name}.fastp_report.json -h ${name}.fastp_report.html
