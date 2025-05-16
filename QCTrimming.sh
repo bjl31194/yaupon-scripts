@@ -26,6 +26,10 @@ then
     mkdir -p $OUTDIR
 fi
 
+#count reads
+for file in $(ls *.fastq.gz); do echo $file &&
+zcat $file | echo $((wc -l /4)); done > readcounts.txt
+
 #load modules
 ml FastQC/0.11.9-Java-11
 ml Trim_Galore/0.6.7-GCCcore-11.2.0
