@@ -16,7 +16,7 @@ name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plate1/read
 # command for making read array file:
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plate1/trimmed_reads"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plate1/align"
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR
@@ -34,8 +34,9 @@ R2='/scratch/bjl31194/yaupon/wgs/plate1/trimmed_reads/'${name}'_R2_trimmed.fastq
 ml SAMtools/1.16.1-GCC-11.3.0
 ml BWA/0.7.17-GCCcore-11.3.0
 
+
 ​# map reads to new indexed references - hap1
 bwa mem -t 32 $assembly $R1 $R2 | samtools view -@ 32 -O BAM | samtools sort -@ 32 -O BAM -o $name.Ivo.sorted.bam 
 
 # index bam
-samtools index $name.psitt.sorted.bam
+samtools index $name.Ivo.sorted.bam
