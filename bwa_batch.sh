@@ -24,7 +24,7 @@ fi
 cd $OUTDIR
 
 # name of assembly file
-assembly='/scratch/bjl31194/yaupon/references/draft/I_vomitoria_GAF4_hap1_min50k.fa'
+assembly='/scratch/bjl31194/yaupon/references/draft/I_vomitoria_GAF4_hap2_min50k.fa'
 
 # paths to reads
 R1='/scratch/bjl31194/yaupon/wgs/plate1/trimmed_reads/'${name}'_R1_trimmed.fastq.gz'
@@ -41,4 +41,4 @@ bwa mem -t 32 $assembly $R1 $R2 | samtools view -@ 32 -O BAM | samtools sort -@ 
 # index bam
 samtools index $name.Ivo.sorted.bam
 
-# ( for i in ./*.bam ; do samtools flagstat $i ; done) > mapping_stats.txt
+( for i in $OUTDIR/*.bam ; do samtools flagstat $i ; done) > mapping_stats2.txt
