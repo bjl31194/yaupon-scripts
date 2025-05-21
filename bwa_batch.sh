@@ -40,3 +40,5 @@ bwa mem -t 32 $assembly $R1 $R2 | samtools view -@ 32 -O BAM | samtools sort -@ 
 
 # index bam
 samtools index $name.Ivo.sorted.bam
+
+# ( for i in ./*.bam ; do samtools flagstat $i ; done) > mapping_stats.txt
