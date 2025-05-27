@@ -22,6 +22,8 @@ then
 fi
 cd $OUTDIR
 
+DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/align"
+
 # name of assembly file
 assembly='/scratch/bjl31194/yaupon/references/draft/I_vomitoria_GAF4_hap1_min50k.fa'
 
@@ -33,6 +35,6 @@ ml SAMtools/1.16.1-GCC-11.3.0
 samtools faidx $assembly
 
 # pile up reads and call variants
-bcftools mpileup -a AD,DP,SP -Oz -f $assembly /scratch/bjl31194/yaupon/wgs/plate1/align/*.sorted.bam | bcftools call -f GQ,GP \
--mO z -o $OUTDIR/Ivom_plate1.vcf.gz
+#bcftools mpileup -a AD,DP,SP -Ou -f $assembly /scratch/bjl31194/yaupon/wgs/plate1/align/*.sorted.bam | bcftools call -f GQ,GP -mO z -o $OUTDIR/Ivom_plate1.vcf.gz
 
+bcftools mpileup -a AD,DP,SP -Ou -f $assembly $DATADIR/25055FL-01-01-01_S56.Ivo.sorted.bam $DATADIR/25055FL-01-01-02_S57.Ivo.sorted.bam $DATADIR/25055FL-01-01-03_S58.Ivo.sorted.bam | bcftools call -f GQ,GP -mO z -o $OUTDIR/Ivom_plate1.vcf.gz
