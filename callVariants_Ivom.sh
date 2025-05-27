@@ -4,8 +4,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
-#SBATCH --mem=80gb
-#SBATCH --time=72:00:00
+#SBATCH --mem=64gb
+#SBATCH --time=7-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -34,7 +34,8 @@ ml SAMtools/1.16.1-GCC-11.3.0
 # index reference
 samtools faidx $assembly
 
-# pile up reads and call variants
-#bcftools mpileup -a AD,DP,SP -Ou -f $assembly /scratch/bjl31194/yaupon/wgs/plate1/align/*.sorted.bam | bcftools call -f GQ,GP -mO z -o $OUTDIR/Ivom_plate1.vcf.gz
+# generate genotype likelihoods and call SNPs (no indels = -I option)
+bcftools mpileup -I -a AD,DP,SP -Ou -f $assembly $DATADIR/*.sorted.bam | bcftools call --threads 32 -mv -Oz -o $OUTDIR/Ivom_plate1.vcf.gz
 
-bcftools mpileup -a AD,DP,SP -Ou -f $assembly $DATADIR/25055FL-01-01-01_S56.Ivo.sorted.bam $DATADIR/25055FL-01-01-02_S57.Ivo.sorted.bam $DATADIR/25055FL-01-01-03_S58.Ivo.sorted.bam | bcftools call -f GQ,GP -mO z -o $OUTDIR/Ivom_plate1.vcf.gz
+# test with 3 samples - looks good, took 2 hours to run tho
+#bcftools mpileup -a AD,DP,SP -Ou -f $assembly $DATADIR/25055FL-01-01-01_S56.Ivo.sorted.bam $DATADIR/25055FL-01-01-02_S57.Ivo.sorted.bam $DATADIR/25055FL-01-01-03_S58.Ivo.sorted.bam | bcftools call -f GQ,GP -mO z -o $OUTDIR/Ivom_plate1.vcf.gz
