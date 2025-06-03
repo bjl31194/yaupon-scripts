@@ -38,7 +38,7 @@ bgzip Ivom_plate1_subset.vcf
 # index vcf
 bcftools index Ivom_plate1_subset.vcf.gz
 
-SUBSET='/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_subset.vcf'
+SUBSET='/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_subset.vcf.gz'
 
 # calculate allele freqs
 vcftools --gzvcf $SUBSET --freq2 --out $OUTDIR --max-alleles 2
