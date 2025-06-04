@@ -3,8 +3,8 @@
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
-#SBATCH --mem=64gb
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32gb
 #SBATCH --time=3-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
@@ -27,6 +27,11 @@ ml PLINK/2.0.0-a.6.9-gfbf-2023b
 cd $DATADIR
 
 # perform linkage pruning - i.e. identify prune sites
-plink --vcf $VCF --double-id --allow-extra-chr \
---set-missing-var-ids @:# \
---indep-pairwise 50 10 0.1 --out Ivom96
+#plink --vcf $VCF --double-id --allow-extra-chr \
+#--set-missing-var-ids @:# \
+#--indep-pairwise 50 10 0.1 --out Ivom96
+
+# prune and create pca
+plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+--extract Ivom96.prune.in \
+--make-bed --pca --out Ivom96
