@@ -22,16 +22,43 @@ VCF="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_filter.vcf.gz"
 
 # load modules
 ml PLINK/2.0.0-a.6.9-gfbf-2023b
+ml ADMIXTURE/1.3.0
 
 # move to the vcf directory
 cd $DATADIR
 
-# perform linkage pruning - i.e. identify prune sites
+## Run plink to get .bed file and PCA ##
+
+# identify prune sites
 #plink --vcf $VCF --double-id --allow-extra-chr \
 #--set-missing-var-ids @:# \
 #--indep-pairwise 50 10 0.1 --out Ivom96
 
-# prune and create pca
-plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
---extract Ivom96.prune.in \
---make-bed --pca --out Ivom96
+# linkage prune and create pca files
+#plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+#--extract Ivom96.prune.in \
+#--make-bed --pca --out Ivom96
+
+## run ADMIXTURE ##
+
+# generate input files
+FILE=Ivom96
+cd admixture
+
+# Generate the input file in plink format
+plink --vcf $VCF --make-bed --out $FILE --allow-extra-chr
+
+# ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
+awk '{$1="0";print $0}' $FILE.bim > $FILE.bim.tmp
+mv $FILE.bim.tmp $FILE.bim
+
+# running ADMIXTURE for clusters size 2-5
+for i in {2..5}
+do
+ admixture --cv $FILE.bed $i > log${i}.out
+done
+
+# yoink cross validation errors out of log files
+awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
+
+
