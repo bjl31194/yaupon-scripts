@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=40gb
 #SBATCH --time=24:00:00
-#SBATCH --array=1-96
+#SBATCH --array=1-384
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -18,7 +18,7 @@ name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plates1234/
 # head -n -4 read_array.txt > temp.txt
 # mv temp.txt read_array.txt
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plates234/trimmed_reads"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1234/trimmed_reads"
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR
