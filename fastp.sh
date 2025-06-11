@@ -14,7 +14,7 @@
 name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plates1234/read_array.txt)
 
 # commands for making read array file:
-# ls -1 | sed 's/_L006_R.*//' | sed 's/_L007_R.*//' | sed 's/_L008_R.*//' | uniq > read_array.txt
+# ls -1 | sed 's/_R.*//' | uniq > temp.txt
 # head -n -4 read_array.txt > temp.txt
 # mv temp.txt read_array.txt
 
@@ -26,8 +26,8 @@ fi
 cd $OUTDIR
 
 # paths to reads
-R1='/scratch/bjl31194/yaupon/wgs/plate1/raw_reads/'${name}'_L006_R1_001.fastq.gz'
-R2='/scratch/bjl31194/yaupon/wgs/plate1/raw_reads/'${name}'_L006_R2_001.fastq.gz'
+R1='/scratch/bjl31194/yaupon/wgs/plate1/raw_reads/'${name}'_R1_001.fastq.gz'
+R2='/scratch/bjl31194/yaupon/wgs/plate1/raw_reads/'${name}'_R2_001.fastq.gz'
 
 # load fastp
 # https://github.com/OpenGene/fastp
