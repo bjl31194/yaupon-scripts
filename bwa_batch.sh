@@ -5,8 +5,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=80gb
-#SBATCH --time=72:00:00
-#SBATCH --array=1-96
+#SBATCH --time=4-00:00:00
+#SBATCH --array=1-384
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
