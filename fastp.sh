@@ -26,8 +26,8 @@ fi
 cd $OUTDIR
 
 # paths to reads
-R1='/scratch/bjl31194/yaupon/wgs/plate1/raw_reads/'${name}'_R1_001.fastq.gz'
-R2='/scratch/bjl31194/yaupon/wgs/plate1/raw_reads/'${name}'_R2_001.fastq.gz'
+R1='/scratch/bjl31194/yaupon/wgs/plates1234/'${name}'_R1_001.fastq.gz'
+R2='/scratch/bjl31194/yaupon/wgs/plates1234/'${name}'_R2_001.fastq.gz'
 
 # load fastp
 # https://github.com/OpenGene/fastp
