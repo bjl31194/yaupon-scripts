@@ -16,7 +16,7 @@ name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plates1234/
 # command for making read array file:
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plate1/align"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1234/align"
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR

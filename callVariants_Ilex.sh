@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=callVariants_Ivom
+#SBATCH --job-name=callVariants_Ilex
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -15,14 +15,14 @@
 # command for making read array file:
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR
 fi
 cd $OUTDIR
 
-DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/align"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/align"
 
 # name of assembly file
 assembly='/scratch/bjl31194/yaupon/references/draft/I_vomitoria_GAF4_hap1_min50k.fa'
@@ -35,7 +35,7 @@ ml SAMtools/1.16.1-GCC-11.3.0
 samtools faidx $assembly
 
 # generate genotype likelihoods and call SNPs (no indels = -I option)
-bcftools mpileup -I -a AD,DP,SP -Ou -f $assembly $DATADIR/*.sorted.bam | bcftools call --threads 32 -mv -Oz -o $OUTDIR/Ivom_plate1.vcf.gz
+bcftools mpileup -I -a AD,DP,SP -Ou -f $assembly $DATADIR/*.sorted.bam | bcftools call --threads 32 -mv -Oz -o $OUTDIR/Ilex_plates1234.vcf.gz
 
 # test with 3 samples - looks good, took 2 hours to run tho
 #bcftools mpileup -a AD,DP,SP -Ou -f $assembly $DATADIR/25055FL-01-01-01_S56.Ivo.sorted.bam $DATADIR/25055FL-01-01-02_S57.Ivo.sorted.bam $DATADIR/25055FL-01-01-03_S58.Ivo.sorted.bam | bcftools call -f GQ,GP -mO z -o $OUTDIR/Ivom_plate1.vcf.gz
