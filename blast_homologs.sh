@@ -29,13 +29,13 @@ QUERY="/scratch/bjl31194/yaupon/TCS1_CDS.fasta"
 
 
 # modules
-ml BLAST+/2.16.0-gompi-2023b
+ml BLAST+/2.2.31
 
 #sed -n '1~4s/^@/>/p;2~4p' ${SEQDIR}/P2_A01.1.fq_trimmed.fq > ${SEQDIR}/P2_A01.1_trimmed.fasta
 
 # make blast database
-#if [ ! -f ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb ]; then
-#	makeblastdb -dbtype nucl -in $SUBJECT -out ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb
+#
+makeblastdb -dbtype nucl -in $SUBJECT -out ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb
 #fi
 
 # blast sequence
