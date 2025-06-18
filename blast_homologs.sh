@@ -39,4 +39,4 @@ makeblastdb -dbtype nucl -in $SUBJECT -out ${SEQDIR}/I_vomitoria_GAF4_hap1_min50
 #fi
 
 # blast sequence
-blastn -num_threads 4 -query $QUERY -db ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb -out ${OUTDIR}/TCS1_blastresults.tsv -outfmt 6 -max_target_seqs 10
+blastn -num_threads 4 -query $QUERY -db ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb -out ${OUTDIR}/TCS1_blastresults.tsv -max_target_seqs 10
