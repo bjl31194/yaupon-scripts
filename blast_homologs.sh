@@ -2,41 +2,41 @@
 
 ## ABOUT THIS SCRIPT ##
 # Author: Ben Long
-# Date : 05.24.2023
+# Date : 06.18.2025
 # Description: "So then I started blasting" -Frank
 # Run Information: This script is run manually.
 
 ## SLURM PARAMETERS ##
-#SBATCH --job-name=blast_homologs                       # Job name
+#SBATCH --job-name=blast_TCS1                       # Job name
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
-#SBATCH --cpus-per-task=8		                            # Number of cores per task
+#SBATCH --cpus-per-task=4		                            # Number of cores per task
 #SBATCH --mem=24gb			                                # Total memory for job
 #SBATCH --time=24:00:00  		                            # Time limit hrs:min:sec
-#SBATCH --output=~/yaupon/blast.%j.out			                      # STDOUT
-#SBATCH --error=~/yaupon/blast.%j.err			                      # STDERR
+#SBATCH --output=/scratch/bjl31194/logs/%x_%j.out	                      # STDOUT
+#SBATCH --error=/scratch/bjl31194/logs/%x_%j.error			                      # STDERR
 #SBATCH --mail-user=bjl31194@uga.edu                    # Where to send mail
 #SBATCH --mail-type=END,FAIL                            # Mail events (BEGIN, END, FAIL, ALL)
 
 #set input and output directory variables
-SEQDIR="/home/bjl31194/yaupon/sequences/Yaupon_barcode_filter_reads"
+SEQDIR="/scratch/bjl31194/yaupon/references/draft"
 OUTDIR="/home/bjl31194/yaupon"
+SUBJECT="/scratch/bjl31194/yaupon/references/draft/I_vomitoria_GAF4_hap1_min50k.fa"
+QUERY="/scratch/bjl31194/yaupon/TCS1_CDS.fasta"
 
-#download genomes
-
+# download genomes
 #curl http://ftp.ensemblgenomes.org/pub/plants/release-52/fasta/zea_mays/dna/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.dna.toplevel.fa.gz > ${SEQDIR}/Zm-B73-REFERENCE-NAM-5.0.fa.gz
 
 
-#modules
-ml BLAST+/2.11.0-gompi-2019b
-module list
-​
-sed -n '1~4s/^@/>/p;2~4p' ${SEQDIR}/P2_A01.1.fq_trimmed.fq > ${SEQDIR}/P2_A01.1_trimmed.fasta
+# modules
+ml BLAST+/2.16.0-gompi-2023b
 
-#make blast databases
-if [ ! -f ${SEQDIR}/P2_A01.1_blastdb.ndb ]; then
-	makeblastdb -dbtype nucl -in ${SEQDIR}/P2_A01.1_trimmed.fasta -out ${SEQDIR}/P2_A01.1_blastdb.ndb
+#sed -n '1~4s/^@/>/p;2~4p' ${SEQDIR}/P2_A01.1.fq_trimmed.fq > ${SEQDIR}/P2_A01.1_trimmed.fasta
+
+# make blast database
+if [ ! -f ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb ]; then
+	makeblastdb -dbtype nucl -in $SUBJECT -out ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb
 fi
 
-#blast sequences to maize db
-blastn -num_threads 8 -query /home/bjl31194/yaupon/gene.fna -db ${SEQDIR}/P2_A01.1_blastdb.ndb -out ${OUTDIR}/TCS1_blastresults.tsv -outfmt 6 -max_target_seqs 10
+# blast sequence
+blastn -num_threads 4 -query $QUERY -db ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb -out ${OUTDIR}/TCS1_blastresults.tsv -outfmt 6 -max_target_seqs 10
