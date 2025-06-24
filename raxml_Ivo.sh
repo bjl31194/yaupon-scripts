@@ -23,7 +23,7 @@ ml Python/3.12.3-GCCcore-13.3.0
 cd $DATADIR
 
 # build phylip matrix from vcf
-python vcf2phylip.py -i $VCF 
+python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $DATADIR
 
 # perform ML tree search and optimization
 raxml-ng --search1 --msa $PHYLIP --model GTR+G
