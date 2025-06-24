@@ -63,4 +63,6 @@ awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
 
 ## run pong locally for ADMIXTURE visualization
 ## use Q matrix files from ADMIXTURE output
-pong -m pong_filemap.txt
+# pong -m pong_filemap.txt
+
+
