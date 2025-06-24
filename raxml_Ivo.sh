@@ -10,6 +10,10 @@
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 
+# change sample names in vcf file
+#ml BCFtools/1.18-GCC-12.3.0
+#bcftools view -Ou Ivom_plate1_filter.vcf.gz | bcftools reheader -s names_plate1.txt -o Ivom_plate1_filter_names.vcf.gz
+
 # set variables
 DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf"
 VCF="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_filter_names.vcf.gz"
