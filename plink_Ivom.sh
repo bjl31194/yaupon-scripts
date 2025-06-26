@@ -3,8 +3,8 @@
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=32gb
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64gb
 #SBATCH --time=1-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
@@ -16,15 +16,16 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf/structure"
 
 VCF="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_filter.vcf.gz"
 
 # load modules
-ml PLINK/2.0.0-a.6.9-gfbf-2023b
-ml ADMIXTURE/1.3.0
+#ml PLINK/2.0.0-a.6.9-gfbf-2023b
+#ml ADMIXTURE/1.3.0
+ml Structure/2.3.4-GCC-11.3.0
 
-# move to the vcf directory
+# move to the proper directory
 cd $DATADIR
 
 ## Run plink to get .bed file and PCA ##
@@ -42,8 +43,8 @@ cd $DATADIR
 ## run ADMIXTURE ##
 
 # generate input files
-FILE=Ivom96
-cd admixture
+#FILE=Ivom96
+#cd admixture
 
 # Generate the input file in plink format
 #plink --vcf $VCF --make-bed --out $FILE --allow-extra-chr
@@ -66,4 +67,9 @@ cd admixture
 #pong -m pong_filemap.txt
 
 # generate structure input file
-plink --bfile Ivom96.prune.in --allow-extra-chr --recode structure --out Ivom96forStructure
+#plink --bfile Ivom96 --allow-extra-chr --recode structure --out Ivom96forStructure
+
+structure -K 2
+structure -K 3
+structure -K 4
+structure -K 5
