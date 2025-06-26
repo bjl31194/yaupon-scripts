@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32gb
-#SBATCH --time=3-00:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -46,23 +46,24 @@ FILE=Ivom96
 cd admixture
 
 # Generate the input file in plink format
-plink --vcf $VCF --make-bed --out $FILE --allow-extra-chr
+#plink --vcf $VCF --make-bed --out $FILE --allow-extra-chr
 
 # ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
-awk '{$1="0";print $0}' $FILE.bim > $FILE.bim.tmp
-mv $FILE.bim.tmp $FILE.bim
+#awk '{$1="0";print $0}' $FILE.bim > $FILE.bim.tmp
+#mv $FILE.bim.tmp $FILE.bim
 
 # running ADMIXTURE for clusters size 2-5
-for i in {2..5}
-do
- admixture --cv $FILE.bed $i > log${i}.out
-done
+#for i in {2..5}
+#do
+# admixture --cv $FILE.bed $i > log${i}.out
+#done
 
 # yoink cross validation errors out of log files
-awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
+#awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
 
-## run pong locally for ADMIXTURE visualization
-## use Q matrix files from ADMIXTURE output
-# pong -m pong_filemap.txt
+# run pong locally for ADMIXTURE visualization
+# use Q matrix files from ADMIXTURE output
+#pong -m pong_filemap.txt
 
-
+# generate structure input file
+plink --bfile Ivom96.prune.in --allow-extra-chr --recode structure --out Ivom96forStructure
