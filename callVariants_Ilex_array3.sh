@@ -13,7 +13,7 @@
 
 REGION=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/references/draft/filemap.txt)
 
-# command for making array filemap:
+# commands for making array filemap:
 #cut -f1-2 I_vomitoria_GAF4_hap1_min50k.fa.fai > chrSize.txt
 #awk '$1 = $1 FS "1"' chrSize.txt > chrSize_start.txt
 #tr ' ' '\t' < chrSize_start.txt > chrSize_start_stop
