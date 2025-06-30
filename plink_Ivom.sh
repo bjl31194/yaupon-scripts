@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ivom
+#SBATCH --job-name=structure_Ivom
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=32
 #SBATCH --mem=64gb
 #SBATCH --time=3-00:00:00
 #SBATCH --mail-type=END,FAIL
@@ -20,11 +20,13 @@ DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf/structure"
 
 VCF="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_filter.vcf.gz"
 
+STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plate1/vcf/structure/Ivom96forStructure.recode.strct_in"
+
 # load modules
 #ml PLINK/2.0.0-a.6.9-gfbf-2023b
 #ml ADMIXTURE/1.3.0
 ml Structure/2.3.4-GCC-11.3.0
-
+ml structure_threader/1.3.10-foss-2022a
 # move to the proper directory
 cd $DATADIR
 
@@ -69,7 +71,5 @@ cd $DATADIR
 # generate structure input file
 #plink --bfile Ivom96 --allow-extra-chr --recode structure --out Ivom96forStructure
 
-structure -K 2
-structure -K 3
-structure -K 4
-structure -K 5
+structure_threader -K 5 -R 5 -i $STRUCT_IN -o $DATADIR/results -t 32 -st /apps/eb/Structure/2.3.4-GCC-11.3.0/bin/structure
+
