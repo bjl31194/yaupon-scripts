@@ -71,5 +71,5 @@ cd $DATADIR
 # generate structure input file
 #plink --bfile Ivom96 --allow-extra-chr --recode structure --out Ivom96forStructure
 
-structure_threader run -K 5 -R 1 -i $STRUCT_IN -o $DATADIR/results -t 32 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-11.3.0/bin/structure
+structure_threader run -K 5 -R 3 -i $STRUCT_IN -o $DATADIR/results -t 32 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-11.3.0/bin/structure
 
