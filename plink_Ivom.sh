@@ -64,7 +64,7 @@ cd $DATADIR
 
 # run pong locally for ADMIXTURE visualization
 # use Q matrix files from ADMIXTURE output
-#pong -m pong_filemap.txt
+#pong -m pong_filemap.txt -i ind2pop.txt
 
 # generate structure input file
 #plink --bfile Ivom96 --allow-extra-chr --recode structure --out Ivom96forStructure
