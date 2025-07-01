@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=callVariants_Ilex_array3
+#SBATCH --job-name=callVariants_Ilex_array5
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
