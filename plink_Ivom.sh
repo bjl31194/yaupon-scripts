@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=structure_Ivom
+#SBATCH --job-name=plink_Ivom
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -16,31 +16,34 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf/structure"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_filter.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_sppfilter.vcf.gz"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plate1/vcf/structure/Ivom96forStructure.recode.strct_in"
 
 # load modules
-#ml PLINK/2.0.0-a.6.9-gfbf-2023b
+ml PLINK/2.0.0-a.6.9-gfbf-2023b
 #ml ADMIXTURE/1.3.0
-ml Structure/2.3.4-GCC-11.3.0
-ml structure_threader/1.3.10-foss-2022a
+#ml Structure/2.3.4-GCC-11.3.0
+#ml structure_threader/1.3.10-foss-2022a
 # move to the proper directory
 cd $DATADIR
 
 ## Run plink to get .bed file and PCA ##
 
 # identify prune sites
-#plink --vcf $VCF --double-id --allow-extra-chr \
-#--set-missing-var-ids @:# \
-#--indep-pairwise 50 10 0.1 --out Ivom96
+plink --vcf $VCF --double-id --allow-extra-chr \
+--set-missing-var-ids @:# \
+--indep-pairwise 50 10 0.1 --out Ivom96spp
 
 # linkage prune and create pca files
-#plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
-#--extract Ivom96.prune.in \
-#--make-bed --pca --out Ivom96
+plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+--extract Ivom96spp.prune.in \
+--make-bed --pca --out Ivom96spp
+
+# generate structure input file
+plink --bfile Ivom96spp --allow-extra-chr --recode structure --out Ivom96forStructure
 
 ## run ADMIXTURE ##
 
@@ -64,12 +67,11 @@ cd $DATADIR
 # yoink cross validation errors out of log files
 #awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
 
+## other misc scripts ##
+
 # run pong locally for ADMIXTURE visualization
 # use Q matrix files from ADMIXTURE output
 #pong -m pong_filemap.txt -i ind2pop.txt
 
-# generate structure input file
-#plink --bfile Ivom96 --allow-extra-chr --recode structure --out Ivom96forStructure
-
-structure_threader run -K 5 -R 3 -i $STRUCT_IN -o $DATADIR/results -t 32 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-11.3.0/bin/structure
+#structure_threader run -K 5 -R 3 -i $STRUCT_IN -o $DATADIR/results -t 32 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-11.3.0/bin/structure
 

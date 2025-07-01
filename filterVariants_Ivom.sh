@@ -30,6 +30,7 @@ MAX_DEPTH=25 # went with mean depth x 2 + a little extra judging from where most
 
 # load modules
 ml VCFtools/0.1.16-GCC-13.3.0
+#ml BCFtools/1.18-GCC-12.3.0
 
 # move to the vcf directory
 cd $DATADIR
@@ -40,3 +41,6 @@ vcftools --gzvcf $VCF_IN \
 --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
 --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | gzip -c > \
 $VCF_OUT
+
+# optional filtering by sample id to remove decidua individuals (requires txt file with list of sample names to keep)
+#bcftools view -Oz -S only_yaupon.txt Ivom_plate1_filter.vcf.gz > Ivom_plate1_sppfilter.vcf.gz
