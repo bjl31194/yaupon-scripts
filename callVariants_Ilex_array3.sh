@@ -4,9 +4,9 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=64gb
+#SBATCH --mem=32gb
 #SBATCH --time=7-00:00:00
-#SBATCH --array=1-3
+#SBATCH --array=1-5
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -17,7 +17,8 @@ REGION=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/references/dr
 #cut -f1-2 I_vomitoria_GAF4_hap1_min50k.fa.fai > chrSize.txt
 #awk '$1 = $1 FS "1"' chrSize.txt > chrSize_start.txt
 #tr ' ' '\t' < chrSize_start.txt > chrSize_start_stop
-#split --numeric-suffixes=1 -n l/3 --additional-suffix='.txt' chrSize_start_stop contigs
+#sort --random-sort chrSize_start_stop > contigs_shuffled
+#split --numeric-suffixes=1 -n l/5 --additional-suffix='.txt' contigs_shuffled contigs
 
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 if [ ! -d $OUTDIR ]
