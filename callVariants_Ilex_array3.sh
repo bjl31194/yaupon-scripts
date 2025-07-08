@@ -7,7 +7,7 @@
 #SBATCH --mem=32gb
 #SBATCH --time=7-00:00:00
 #SBATCH --array=1-5
-#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-type=END,FAIL,ARRAY_TASKS
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 
@@ -42,5 +42,3 @@ samtools faidx $assembly
 # generate genotype likelihoods and call SNPs (no indels = -I option)
 bcftools mpileup -d 100 -I -a AD,DP,SP -Ou -f $assembly $DATADIR/*.sorted.bam -R $REGION | bcftools call --threads 8 -mv -Oz -o $OUTDIR/Ilex_plates1234_${SLURM_ARRAY_TASK_ID}.vcf.gz
 
-# test with 3 samples - looks good, took 2 hours to run tho
-#bcftools mpileup -a AD,DP,SP -Ou -f $assembly $DATADIR/25055FL-01-01-01_S56.Ivo.sorted.bam $DATADIR/25055FL-01-01-02_S57.Ivo.sorted.bam $DATADIR/25055FL-01-01-03_S58.Ivo.sorted.bam | bcftools call -f GQ,GP -mO z -o $OUTDIR/Ivom_plate1.vcf.gz
