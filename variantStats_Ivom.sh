@@ -3,7 +3,7 @@
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
+#SBATCH --cpus-per-task=16
 #SBATCH --mem=64gb
 #SBATCH --time=3-00:00:00
 #SBATCH --mail-type=END,FAIL
@@ -21,43 +21,49 @@ then
     mkdir -p $OUTDIR
 fi
 
-DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 
 # load modules
 ml BCFtools/1.18-GCC-12.3.0
-ml vcflib/1.0.9-gfbf-2024a-R-4.4.2
-ml VCFtools/0.1.16-GCC-13.3.0
+#ml vcflib/1.0.9-gfbf-2024a-R-4.4.2
+#ml VCFtools/0.1.16-GCC-13.3.0
 
 cd $DATADIR
 
-# randomly sample VCF (target ~200,000 variants)
-bcftools view Ivom_plate1.vcf.gz | vcfrandomsample -r 0.0025 > Ivom_plate1_subset.vcf
+# randomly sample VCF (target ~ variants)
+bcftools view Ilex_plates1234_merged.vcf.gz | vcfrandomsample -r 0.005 > Ilex_plates1234_subset.vcf
+
+#generate stats
+bcftools stats Ilex_plates1234_subset.vcf > Ilex_plates1234_subset.vchk
+
+#plot stats
+plot-vcfstats -p ./stats Ilex_plates1234_subset.vchk
 
 # compress vcf
-bgzip Ivom_plate1_subset.vcf
+#bgzip Ivom_plate1_subset.vcf
 # index vcf
-bcftools index Ivom_plate1_subset.vcf.gz
+#bcftools index Ivom_plate1_subset.vcf.gz
 
-SUBSET='/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_subset.vcf.gz'
+#SUBSET='/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_subset.vcf.gz'
 
 # calculate allele freqs
-vcftools --gzvcf $SUBSET --freq2 --out $OUTDIR --max-alleles 2
+#vcftools --gzvcf $SUBSET --freq2 --out $OUTDIR --max-alleles 2
 
 # mean depth of coverage
-vcftools --gzvcf $SUBSET --depth --out $OUTDIR
+#vcftools --gzvcf $SUBSET --depth --out $OUTDIR
 
 # mean depth per site
-vcftools --gzvcf $SUBSET --site-mean-depth --out $OUTDIR
+#vcftools --gzvcf $SUBSET --site-mean-depth --out $OUTDIR
 
 # per site qual scores
-vcftools --gzvcf $SUBSET --site-quality --out $OUTDIR
+#vcftools --gzvcf $SUBSET --site-quality --out $OUTDIR
 
 # missing data per sample
-vcftools --gzvcf $SUBSET --missing-indv --out $OUTDIR
+#vcftools --gzvcf $SUBSET --missing-indv --out $OUTDIR
 
 # missing data per site
-vcftools --gzvcf $SUBSET --missing-site --out $OUTDIR
+#vcftools --gzvcf $SUBSET --missing-site --out $OUTDIR
 
 # heterozygosity per sample
-vcftools --gzvcf $SUBSET --het --out $OUTDIR
+#vcftools --gzvcf $SUBSET --het --out $OUTDIR
 
