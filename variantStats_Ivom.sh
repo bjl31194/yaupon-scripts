@@ -25,8 +25,8 @@ DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 
 # load modules
 ml BCFtools/1.18-GCC-12.3.0
-#ml vcflib/1.0.9-gfbf-2024a-R-4.4.2
-#ml VCFtools/0.1.16-GCC-13.3.0
+ml vcflib/1.0.9-gfbf-2024a-R-4.4.2
+ml VCFtools/0.1.16-GCC-13.3.0
 
 cd $DATADIR
 
