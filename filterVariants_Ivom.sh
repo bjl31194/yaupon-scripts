@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=filterVariants_Ivom
+#SBATCH --job-name=filterVariants_Ivo
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -16,16 +16,16 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 
-VCF_IN="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1.vcf.gz"
-VCF_OUT="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_filter.vcf.gz"
+VCF_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_merged.vcf.gz"
+VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz"
 
 # set filters
-MAF=0.01 # median was 0.02, 1st quantile was 0.01. keeping this filter weak for now
-MISS=0.9 # mean was 0.95 (only missing 5%)
+MAF=0.05 # mean was 0.03, median 0.005
+MISS=0.9 # mean was 0.96 (only missing 4%)
 QUAL=30 # 0.01% error rate or lower
-MIN_DEPTH=8 # 1st quantile 7.63, mean was 9
+MIN_DEPTH=7 # 1st quantile 7.23, mean was 8.3
 MAX_DEPTH=25 # went with mean depth x 2 + a little extra judging from where most variants fell on histogram
 
 # load modules
