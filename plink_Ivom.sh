@@ -24,7 +24,7 @@ STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ivom384forStruc
 
 # load modules
 ml PLINK/2.0.0-a.6.9-gfbf-2023b
-#ml ADMIXTURE/1.3.0
+ml ADMIXTURE/1.3.0
 #ml Structure/2.3.4-GCC-11.3.0
 #ml structure_threader/1.3.10-foss-2022a
 # move to the proper directory
@@ -33,39 +33,39 @@ cd $DATADIR
 ## Run plink to get .bed file and PCA ##
 
 # identify prune sites
-plink --vcf $VCF --double-id --allow-extra-chr \
---set-missing-var-ids @:# \
---indep-pairwise 50 10 0.1 --out Ivom384
+#plink --vcf $VCF --double-id --allow-extra-chr \
+#--set-missing-var-ids @:# \
+#--indep-pairwise 50 10 0.1 --out Ivom384
 
 # linkage prune and create pca files
-plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
---extract Ivom384.prune.in \
---make-bed --pca --out Ivom384
+#plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+#--extract Ivom384.prune.in \
+#--make-bed --pca --out Ivom384
 
 # generate structure input file
-plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
+#plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
 
 ## run ADMIXTURE ##
 
 # generate input files
-#FILE=Ivom96
-#cd admixture
+FILE=Ivom384
+cd admixture
 
 # Generate the input file in plink format
-#plink --vcf $VCF --make-bed --out $FILE --allow-extra-chr
+plink --vcf $VCF --make-bed --out $FILE --allow-extra-chr
 
 # ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
-#awk '{$1="0";print $0}' $FILE.bim > $FILE.bim.tmp
-#mv $FILE.bim.tmp $FILE.bim
+awk '{$1="0";print $0}' $FILE.bim > $FILE.bim.tmp
+mv $FILE.bim.tmp $FILE.bim
 
 # running ADMIXTURE for clusters size 2-5
-#for i in {2..5}
-#do
-# admixture --cv $FILE.bed $i > log${i}.out
-#done
+for i in {2..5}
+do
+    admixture --cv $FILE.bed $i > log${i}.out
+done
 
 # yoink cross validation errors out of log files
-#awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
+awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
 
 ## other misc scripts ##
 
