@@ -18,9 +18,9 @@
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom_only_384_filtered.vcf.gz"
 
-STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex1234forStructure.recode.strct_in"
+STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ivom384forStructure.recode.strct_in"
 
 # load modules
 ml PLINK/2.0.0-a.6.9-gfbf-2023b
@@ -35,15 +35,15 @@ cd $DATADIR
 # identify prune sites
 plink --vcf $VCF --double-id --allow-extra-chr \
 --set-missing-var-ids @:# \
---indep-pairwise 50 10 0.1 --out Ilex1234
+--indep-pairwise 50 10 0.1 --out Ivom384
 
 # linkage prune and create pca files
 plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
---extract Ilex1234.prune.in \
---make-bed --pca --out Ilex1234
+--extract Ivom384.prune.in \
+--make-bed --pca --out Ivom384
 
 # generate structure input file
-plink --bfile Ilex1234 --allow-extra-chr --recode structure --out Ilex1234forStructure
+plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
 
 ## run ADMIXTURE ##
 
