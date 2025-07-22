@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ivo
+#SBATCH --job-name=strct_threader_Ivo
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=32gb
-#SBATCH --time=3-00:00:00
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=64gb
+#SBATCH --time=7-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
