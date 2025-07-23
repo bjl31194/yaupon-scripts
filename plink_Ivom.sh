@@ -52,7 +52,7 @@ cd $DATADIR
 FILE=Ilex384
 
 # Generate the input file in plink format
-plink --vcf $VCF --make-bed --out $FILE --allow-extra-chr
+plink --vcf $VCF --double-id --make-bed --out $FILE --allow-extra-chr
 
 # ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
 awk '{$1="0";print $0}' $FILE.bim > $FILE.bim.tmp
