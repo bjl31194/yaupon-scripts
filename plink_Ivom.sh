@@ -27,6 +27,7 @@ ml PLINK/2.0.0-a.6.9-gfbf-2023b
 ml ADMIXTURE/1.3.0
 #ml Structure/2.3.4-GCC-11.3.0
 #ml structure_threader/1.3.10-foss-2022a
+
 # move to the proper directory
 cd $DATADIR
 
@@ -49,7 +50,6 @@ cd $DATADIR
 
 # generate input files
 FILE=Ilex384
-cd admixture
 
 # Generate the input file in plink format
 plink --vcf $VCF --make-bed --out $FILE --allow-extra-chr
