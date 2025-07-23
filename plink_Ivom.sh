@@ -58,8 +58,8 @@ plink --vcf $VCF --double-id --make-bed --out $FILE --allow-extra-chr
 awk '{$1="0";print $0}' $FILE.bim > $FILE.bim.tmp
 mv $FILE.bim.tmp $FILE.bim
 
-# running ADMIXTURE for clusters size 2-5
-for i in {2..5}
+# running ADMIXTURE for clusters size 3-8
+for i in {3..8}
 do
     admixture --cv $FILE.bed $i > log${i}.out
 done
