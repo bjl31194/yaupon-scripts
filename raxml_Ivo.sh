@@ -15,9 +15,9 @@
 #bcftools view -Ou Ivom_plate1_filter.vcf.gz | bcftools reheader -s names_plate1.txt -o Ivom_plate1_filter_names.vcf.gz
 
 # set variables
-DATADIR="/scratch/bjl31194/yaupon/wgs/plate1/vcf"
-VCF="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_filter_names.vcf.gz"
-PHYLIP="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ivom_plate1_filter_names.min4.phy"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz"
+PHYLIP="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ilex384.min4.phy"
 
 # load modules
 ml RAxML-NG/1.2.0-GCC-12.3.0
@@ -30,4 +30,4 @@ cd $DATADIR
 python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $DATADIR
 
 # perform ML tree search and optimization
-raxml-ng --search1 --msa $PHYLIP --model GTR+G
+raxml-ng --bootstrap --bs-trees 100 --msa $PHYLIP --model GTR+G

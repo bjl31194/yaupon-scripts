@@ -7,11 +7,11 @@
 # Run Information: This script is run manually.
 
 ## SLURM PARAMETERS ##
-#SBATCH --job-name=blast_TCS1                       # Job name
+#SBATCH --job-name=blast_nepGS                       # Job name
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
 #SBATCH --cpus-per-task=4		                            # Number of cores per task
-#SBATCH --mem=24gb			                                # Total memory for job
+#SBATCH --mem=16gb			                                # Total memory for job
 #SBATCH --time=24:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out	                      # STDOUT
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error			                      # STDERR
