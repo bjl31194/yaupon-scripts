@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64gb
-#SBATCH --time=1-00:00:00
+#SBATCH --time=7-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -17,17 +17,17 @@
 # set variables
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz"
-PHYLIP="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ilex384.min4.phy"
+PHYLIP="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ilex_plates1234_filtered.min4.phy"
 
 # load modules
 ml RAxML-NG/1.2.0-GCC-12.3.0
-ml Python/3.12.3-GCCcore-13.3.0
+#ml Python/3.12.3-GCCcore-13.3.0
 
 # move to the vcf directory
 cd $DATADIR
 
 # build phylip matrix from vcf
-python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $DATADIR
+#python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $DATADIR
 
 # perform ML tree search and optimization
-raxml-ng --bootstrap --bs-trees 100 --msa $PHYLIP --model GTR+G
+raxml-ng --all --bs-trees 100 --msa $PHYLIP --model GTR+G
