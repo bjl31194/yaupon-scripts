@@ -17,7 +17,7 @@
 # set variables
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz"
-PHYLIP="/scratch/bjl31194/yaupon/wgs/plate1/vcf/Ilex_plates1234_filtered.min4.phy"
+PHYLIP="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.min4.phy"
 
 # load modules
 ml RAxML-NG/1.2.0-GCC-12.3.0
