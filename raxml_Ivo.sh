@@ -20,7 +20,7 @@ VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz
 PHYLIP="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.min4.phy"
 
 # load modules
-ml RAxML-NG/1.2.0-GCC-12.3.0
+ml RAxML-NG/1.2.2-GCC-13.2.0
 #ml Python/3.12.3-GCCcore-13.3.0
 
 # move to the vcf directory

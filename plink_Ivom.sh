@@ -25,8 +25,8 @@ STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex1234forStru
 # load modules
 #ml PLINK/2.0.0-a.6.9-gfbf-2023b
 #ml ADMIXTURE/1.3.0
-ml Structure/2.3.4-GCC-11.3.0
-ml structure_threader/1.3.10-foss-2022a
+ml Structure/2.3.4-GCC-12.3.0
+ml Structure_threader/1.3.10-foss-2023a
 
 # move to the proper directory
 cd $DATADIR
