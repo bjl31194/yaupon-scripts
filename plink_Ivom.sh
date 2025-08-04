@@ -69,7 +69,7 @@ cd $DATADIR
 
 ## STRUCTURE - for running on cluster ##
 
-structure_threader run -K 5 -R 4 -i $STRUCT_IN -o $DATADIR -t 32 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-11.3.0/bin/structure
+structure_threader run -K 5 -R 4 -i $STRUCT_IN -o $DATADIR -t 32 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
 
 ## other misc scripts ##
 
