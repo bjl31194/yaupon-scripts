@@ -23,7 +23,7 @@ VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
 
 # load modules
-ml PLINK/2.0.0-a.6.9-gfbf-2023b
+ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
 ml Structure/2.3.4-GCC-12.3.0
 ml Structure_threader/1.3.10-foss-2023a
