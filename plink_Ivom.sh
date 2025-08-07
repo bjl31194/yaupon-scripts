@@ -69,10 +69,11 @@ cd $DATADIR
 
 ## STRUCTURE - for running on cluster ##
 
-structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
 structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile.csv
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
 # use Q matrix files from ADMIXTURE output
 #pong -m pong_filemap.txt -i ind2pop.txt
+#structure_threader run -Klist 2 3 4 5 6 -R 3 -i Ivom384forStructure.recode.strct_in -o . -t 16 --params mainparams_Ivom384 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
