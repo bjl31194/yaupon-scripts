@@ -16,14 +16,14 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure"
 
 VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz"
 
-STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom384forStructure.recode.strct_in"
+STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ivom384forStructure.recode.strct_in"
 
 # load modules
-ml PLINK/2.0.0-a.6.20-gfbf-2024a
+#ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
 ml Structure/2.3.4-GCC-12.3.0
 ml Structure_threader/1.3.10-foss-2023a
@@ -44,7 +44,7 @@ cd $DATADIR
 #--make-bed --pca --out Ivom384
 
 # generate structure input file
-plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
+#plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
 
 ## run ADMIXTURE ##
 
@@ -68,8 +68,8 @@ plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStruc
 #awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
 
 ## STRUCTURE - for running on cluster ##
-cd structure
-structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o . -t 16 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+
+structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
 structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile.csv
 ## other misc scripts ##
 
