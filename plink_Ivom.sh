@@ -23,7 +23,7 @@ VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ivom384forStructure.recode.strct_in"
 
 # load modules
-#ml PLINK/2.0.0-a.6.20-gfbf-2024a
+ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
 ml Structure/2.3.4-GCC-12.3.0
 ml Structure_threader/1.3.10-foss-2023a
@@ -34,17 +34,17 @@ cd $DATADIR
 ## Run plink to get .bed file and PCA ##
 
 # identify prune sites
-#plink --vcf $VCF --double-id --allow-extra-chr \
-#--set-missing-var-ids @:# \
-#--indep-pairwise 50 10 0.1 --out Ivom384
+plink --vcf $VCF --double-id --allow-extra-chr \
+--set-missing-var-ids @:# \
+--indep-pairwise 50 10 0.1 --out Ivom384
 
 # linkage prune and create pca files
-#plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
-#--extract Ivom384.prune.in \
-#--make-bed --pca --out Ivom384
+plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+--extract Ivom384.prune.in \
+--make-bed --pca --out Ivom384
 
 # generate structure input file
-#plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
+plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
 
 ## run ADMIXTURE ##
 
