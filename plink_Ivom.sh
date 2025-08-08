@@ -69,8 +69,8 @@ cd $DATADIR
 
 ## STRUCTURE - for running on cluster ##
 
-structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile.csv
+#structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
