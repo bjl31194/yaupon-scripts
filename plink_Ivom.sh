@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=strct_th_Ilex
+#SBATCH --job-name=strct_th_Ivom
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -23,7 +23,7 @@ VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_plates1234_filtered.vcf.gz
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ivom384forStructure.recode.strct_in"
 
 # load modules
-ml PLINK/2.0.0-a.6.20-gfbf-2024a
+#ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
 ml Structure/2.3.4-GCC-12.3.0
 ml Structure_threader/1.3.10-foss-2023a
@@ -34,17 +34,17 @@ cd $DATADIR
 ## Run plink to get .bed file and PCA ##
 
 # identify prune sites
-plink --vcf $VCF --double-id --allow-extra-chr \
---set-missing-var-ids @:# \
---indep-pairwise 50 10 0.1 --out Ivom384
+#plink --vcf $VCF --double-id --allow-extra-chr \
+#--set-missing-var-ids @:# \
+#--indep-pairwise 50 10 0.1 --out Ivom384
 
 # linkage prune and create pca files
-plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
---extract Ivom384.prune.in \
---make-bed --pca --out Ivom384
+#plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+#--extract Ivom384.prune.in \
+#--make-bed --pca --out Ivom384
 
 # generate structure input file
-plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
+#plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
 
 ## run ADMIXTURE ##
 
@@ -69,11 +69,13 @@ plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStruc
 
 ## STRUCTURE - for running on cluster ##
 
-#structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384
+structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile_Ivom384names -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384names
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
 # use Q matrix files from ADMIXTURE output
 #pong -m pong_filemap.txt -i ind2pop.txt
 #structure_threader run -Klist 2 3 4 5 6 -R 3 -i Ivom384forStructure.recode.strct_in -o . -t 16 --params mainparams_Ivom384 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+
+# structure mainparams:  onerowperind TRUE; label TRUE; popdata, popflag FALSE; locdata FALSE; phenotype FALSE; extracols 1; markernames, mapdistances TRUE
