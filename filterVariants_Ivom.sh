@@ -46,5 +46,5 @@ $VCF_OUT
 #bcftools view -Oz -S only_yaupon.txt Ivom_plate1_filter.vcf.gz > Ivom_plate1_sppfilter.vcf.gz
 
 # rename samples in vcf header
-bcftools reheader --samples ./namechange_Ivom384.txt Ivom_only_384_filtered.vcf.gz -o Ivom_only_384_filtered_names.vcf.gz
+#bcftools reheader --samples ./namechange_Ilex384.txt -o Ilex384_filtered_names.vcf.gz
 

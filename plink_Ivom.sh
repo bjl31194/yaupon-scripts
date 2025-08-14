@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=strct_thr_Ivom
+#SBATCH --job-name=plink_Ilex_names
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -18,15 +18,15 @@
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom_only_384_filtered_names.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex384_filtered_names.vcf.gz"
 
-STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ivom384forStructure.recode.strct_in"
+STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
 
 # load modules
-#ml PLINK/2.0.0-a.6.20-gfbf-2024a
+ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
-ml Structure/2.3.4-GCC-12.3.0
-ml Structure_threader/1.3.10-foss-2023a
+#ml Structure/2.3.4-GCC-12.3.0
+#ml Structure_threader/1.3.10-foss-2023a
 
 # move to the proper directory
 cd $DATADIR
@@ -34,17 +34,17 @@ cd $DATADIR
 ## Run plink to get .bed file and PCA ##
 
 # identify prune sites
-#plink --vcf $VCF --double-id --allow-extra-chr \
-#--set-missing-var-ids @:# \
-#--indep-pairwise 50 10 0.1 --out Ivom384
+plink --vcf $VCF --double-id --allow-extra-chr \
+--set-missing-var-ids @:# \
+--indep-pairwise 50 10 0.1 --out Ilex384
 
 # linkage prune and create pca files
-#plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
-#--extract Ivom384.prune.in \
-#--make-bed --pca --out Ivom384
+plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+--extract Ilex384.prune.in \
+--make-bed --pca --out Ilex384
 
 # generate structure input file
-#plink --bfile Ivom384 --allow-extra-chr --recode structure --out Ivom384forStructure
+plink --bfile Ilex384 --allow-extra-chr --recode structure --out Ilex384forStructure
 
 ## run ADMIXTURE ##
 
@@ -70,7 +70,7 @@ cd $DATADIR
 ## STRUCTURE - for running on cluster ##
 
 #structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile_Ivom384names -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384names
+#structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384names
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
