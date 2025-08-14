@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ivom_names
+#SBATCH --job-name=strct_thr_Ivom
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -69,13 +69,14 @@ cd $DATADIR
 
 ## STRUCTURE - for running on cluster ##
 
-structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile_Ivom384names -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+#structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile_Ivom384names -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
 structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384names
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
 # use Q matrix files from ADMIXTURE output
 #pong -m pong_filemap.txt -i ind2pop.txt
+#pong -m pong_filemap_Ilex384.txt -i ind2pop_Ilex384.txt
 #structure_threader run -Klist 2 3 4 5 6 -R 3 -i Ivom384forStructure.recode.strct_in -o . -t 16 --params mainparams_Ivom384 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
 
 # structure mainparams:  onerowperind TRUE; label TRUE; popdata, popflag FALSE; locdata FALSE; phenotype FALSE; extracols 1; markernames, mapdistances TRUE
