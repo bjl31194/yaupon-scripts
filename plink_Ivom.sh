@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ilex_names
+#SBATCH --job-name=plink_Ivom_LD
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -18,7 +18,7 @@
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex384_filtered_names.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom_only_384_filtered_names.vcf.gz"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
 
@@ -31,20 +31,31 @@ ml PLINK/2.0.0-a.6.20-gfbf-2024a
 # move to the proper directory
 cd $DATADIR
 
+## Estimating LD with plink
+
+plink --vcf $VCF --double-id --allow-extra-chr \
+--set-missing-var-ids @:# \
+--maf 0.01 --geno 0.1 --mind 0.5 \
+--thin 0.01 -r2 gz --ld-window 100 --ld-window-kb 1000 \
+--ld-window-r2 0 \
+--out Ivom384
+
 ## Run plink to get .bed file and PCA ##
 
 # identify prune sites
-plink --vcf $VCF --double-id --allow-extra-chr \
---set-missing-var-ids @:# \
---indep-pairwise 50 10 0.1 --out Ilex384
+# plink --vcf $VCF --double-id --allow-extra-chr \
+# --set-missing-var-ids @:# \
+# --indep-pairwise 50 10 0.1 --out Ilex384
 
-# linkage prune and create pca files
-plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
---extract Ilex384.prune.in \
---make-bed --pca --out Ilex384
+# # linkage prune and create pca files
+# plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+# --extract Ilex384.prune.in \
+# --make-bed --pca --out Ilex384
 
-# generate structure input file
-plink --bfile Ilex384 --allow-extra-chr --recode structure --out Ilex384forStructure
+# # generate structure input file
+# plink --bfile Ilex384 --allow-extra-chr --recode structure --out Ilex384forStructure
+# # generate  "0,1,2" coded genotype matrix
+# plink --bfile Ilex384 --allow-extra-chr --recode A --out Ilex384forRDA
 
 ## run ADMIXTURE ##
 
