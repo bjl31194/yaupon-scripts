@@ -1,0 +1,118 @@
+#!/bin/bash
+#SBATCH --job-name=calc_Fst
+#SBATCH --partition=batch
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=32gb
+#SBATCH --time=7-00:00
+#SBATCH --mail-type=END,FAIL
+#SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
+#SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
+
+# set parameters
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
+
+VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom_only_384_filtered_names.vcf.gz"
+
+# load modules
+ml VCFtools/0.1.16-GCC-13.3.0
+ml BCFtools/1.21-GCC-13.3.0
+
+# move to the proper directory
+cd $DATADIR
+
+# extract sample names to make pop files
+bcftools query -l $VCF | grep "TX-HV" > Huntsville
+bcftools query -l $VCF | grep "TX-TC" > TurkeyCreek
+bcftools query -l $VCF | grep "LB" > LadyBird
+bcftools query -l $VCF | grep "AR24" > MCIL-AR
+bcftools query -l $VCF | grep "IV" > MCIL
+bcftools query -l $VCF | grep "LA" > LSU
+bcftools query -l $VCF | grep "FL-TH" > Topsail
+bcftools query -l $VCF | grep "SJ" > StJoseph
+bcftools query -l $VCF | grep -e "TY" -e "BW" > Torreya
+bcftools query -l $VCF | grep "WS" > Wakulla
+bcftools query -l $VCF | grep "EC" > Econfina
+bcftools query -l $VCF | grep "GL" > Saucier
+bcftools query -l $VCF | grep "KO" > Hattiesburg
+bcftools query -l $VCF | grep "JK" > Jekyll
+bcftools query -l $VCF | grep "CR" > CrookedRiver
+bcftools query -l $VCF | grep "SP" > Sapelo
+bcftools query -l $VCF | grep "SK" > Skidaway
+bcftools query -l $VCF | grep "DP" > DukesPond
+bcftools query -l $VCF | grep "GU" > GulfSP
+bcftools query -l $VCF | grep "MH" > Meaher
+bcftools query -l $VCF | grep "FJ" > FrankJackson
+bcftools query -l $VCF | grep "PG" > PaulGrist
+bcftools query -l $VCF | grep "CW" > Chewacla
+bcftools query -l $VCF | grep "HI" > HuntingIs
+bcftools query -l $VCF | grep "ED" > EdistoIs
+bcftools query -l $VCF | grep "FB" > Folly
+bcftools query -l $VCF | grep "HT" > Huntington
+bcftools query -l $VCF | grep "MY" > Myrtle
+bcftools query -l $VCF | grep "ID" > IngramDunes
+bcftools query -l $VCF | grep "SQ" > Sesquicentennial
+bcftools query -l $VCF | grep "BD" > BirdIs
+bcftools query -l $VCF | grep "FL-7" > Citrus
+bcftools query -l $VCF | grep "FL-6" > Annutteliga
+bcftools query -l $VCF | grep "FL-5" > LoriWilson
+bcftools query -l $VCF | grep "FL-4" > EnchantedForest
+bcftools query -l $VCF | grep "FL-3" > LittleBigEcon
+bcftools query -l $VCF | grep "FL-2" > Matanzas
+bcftools query -l $VCF | grep "FL-1" > FourCreeks
+bcftools query -l $VCF | grep "NC-3" > KittyHawk
+bcftools query -l $VCF | grep "NC-2" > Buxton
+bcftools query -l $VCF | grep "NC-1" > Currituck
+bcftools query -l $VCF | grep "VA-2" > FirstLanding
+bcftools query -l $VCF | grep "VA-1" > Kiptopeke
+bcftools query -l $VCF | grep "AR-3" > Cossatot 
+bcftools query -l $VCF | grep "AR-1" > NeedlesEyeMtn
+
+vcftools --gzvcf ${VCF} \
+--weir-fst-pop Huntsville \
+--weir-fst-pop TurkeyCreek \
+--weir-fst-pop LadyBird \
+--weir-fst-pop MCIL-AR \
+--weir-fst-pop MCIL \
+--weir-fst-pop LSU \
+--weir-fst-pop Topsail \
+--weir-fst-pop StJoseph \
+--weir-fst-pop Torreya \
+--weir-fst-pop Wakulla \
+--weir-fst-pop Econfina \
+--weir-fst-pop Saucier \
+--weir-fst-pop Hattiesburg \
+--weir-fst-pop Jekyll \
+--weir-fst-pop CrookedRiver \
+--weir-fst-pop Sapelo \
+--weir-fst-pop Skidaway \
+--weir-fst-pop DukesPond \
+--weir-fst-pop GulfSP \
+--weir-fst-pop Meaher \
+--weir-fst-pop FrankJackson \
+--weir-fst-pop PaulGrist \
+--weir-fst-pop Chewacla \
+--weir-fst-pop HuntingIs \
+--weir-fst-pop EdistoIs \
+--weir-fst-pop Folly \
+--weir-fst-pop Huntington \
+--weir-fst-pop Myrtle \
+--weir-fst-pop IngramDunes \
+--weir-fst-pop Sesquicentennial \
+--weir-fst-pop BirdIs \
+--weir-fst-pop Citrus \
+--weir-fst-pop Annutteliga \
+--weir-fst-pop LoriWilson \
+--weir-fst-pop EnchantedForest \
+--weir-fst-pop LittleBigEcon \
+--weir-fst-pop Matanzas \
+--weir-fst-pop FourCreeks \
+--weir-fst-pop KittyHawk \
+--weir-fst-pop Buxton \
+--weir-fst-pop Currituck \
+--weir-fst-pop FirstLanding \
+--weir-fst-pop Kiptopeke \
+--weir-fst-pop Cossatot  \
+--weir-fst-pop NeedlesEyeMtn \
+--out Ivom384allsites
