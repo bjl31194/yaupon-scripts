@@ -310,6 +310,8 @@ RDAfull <- rda(gen_imp_by_group ~ lat+lon+ele+wc2.1_2.5m_bio_1+wc2.1_2.5m_bio_2+
 # Stepwise model building with ordiR2step
 var_selection <- ordiR2step(RDA0, RDAfull, Pin = 0.01, R2permutations = 1000, R2scope = T)
 
+new_list <- 
+
 #examine correlation between predictors
 pairs.panels(env[,9:29], scale=TRUE)
 
@@ -452,3 +454,29 @@ points(Ivom384.rda, display="species", pch=21, cex=1, col="gray32", bg=col.pred,
 points(Ivom384.rda, display="species", pch=21, cex=1, col=empty.outline, bg=empty, scaling=3, choices=c(1,3))
 text(Ivom384.rda, scaling=3, display="bp", col="#0868ac", cex=1, choices=c(1,3))
 legend("bottomright", legend=c("ele","MAXWM","MINCM","PDM","SAL","COAST"), bty="n", col="gray32", pch=21, cex=1, pt.bg=bg)
+
+## LD decay plotting script
+
+rm(list = ls())
+install.packages("tidyverse")
+library(tidyverse)
+
+# set path
+my_bins <- "./Ivom384_full.ld_decay_bins"
+
+# read in data
+ld_bins <- read_tsv(my_bins)
+
+# plot LD decay
+ggplot(ld_bins, aes(distance, avg_R2)) + geom_line() +
+  xlab("Distance (bp)") + ylab(expression(italic(r)^2))
+
+
+
+
+
+
+
+
+
+

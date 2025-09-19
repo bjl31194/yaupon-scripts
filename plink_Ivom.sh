@@ -35,10 +35,10 @@ cd $DATADIR
 
 plink --vcf $VCF --double-id --allow-extra-chr \
 --set-missing-var-ids @:# \
---maf 0.01 --geno 0.1 --mind 0.5 \
+--maf 0.01 --geno 0.1 --mind 0.5 --chr h1tg000051l \
 -r2 gz --ld-window 100 --ld-window-kb 3000 \
 --ld-window-r2 0 \
---out Ivom384
+--out Ivom384chr
 
 ## Run plink to get .bed file and PCA ##
 
