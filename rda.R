@@ -9,6 +9,10 @@ install.packages("mapmixture")
 install.packages("gridExtra")
 install.packages("devtools")
 install.packages("rnaturalearthhires")
+install.packages("RColorBrewer")
+install.packages("maps")
+install.packages("mapplots")
+library(RColorBrewer)
 library(mapmixture)
 library(geodata)
 library(raster)
@@ -26,6 +30,8 @@ library(gridExtra)
 library(ggplot2)
 library(devtools)
 library(rnaturalearthhires)
+library(maps)
+library(mapplots)
 ## plot structure results onto map
 
 # Create admixture file format 2
@@ -67,17 +73,18 @@ coord_example <- read.csv(file2)
 
 coordinates <- coordinates[-4]
 # Run mapmixture
-map1 <- mapmixture(admixture1, coordinates, crs = 3035)
+map1 <- mapmixture(admixture_offset, coordinates1, crs = 3035)
 map1
 
 # Run mapmixture (chad version, by mean membership per pop)
+target <- c("United States of America","mexico")
 map2 <- mapmixture(
   admixture_df = admixture1,
   coords_df = coordinates,
-  cluster_cols = c("#ff7f00","#1f78b4","#4c417a","#06592A"),
+  cluster_cols = brewer.pal(4, "Set1"),
   cluster_names = c("Cluster1","Cluster2","Cluster3","Cluster4"),
   crs = 4326,
-  boundary = c(xmin=-100, xmax=-72, ymin=26, ymax=38),
+  boundary = c(xmin=-98, xmax=-73, ymin=26, ymax=37),
   #boundary = c(xmin=-90, xmax=-75, ymin=25, ymax=35),
   pie_size = 0.5,
   pie_border = 0.1,
@@ -85,7 +92,7 @@ map2 <- mapmixture(
   pie_opacity = 0.75,
   land_colour = "#d9d9d9",
   sea_colour = "#deebf7",
-  basemap = rnaturalearthdata::states50,
+  basemap = rnaturalearth::ne_states(country=c("United States of America","mexico")),
   expand = TRUE,
   arrow = TRUE,
   arrow_size = 1.5,
@@ -106,7 +113,6 @@ coordinates2 <- coordinates1 %>%
   mutate(Lat1 = 28.5, Lon1 = -83.5)
 coordinates1[1,3] <- -83.8
 coordinates1[1,2] <- 28.4
-
 
 admixture_offset <- admixture1[admixture1$Site == "FL-7" ,]
 
@@ -131,7 +137,36 @@ map2 +
     legend.title = element_blank(),
   )
 
+# plot by snp
+plot_snp <- function(locus) {
+  locus <- substr(locus,1,nchar(locus)-2)
+  popfreqs <- as.data.frame(pop_freqs)
+  snpfreqs <- select(popfreqs, contains(locus))
+  snpfreqs <- rownames_to_column(snpfreqs, "site") 
+  snpfreqs <- snpfreqs %>% arrange(site) %>%
+    mutate(lat = arrange(coordinates, Site)$Lat) %>%
+    mutate(lon = arrange(coordinates, Site)$Lon)
+  par(fg = "black")
+  map("state", col = "grey85", fill = TRUE, border = FALSE, xlim=c(-100,-70), ylim=c(25,42))
+  map.axes()
+  for (i in 1:nrow(snpfreqs)){
+    if (snpfreqs[i,2] + snpfreqs[i,3] != 0) {
+      add.pie(z = c(snpfreqs[i,2], snpfreqs[i,3]), 
+            x = snpfreqs$lon[i], 
+            y = snpfreqs$lat[i], 
+            radius = 0.5, col = c("blue","orange"), labels = "") 
+    }
+  }
+}
 
+cand_by_loading <- cand %>%
+  arrange(loading)
+
+plot_snp(cand_by_loading$snp[1])
+
+for (candidate in range) {
+  plot_snp(cand_by_loading$snp[candidate])
+}
 
 # Run mapmixture (chad version, by individual)
 map2 <- mapmixture(
@@ -225,6 +260,7 @@ grid.arrange(map5, structure_barplot, nrow = 2, heights = c(4,1))
 ### RDA ###
 
 #import genetic data
+setwd("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1234")
 
 gen <- as(Ivom384, "matrix")
 sum(is.na(gen))
@@ -232,10 +268,8 @@ dim(gen)
 
 gen[gen == 0] <- NA
 
-sum(is.na(gen.imp)) # No NAs
-
 # add pop cluster data
-pops <- read.table("K4_str_clusters_Ivom", header = TRUE)
+pops <- read.table("K4_str_clusters_Ivom.txt", header = TRUE)
 
 clusters <- pops[,5:8]
 
@@ -244,18 +278,20 @@ colnames(pops)[4] <- "clust"
 
 gen.imp <- as.data.frame(gen)
 
-gen.imp <- add_column(gen.imp, pops[, 4], .before = 1)
-colnames(gen.imp)[1] <- "pop"
 
+
+sum(is.na(gen.imp))
 # remove markers with >20% missing data
 na_pop <- apply(gen.imp[,-1], 2, function(x) sum(is.na(x)))
 gen.imp <- gen.imp[,(which(na_pop<73)+1)]
 print(paste0(length(gen.imp)-1," variants left after filtering"))
 
 # impute missing genotypes based on median of subpopulation cluster
+gen.imp <- add_column(gen.imp, pops[, 4], .before = 1)
+colnames(gen.imp)[1] <- "pop"
 gen_imp_by_group <- gen.imp %>% 
-  group_by(pop) %>%
-  mutate(across(where(is.numeric), ~ coalesce(., median(., na.rm=TRUE)))) %>%
+  dplyr::group_by(pop) %>%
+  dplyr::mutate(across(dplyr::where(is.numeric), ~ coalesce(., median(., na.rm=TRUE)))) %>%
   ungroup()
 
 gen_imp_by_group$pop <- NULL
@@ -310,7 +346,7 @@ RDAfull <- rda(gen_imp_by_group ~ lat+lon+ele+wc2.1_2.5m_bio_1+wc2.1_2.5m_bio_2+
 # Stepwise model building with ordiR2step
 var_selection <- ordiR2step(RDA0, RDAfull, Pin = 0.01, R2permutations = 1000, R2scope = T)
 
-new_list <- 
+
 
 #examine correlation between predictors
 pairs.panels(env[,9:29], scale=TRUE)
@@ -455,27 +491,47 @@ points(Ivom384.rda, display="species", pch=21, cex=1, col=empty.outline, bg=empt
 text(Ivom384.rda, scaling=3, display="bp", col="#0868ac", cex=1, choices=c(1,3))
 legend("bottomright", legend=c("ele","MAXWM","MINCM","PDM","SAL","COAST"), bty="n", col="gray32", pch=21, cex=1, pt.bg=bg)
 
-## LD decay plotting script
+## LD decay plotting script 
 
 rm(list = ls())
 install.packages("tidyverse")
 library(tidyverse)
 
 # set path
-my_bins <- "./Ivom384_full.ld_decay_bins"
+my_bins <- "./Ivom384chr.ld_decay_bins"
 
 # read in data
 ld_bins <- read_tsv(my_bins)
 
 # plot LD decay
-ggplot(ld_bins, aes(distance, avg_R2)) + geom_line() +
+ggplot(ld_bins, aes(distance, avg_R2)) + geom_point() +
   xlab("Distance (bp)") + ylab(expression(italic(r)^2))
 
+popquery <- read_delim("popquery", delim=">", col_names=F)
+popcommand <- popquery %>% mutate(paste0("--weir-fst-pop", popquery$X2, " \\"))
+colnames(popcommand) <- c("X1","X2","X3")
+command <- popcommand %>% dplyr::select(X3)
+write_tsv(command, "commands") 
 
+#import Fst data
+fst <- read_tsv("Ivom384allsites.weir.fst")
 
+# capdown the headers
+names(fst) <- tolower(names(fst))
+colnames(fst)[3] <- "fst"
 
+ggplot(fst, aes(pos, fst)) + geom_point()
 
+# identify the 95% and 99% percentile
+quantile(fst$fst, c(0.975, 0.995), na.rm = T)
+# identify the 95% percentile
+my_threshold <- quantile(fst$fst, 0.975, na.rm = T)
+# make an outlier column in the data.frame
+fst <- fst %>% mutate(outlier = ifelse(fst > my_threshold, "outlier", "background"))
+fst %>% group_by(outlier) %>% tally()
+ggplot(fst, aes(pos, fst, colour = outlier)) + geom_point()
 
+ggplot(fst,aes(fst)) + geom_histogram()
 
 
 

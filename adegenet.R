@@ -10,12 +10,42 @@ library("hierfstat")
 
 setwd("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1234")
 
-Ivom384 <- read.structure("Ivom384forStructureRecode.STR") #366 gts, 36567 markers, 
+Ivom384 <- read.structure("Ivom384forStructureRecode.STR", 
+                          n.ind=366,
+                          n.loc=36567, 
+                          onerowperind=TRUE,
+                          col.lab=1,
+                          col.pop=0,
+                          row.marknames=1,
+                          NA.char = "0",) #366 gts, 36567 markers 
+
 summary(Ivom384)
 
-df <- read.table("ind2pop.txt")
+ind2pop <- read.table("ind2pop.txt")
+pop_clust <- read.table("pop_clust.txt")
+sites <- read.table("sites_Ivom384.txt")
+#attach pop info
+Ivom384@pop <- as.factor(sites$V1)
+Ivom384pop <- genind2genpop(Ivom384)
 
-Ivom384@pop <- as.factor(df$V1)
+#calc population allele freqs
+pop_freqs <- makefreq(Ivom384pop)
+#calc Fst
+fst_data <- genind2hierfstat(Ivom384) 
+#Nei's (1987) Fst
+basic.stats(Ivom384)
+wc(Ivom384)
+#pairwise Fst
+pairwiseFst <- genet.dist(Ivom384, method = "WC84")
+
+# using Kmeans and DAPC in adegenet 
+set.seed(29475018) # Setting a seed for a consistent result
+clust <- find.clusters(Ivom384, max.n.clust = 10) 
+names(grp)
+dapc1 <- dapc(Ivom384, clust$grp) 
+scatter(dapc1) # plot of the group
+biplot(dapc1)
+
 Ivom384.hwt <- hw.test(Ivom384, B=0)
 Ivom384.hwt
 
