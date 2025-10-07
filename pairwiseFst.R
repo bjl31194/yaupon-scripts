@@ -1,5 +1,5 @@
-library("adegenet")
-library("hierfstat")
+library(adegenet)
+library(hierfstat)
 
 setwd("/scratch/bjl31194/yaupon/wgs/plates1234/vcf")
 
