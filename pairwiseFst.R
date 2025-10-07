@@ -1,6 +1,3 @@
-install.packages("adegenet", dep=TRUE)
-library(devtools)
-install_github("jgx65/hierfstat")
 library("adegenet")
 library("hierfstat")
 
