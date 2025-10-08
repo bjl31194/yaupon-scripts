@@ -10,7 +10,8 @@ Ivom384 <- read.structure("Ivom384forStructureRecode.STR",
                           col.lab=1,
                           col.pop=0,
                           row.marknames=1,
-                          NA.char = "0",) #366 gts, 36567 markers 
+                          NA.char = "0",
+                          ask = FALSE) #366 gts, 36567 markers 
 sites <- read.table("sites_Ivom384.txt")
 
 Ivom384@pop <- as.factor(sites$V1)
