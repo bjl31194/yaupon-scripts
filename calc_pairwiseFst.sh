@@ -17,11 +17,11 @@ ml R/4.4.2-gfbf-2024a
 
 cd $DATADIR
 
-R CMD INSTALL --library=/home/bjl31194/Rlibs adegenet_2.1.11.tar.gz
-R CMD INSTALL --library=/home/bjl31194/Rlibs RcppEigen_0.3.4.0.2.tar.gz
-R CMD INSTALL --library=/home/bjl31194/Rlibs RcppParallel_5.1.11-1.tar.gz
-R CMD INSTALL --library=/home/bjl31194/Rlibs gtools_3.9.5.tar.gz
-R CMD INSTALL --library=/home/bjl31194/Rlibs gaston_1.6.tar.gz
-R CMD INSTALL --library=/home/bjl31194/Rlibs hierfstat_0.5-11.tar.gz
+#R CMD INSTALL --library=/home/bjl31194/Rlibs adegenet_2.1.11.tar.gz
+#R CMD INSTALL --library=/home/bjl31194/Rlibs RcppEigen_0.3.4.0.2.tar.gz
+#R CMD INSTALL --library=/home/bjl31194/Rlibs RcppParallel_5.1.11-1.tar.gz
+#R CMD INSTALL --library=/home/bjl31194/Rlibs gtools_3.9.5.tar.gz
+#R CMD INSTALL --library=/home/bjl31194/Rlibs gaston_1.6.tar.gz
+#R CMD INSTALL --library=/home/bjl31194/Rlibs hierfstat_0.5-11.tar.gz
 
 R CMD BATCH $SCRIPTS/pairwiseFst.R
