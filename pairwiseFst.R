@@ -19,4 +19,6 @@ Ivom384@pop <- as.factor(sites$V1)
 #pairwise Fst
 pairwiseFst <- genet.dist(Ivom384, method = "WC84")
 
-write.csv(pairwiseFst, "./pairwiseFst_Ivom384.csv")
+pairwiseFst_matrix <- as.matrix(pairwiseFst)
+
+write.csv(pairwiseFst_matrix, "./pairwiseFst_Ivom384.csv")

@@ -25,3 +25,4 @@ cd $DATADIR
 #R CMD INSTALL --library=/home/bjl31194/Rlibs hierfstat_0.5-11.tar.gz
 
 R CMD BATCH $SCRIPTS/pairwiseFst.R
+
