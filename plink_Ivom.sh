@@ -49,7 +49,7 @@ cd $DATADIR
 
 # # linkage prune and create pca files
 plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
---extract Ilex384.prune.in \
+--extract Ivom384.prune.in \
 --make-bed --pca var-wts --out Ivom384
 
 # # generate structure input file
