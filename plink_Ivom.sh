@@ -16,7 +16,7 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 
 VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom_only_384_filtered_names.vcf.gz"
 
@@ -33,12 +33,12 @@ cd $DATADIR
 
 ## Estimating LD with plink
 
-plink --vcf $VCF --double-id --allow-extra-chr \
---set-missing-var-ids @:# \
---maf 0.01 --geno 0.1 --mind 0.5 --chr h1tg000051l \
--r2 gz --ld-window 100 --ld-window-kb 3000 \
---ld-window-r2 0 \
---out Ivom384chr
+# plink --vcf $VCF --double-id --allow-extra-chr \
+# --set-missing-var-ids @:# \
+# --maf 0.01 --geno 0.1 --mind 0.5 --chr h1tg000051l \
+# -r2 gz --ld-window 100 --ld-window-kb 3000 \
+# --ld-window-r2 0 \
+# --out Ivom384chr
 
 ## Run plink to get .bed file and PCA ##
 
@@ -48,9 +48,9 @@ plink --vcf $VCF --double-id --allow-extra-chr \
 # --indep-pairwise 50 10 0.1 --out Ilex384
 
 # # linkage prune and create pca files
-# plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
-# --extract Ilex384.prune.in \
-# --make-bed --pca --out Ilex384
+plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+--extract Ilex384.prune.in \
+--make-bed --pca var-wts --out Ivom384
 
 # # generate structure input file
 # plink --bfile Ilex384 --allow-extra-chr --recode structure --out Ilex384forStructure
@@ -81,7 +81,7 @@ plink --vcf $VCF --double-id --allow-extra-chr \
 ## STRUCTURE - for running on cluster ##
 
 #structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile_Ivom384names -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-#structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384names
+#structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
