@@ -32,6 +32,14 @@ library(devtools)
 library(rnaturalearthhires)
 library(maps)
 library(mapplots)
+
+Americas <- ne_countries(scale = 50, continent = c("North America","South America"))
+medium_scale_map <- ggplot() +
+  geom_sf(data = Americas) +
+  coord_sf(xlim = c(-140, -25), ylim = c(-40, 40))
+medium_scale_map
+
+
 ## plot structure results onto map
 
 # Create admixture file format 2
@@ -72,6 +80,12 @@ coordinates <- read.csv("coordinates_Ivom384.csv")
 coord_example <- read.csv(file2)
 
 coordinates <- coordinates[-4]
+
+#filter out sites
+sites_to_remove <- c("MCIL","FL-7")
+coordinates <- coordinates[!(coordinates$Site %in% sites_to_remove), ]
+admixture1 <- admixture1[!(admixture1$Site %in% sites_to_remove), ]
+
 # Run mapmixture
 map1 <- mapmixture(admixture_offset, coordinates1, crs = 3035)
 map1
@@ -87,9 +101,9 @@ map2 <- mapmixture(
   boundary = c(xmin=-98, xmax=-73, ymin=26, ymax=37),
   #boundary = c(xmin=-90, xmax=-75, ymin=25, ymax=35),
   pie_size = 0.5,
-  pie_border = 0.1,
+  pie_border = 0.5,
   pie_border_col = "black",
-  pie_opacity = 0.75,
+  pie_opacity = 0.9,
   land_colour = "#d9d9d9",
   sea_colour = "#deebf7",
   basemap = rnaturalearth::ne_states(country=c("United States of America","mexico")),
@@ -128,9 +142,9 @@ map2 +
                  admix_columns = 4:7,
                  lat_column = "lat",
                  lon_column = "lon",
-                 pie_colours = c("#ff7f00","#1f78b4","#4c417a","#06592A"),
-                 border = 0.1,
-                 opacity = 1,
+                 pie_colours =  brewer.pal(4, "Set1"),
+                 border = 0.5,
+                 opacity = 0.9,
                  pie_size = 0.5
   )+
   theme(
@@ -140,14 +154,14 @@ map2 +
 # plot by snp
 plot_snp <- function(locus) {
   locus <- substr(locus,1,nchar(locus)-2)
-  popfreqs <- as.data.frame(pop_freqs)
+  popfreqs <- as.data.frame(pop_freqs_noMAF)
   snpfreqs <- select(popfreqs, contains(locus))
   snpfreqs <- rownames_to_column(snpfreqs, "site") 
   snpfreqs <- snpfreqs %>% arrange(site) %>%
     mutate(lat = arrange(coordinates, Site)$Lat) %>%
     mutate(lon = arrange(coordinates, Site)$Lon)
   par(fg = "black")
-  map("state", col = "grey85", fill = TRUE, border = FALSE, xlim=c(-100,-70), ylim=c(25,42))
+  maps::map("state", col = "grey85", fill = TRUE, border = FALSE, xlim=c(-100,-70), ylim=c(25,42))
   map.axes()
   for (i in 1:nrow(snpfreqs)){
     if (snpfreqs[i,2] + snpfreqs[i,3] != 0) {
@@ -161,8 +175,7 @@ plot_snp <- function(locus) {
 
 cand_by_loading <- cand %>%
   arrange(loading)
-
-plot_snp(cand_by_loading$snp[1])
+plot_snp("h1tg000033l_8542245.1")
 
 for (candidate in range) {
   plot_snp(cand_by_loading$snp[candidate])
