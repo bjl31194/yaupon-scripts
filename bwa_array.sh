@@ -1,17 +1,17 @@
 #!/bin/bash
-#SBATCH --job-name=bwa_ivo_array
+#SBATCH --job-name=bwa_ivo_array_plate5
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
-#SBATCH --mem=80gb
-#SBATCH --time=4-00:00:00
-#SBATCH --array=1-384
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=40gb
+#SBATCH --time=7-00:00:00
+#SBATCH --array=1-96
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 
-name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plates1234/read_array.txt)
+name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plates1234/read_array_plate5.txt)
 
 # command for making read array file:
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
@@ -43,10 +43,10 @@ samtools index $name.Ivo.sorted.bam
 
 # ( for i in $OUTDIR/*.bam ; do samtools flagstat $i ; done) > mapping_stats2.txt
 
-while read old new; do
-  for bam in "$old"; do
-    new_name=$new
-    echo mv "$bam" "${bam%/*}/$new_name"  # add echo before mv to test
-  done
-done <name-change.txt
+# while read old new; do
+#   for bam in "$old"; do
+#     new_name=$new
+#     echo mv "$bam" "${bam%/*}/$new_name"  # add echo before mv to test
+#   done
+# done <name-change.txt
 
