@@ -40,5 +40,5 @@ ml SAMtools/1.16.1-GCC-11.3.0
 samtools faidx $assembly
 
 # generate genotype likelihoods and call SNPs (no indels = -I option)
-bcftools mpileup -d 100 -I -a AD,DP,SP -Ou -f $assembly $DATADIR/*.sorted.bam -R $REGION | bcftools call --threads 8 -mv -Oz -o $OUTDIR/Ilex_plates1234_${SLURM_ARRAY_TASK_ID}.vcf.gz
+bcftools mpileup -d 100 -I -a AD,DP,SP,INFO/AD -Ou -f $assembly $DATADIR/*.sorted.bam -R $REGION | bcftools call --threads 8 -mv -Oz -o $OUTDIR/Ilex_plates1234_${SLURM_ARRAY_TASK_ID}.vcf.gz
 
