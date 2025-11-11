@@ -3,8 +3,8 @@
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=40gb
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=64gb
 #SBATCH --time=7-00:00:00
 #SBATCH --array=1-96
 #SBATCH --mail-type=END,FAIL

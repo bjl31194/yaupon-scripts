@@ -18,9 +18,9 @@ REGION=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/references/dr
 #awk '$1 = $1 FS "1"' chrSize.txt > chrSize_start.txt
 #tr ' ' '\t' < chrSize_start.txt > chrSize_start_stop
 #sort --random-sort chrSize_start_stop > contigs_shuffled
-#split --numeric-suffixes=1 -n l/5 --additional-suffix='.txt' contigs_shuffled contigs
+#split --numeric-suffixes=1 -n l/20 --additional-suffix='.txt' contigs_shuffled contigs
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/"
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR
