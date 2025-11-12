@@ -25,7 +25,7 @@ ml BWA/0.7.17-GCCcore-11.3.0
 
 
 ​# map reads to new indexed reference - hap1
-bwa mem -t 32 $assembly $R1 $R2 | samtools view -@ 32 -O BAM | samtools sort -@ 32 -O BAM -o 25055FL-03-01-63_S63_L007.Ivo.sorted.bam 
+bwa mem -t 16 $assembly $R1 $R2 | samtools view -@ 16 -O BAM | samtools sort -@ 16 -O BAM -o 25055FL-03-01-63_S63_L007.Ivo.sorted.bam 
 
 # index bam
 samtools index 25055FL-03-01-63_S63_L007.Ivo.sorted.bam

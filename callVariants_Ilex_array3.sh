@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=callVariants_Ilex_array5
+#SBATCH --job-name=callVariants_Ilex_array20
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=32gb
+#SBATCH --mem=64gb
 #SBATCH --time=7-00:00:00
-#SBATCH --array=1-5
+#SBATCH --array=1-20
 #SBATCH --mail-type=END,FAIL,ARRAY_TASKS
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -20,7 +20,7 @@ REGION=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/references/dr
 #sort --random-sort chrSize_start_stop > contigs_shuffled
 #split --numeric-suffixes=1 -n l/20 --additional-suffix='.txt' contigs_shuffled contigs
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5"
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR
@@ -40,5 +40,5 @@ ml SAMtools/1.16.1-GCC-11.3.0
 samtools faidx $assembly
 
 # generate genotype likelihoods and call SNPs (no indels = -I option)
-bcftools mpileup -d 100 -I -a AD,DP,SP,INFO/AD -Ou -f $assembly $DATADIR/*.sorted.bam -R $REGION | bcftools call --threads 8 -mv -Oz -o $OUTDIR/Ilex_plates1234_${SLURM_ARRAY_TASK_ID}.vcf.gz
+bcftools mpileup -d 100 -I -a AD,DP,SP,INFO/AD -Ou -f $assembly -b $DATADIR/bamlist.txt -R $REGION | bcftools call --threads 8 -mv -Oz -o $OUTDIR/Ilex_plates1-5_${SLURM_ARRAY_TASK_ID}.vcf.gz
 
