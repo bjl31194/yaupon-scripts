@@ -6,8 +6,8 @@
 #SBATCH --mem=8gb
 #SBATCH --time=15:00:00
 #SBATCH --constraint=Genoa|Milan
-#SBATCH --output=%x_%j.out
-#SBATCH --error=%x_%j.err
+#SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
+#SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=bjl31194@uga.edu
 

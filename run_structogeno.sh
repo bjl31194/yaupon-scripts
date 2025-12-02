@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=10gb
 #SBATCH --time=12:00:00
-#SBATCH --output=%x_%j.out
-#SBATCH --error=%x_%j.err
+#SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
+#SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=bjl31194@uga.edu
 
