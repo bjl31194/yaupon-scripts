@@ -11,12 +11,12 @@
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 
-name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plates1234/read_array_plate5.txt)
+name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plates1-5/read_array_plates1-5.txt)
 
 # command for making read array file:
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1234/align"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/align_hap1"
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR

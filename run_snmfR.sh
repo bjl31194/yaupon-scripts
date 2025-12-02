@@ -3,7 +3,7 @@
 #SBATCH --partition=batch
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=8gb
+#SBATCH --mem=16gb
 #SBATCH --time=15:00:00
 #SBATCH --constraint=Genoa|Milan
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
