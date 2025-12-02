@@ -17,4 +17,4 @@ cd $DATADIR
 module load R/4.3.2-gfbf-2023a
 module load R-bundle-Bioconductor/3.20-foss-2024a-R-4.4.2 # this will load R package LEA
 
-R CMD BATCH structogeno.R
+R CMD BATCH /home/bjl31194/yaupon/yaupon-scripts/structogeno.R
