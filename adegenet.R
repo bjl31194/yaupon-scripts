@@ -23,6 +23,7 @@ Ivom384 <- read.structure("Ivom384forStructureRecode.STR",
                           NA.char = "0",) #366 gts, 36567 markers 
 
 IvnoMAF <- read.vcfR("Ivom384_no_maf.vcf.gz", nrows = 92788)
+Ivom_vcf <- read.vcfR("Ivom_only_384_filtered_names.vcf", nrows = 92976)
 Ivom384_noMAF <- vcfR2genind(IvnoMAF)
 ld_pruned_matrix <- read_table("Ivom384.prune.in", col.names = FALSE)
 summary(Ivom384)
@@ -165,11 +166,98 @@ ggplot(pralleles) + geom_tile(aes(x = population, y = allele, fill = count))
 
 private_alleles_by_state <- private_alleles(Ivom384_noMAF, form = alleles ~ state, report = "data.frame")
 
+##########
 ## SNMF ##
+##########
 
 install.packages("BiocManager")
 BiocManager::install("LEA", force = TRUE)
 library(LEA)
 
-vcf2geno("Ivom384_filtered_names.vcf", "Ivom384")
+Ivom_tidy <- anole_vcf %>% 
+  extract_gt_tidy() %>% 
+  select(-gt_DP, -gt_CATG, -gt_GT_alleles) %>% 
+  mutate(gt1 = str_split_fixed(gt_GT, "/", n = 2)[,1],
+         gt2 = str_split_fixed(gt_GT, "/", n = 2)[,2],
+         geno_code = case_when(
+           # homozygous for reference allele = 0
+           gt1 == 0 & gt2 == 0 ~ 0,
+           # heterozygous = 1
+           gt1 == 0 & gt2 == 1 ~ 1,
+           gt1 == 1 & gt2 == 0 ~ 1,
+           # homozygous for alternate allele = 2
+           gt1 == 1 & gt2 == 1 ~ 2,
+           # missing data = 9
+           gt1 == "" | gt2 == "" ~ 9
+         )) %>% 
+  select(-gt_GT, -gt1, -gt2)
+## Extracting gt element GT
+## Extracting gt element DP
+## Extracting gt element CATG
+## Warning: `as_data_frame()` is deprecated as of tibble 2.0.0.
+## Please use `as_tibble()` instead.
+## The signature and semantics have changed, see `?as_tibble`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
 
+# now you need to rotate the table so individuals are columns and genotypes are rows
+anole_geno <- anole_tidy %>% 
+  pivot_wider(names_from = Indiv, values_from = geno_code) %>% 
+  select(-Key)
+
+#vcf2geno("Ivom384_filtered_names.vcf", "Ivom384")
+
+geno <- read.geno("Ivom384.geno")
+
+project = snmf("Ivom384.geno",
+               K = 1:10, 
+               entropy = TRUE, 
+               repetitions = 10,
+               project = "new")
+
+# plot cross-entropy criterion of all runs of the project
+plot(project, cex = 1.2, col = "lightblue", pch = 19)
+
+# show the project
+show(project)
+
+# summary of the project
+summary(project)
+
+# get the cross-entropy of all runs for K = 4
+ce = cross.entropy(project, K = 4)
+
+# select the run with the lowest cross-entropy for K = 4
+best = which.min(ce)
+
+# display the Q-matrix
+Q.matrix <- as.qmatrix(Q(project, K = 4, run = best))
+my.colors <- c("tomato", "lightblue", "olivedrab", "gold")
+
+barplot(Q.matrix, 
+        border = NA, 
+        space = 0, 
+        col = my.colors, 
+        xlab = "Individuals",
+        ylab = "Ancestry proportions", 
+        main = "Ancestry matrix") -> bp
+
+axis(1, at = 1:nrow(Q.matrix), labels = bp$order, las = 3, cex.axis = .4)
+
+
+# get the ancestral genotype frequency matrix, G, for the 2nd run for K = 4. 
+G.matrix = G(project, K = 4, run = 2)
+
+###
+data("tutorial")
+write.geno(tutorial.R, "genotypes.geno")
+
+
+tutorial = snmf("genotypes.geno",
+               K = 1:10, 
+               entropy = TRUE, 
+               repetitions = 10,
+               project = "new")
+
+# plot cross-entropy criterion of all runs of the project
+plot(tutorial, cex = 1.2, col = "lightblue", pch = 19)

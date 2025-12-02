@@ -18,7 +18,7 @@
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
 
-VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom_plates1234.vcf.gz"
+VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/Ivom_plates1-5.vcf.gz"
 
 # load modules
 ml BCFtools/1.18-GCC-12.3.0
@@ -27,14 +27,30 @@ ml BCFtools/1.18-GCC-12.3.0
 cd $DATADIR
 
 # sort vcf files
-bcftools sort Ilex_plates1234_1.vcf.gz -Ou -o Ilex_plates1234_1_sorted.bcf
-bcftools sort Ilex_plates1234_2.vcf.gz -Ou -o Ilex_plates1234_2_sorted.bcf
-bcftools sort Ilex_plates1234_3.vcf.gz -Ou -o Ilex_plates1234_3_sorted.bcf
-bcftools sort Ilex_plates1234_4.vcf.gz -Ou -o Ilex_plates1234_4_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1234_5_sorted.bcf
+bcftools sort Ilex_plates1234_1.vcf.gz -Ou -o Ilex_plates1-5_1_sorted.bcf
+bcftools sort Ilex_plates1234_2.vcf.gz -Ou -o Ilex_plates1-5_2_sorted.bcf
+bcftools sort Ilex_plates1234_3.vcf.gz -Ou -o Ilex_plates1-5_3_sorted.bcf
+bcftools sort Ilex_plates1234_4.vcf.gz -Ou -o Ilex_plates1-5_4_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_5_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_6_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_7_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_8_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_9_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_10_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_11_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_12_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_13_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_14_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_15_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_16_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_17_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_18_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_19_sorted.bcf
+bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_20_sorted.bcf
+
 
 # concatenate vcf files 
-bcftools concat *_sorted.bcf -Oz --threads 8 -o Ilex_plates1234_merged.vcf.gz 
+bcftools concat *_sorted.bcf -Oz --threads 8 -o Ilex_plates1-5_merged.vcf.gz 
 
 # optional filtering by sample id to remove decidua individuals (requires txt file with list of sample names to keep)
 #bcftools view -Oz -S only_yaupon.txt Ivom_plate1_filter.vcf.gz > Ivom_plate1_sppfilter.vcf.gz

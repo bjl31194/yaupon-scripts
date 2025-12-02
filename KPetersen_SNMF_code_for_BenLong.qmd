@@ -1,0 +1,244 @@
+---
+title: "Run SNMF"
+author: "Kelly Petersen"
+format: html
+editor: visual
+---
+
+## Convert .vcf to genind
+
+```{r}
+#| eval: false
+vcf_nuc <- read.vcfR("663pines_nuc_moderate.vcf")
+genind_nuc <- vcfR::vcfR2genind(vcf_nuc)
+```
+
+## Convert genind object to STRUCTURE format
+
+I couldn't get PLINK to work, but if you did, you may be able to skip this step!
+
+I took this code from GitHub: <https://github.com/lvclark/R_genetics_conv/blob/master/genind2structure.R>
+
+```{r}
+#| eval: false
+
+# genind2structure <- function(obj, file="", pops=TRUE){
+  if(!"genind" %in% class(obj)){
+    warning("Function was designed for genind objects.")
+  }
+  
+  # get the max ploidy of the dataset
+  pl <- max(obj@ploidy)
+  # get the number of individuals
+  S <- adegenet::nInd(obj)
+  # column of individual names to write; set up data.frame
+  tab <- data.frame(ind=rep(adegenet::indNames(obj), each=pl))
+  # column of pop ids to write
+  if(pops){
+    popnums <- 1:adegenet::nPop(obj)
+    names(popnums) <- as.character(unique(adegenet::pop(obj)))
+    popcol <- rep(popnums[as.character(adegenet::pop(obj))], each=pl)
+    tab <- cbind(tab, data.frame(pop=popcol))
+  }
+  loci <- adegenet::locNames(obj) 
+  # add columns for genotypes
+  tab <- cbind(tab, matrix(-9, nrow=dim(tab)[1], ncol=adegenet::nLoc(obj),
+                           dimnames=list(NULL,loci)))
+  
+  # begin going through loci
+  for(L in loci){
+    thesegen <- obj@tab[,grep(paste("^", L, "\\.", sep=""), 
+                              dimnames(obj@tab)[[2]]), 
+                        drop = FALSE] # genotypes by locus
+    al <- 1:dim(thesegen)[2] # numbered alleles
+    for(s in 1:S){
+      if(all(!is.na(thesegen[s,]))){
+        tabrows <- (1:dim(tab)[1])[tab[[1]] == adegenet::indNames(obj)[s]] # index of rows in output to write to
+        tabrows <- tabrows[1:sum(thesegen[s,])] # subset if this is lower ploidy than max ploidy
+        tab[tabrows,L] <- rep(al, times = thesegen[s,])
+      }
+    }
+  }
+  
+  # export table
+  write.table(tab, file=file, sep="\t", quote=FALSE, row.names=FALSE)
+}
+
+genind2structure(genind_nuc, file="structure_nuc.txt", pops=TRUE)
+
+# This did take maybe 8 hours to run
+# Checked text file, confirmed that variants coded correctly as 1,2,-9!
+
+```
+
+## Convert STRUCTURE format to .geno format
+
+This was taking so long to run on my computer that I needed to do it on the cluster instead.
+
+Upload to both the bash submission script and R script below to cluster:
+
+1.  Bash submission script
+
+```{bash}
+#| eval: false
+
+#!/bin/bash
+#SBATCH --job-name=run_structogeno
+#SBATCH --partition=batch
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=10gb
+#SBATCH --time=12:00:00
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=knpete@uga.edu
+
+module load R/4.3.2-gfbf-2023a
+module load R-bundle-Bioconductor/3.20-foss-2024a-R-4.4.2 # this will load R package LEA
+
+R CMD BATCH structogeno.R
+```
+
+2.  R script, called structogeno.R
+
+```{r}
+#| eval: false
+
+library(LEA)
+
+structure_file_nuc="structure_nuc.txt" #nuclear loci only
+
+struct2geno(input.file=structure_file_nuc, 
+            ploidy=2, #for diploids
+            FORMAT=2, #2 rows of data per individual
+            extra.row = 1, #rows before genotype data (locusID)
+            extra.col=2) #columns before genotype data (sampleID and pop)
+```
+
+Then submit submission script!
+
+## Run SNMF on cluster
+
+As above, need to prepare a submission script and an R script to run from the cluster:
+
+1.  Bash submission script
+
+```{bash}
+#| eval: false
+#!/bin/bash
+#SBATCH --job-name=nuc_snmf
+#SBATCH --partition=batch
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=5gb
+#SBATCH --time=15:00:00
+#SBATCH --constraint=Genoa|Milan
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=knpete@uga.edu
+
+module load R/4.3.2-gfbf-2023a
+module load R-bundle-Bioconductor/3.20-foss-2024a-R-4.4.2
+
+cd /scratch/knpete/snmf
+
+R CMD BATCH run_snmf_nuc3.R
+```
+
+2.  R script, called run_snmf_nuc3.R
+
+```{r}
+#| eval: false
+library(LEA)
+
+geno_file = "structure_nuc.txt.geno"
+snmf_nuc3 <- snmf(geno_file,
+               K = 1:32,
+               entropy = TRUE,
+               repetitions = 10,
+               CPU=8,
+               project = "new")
+
+save(snmf_nuc3, "snmf_nuc3.RData")
+```
+
+## Extract results from SNMF project interactively on cluster
+
+If you haven't already, you can use R interactively on the cluster by starting an interactive session, loading the modules you need, and then calling R
+
+> interact
+>
+> module load R/4.3.2-gfbf-2023a
+>
+> module load R-bundle-Bioconductor/3.20-foss-2024a-R-4.4.2
+>
+> R
+
+1.  First look at plot of cross-entropy values for each value of K. The plot will print to an Rplots.pdf file, which you can transfer from the cluster to your local computer to view.
+
+```{r}
+#| eval: false
+library(LEA)
+project = load.snmfProject("structure_nuc.txt.snmfProject")
+
+plot(project, col = "blue", pch = 19, cex = 1.2)
+
+```
+
+2.  You can plot the structure-type graphs for each value of K using this package, but the plots are not great, so I extracted the data to plot them in R with ggplot.
+
+```{r}
+#| eval: false
+#-----run this chunk of code below for each value of K you want to check or make a structure-type plot for (I did 2:5), replacing the five instances of the value of K in this code
+
+best = which.min(cross.entropy(project, K = 2))
+snmf_nuc_Q_K2 <- Q(project, K = 2, run = best)
+plot_order_K2 <- bp$order
+
+#------------- end of code chunk to repeat here
+
+# Save all of these data in an .RData file to bring into R on your local computer
+save(snmf_nuc_Q_K2, snmf_nuc_Q_K3, snmf_nuc_Q_K4, snmf_nuc_Q_K5, plot_order_K2, plot_order_K3, plot_order_K4, plot_order_K5, file="snmf_data_nuc3.RData")
+
+```
+
+## Plot results in R
+
+On your local computer
+
+```{r}
+#| eval: false
+
+#You may not need all of this code, or it will look different for you. Some of these things I did to separately make a color-coded map of my sites. 
+# Make one plot for each value of K you want to display.
+
+K2_Q <- as.data.frame(snmf_nuc_Q_K2) %>% #convert to a dataframe
+        mutate(sample = snmf_sampleIDs) %>% #change the name to sample
+        mutate(site = as.factor(substr(sample,1,4))) # make a site column by shortening sample names - this will be different for you if you do it. 
+
+K2_Q_ordered <- K2_Q[rev(plot_order_K2), ] # I wanted them to plot in reverse order so they would be arranged west to east
+K2_Q_ordered$sample <- factor(K2_Q_ordered$sample, levels = K2_Q_ordered$sample) #set the order in which "sample" variable is plotted
+K2_Q_ordered$group <- max.col(K2_Q_ordered[,1:2]) #For my map, I assigned each individual to it's maximum identity group. 
+K2Q <- melt(K2_Q_ordered, id.vars = c("sample", "site"),
+                  measure.vars = c("V1", "V2"),
+                  variable.name = "Cluster",
+                  value.name = "Ancestry")
+  
+K2_plot <- ggplot(K2Q, aes(x = sample, y = Ancestry, fill = Cluster)) +
+  geom_bar(stat = "identity", width = 1) +
+  scale_fill_manual(values = cols) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "right"
+  ) +
+  labs(x = "Individuals", y = "Ancestry proportion")
+
+#save(K2_Q_ordered, file=K2_Q_ordered.RData)
+ggsave("figures/plot_snmf_nuc3_K2.png", K2_plot, width=10, height = 5, units="in", dpi=300)
+
+```
