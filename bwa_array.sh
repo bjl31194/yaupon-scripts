@@ -24,7 +24,7 @@ fi
 cd $OUTDIR
 
 # name of assembly file (using haplotype 1)
-assembly='/scratch/bjl31194/yaupon/references/draft/I_vomitoria_GAF4_hap1_min50k.fa'
+assembly='/scratch/bjl31194/yaupon/references//scratch/bjl31194/yaupon/references/Ilex_vomitoria_var_GA_F_4_HAP1_V1_release/Ilex_vomitoria_var_GA_F_4/sequences/Ilex_vomitoria_var_GA_F_4.HAP1.mainGenome.fasta'
 
 # paths to reads
 R1='/scratch/bjl31194/yaupon/wgs/plates1234/trimmed_reads/'${name}'_R1_trimmed.fastq.gz'

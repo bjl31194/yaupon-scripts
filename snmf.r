@@ -2,7 +2,7 @@ library(LEA)
 
 geno_file = "structure_Ivom384.txt.geno"
 snmf_nuc3 <- snmf(geno_file,
-               K = 1:20,
+               K = 1:32,
                entropy = TRUE,
                repetitions = 10,
                CPU=8,

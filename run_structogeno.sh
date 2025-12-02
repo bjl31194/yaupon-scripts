@@ -10,7 +10,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=bjl31194@uga.edu
 
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcf"
 
 cd $DATADIR
 
