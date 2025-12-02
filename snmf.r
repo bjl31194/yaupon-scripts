@@ -8,4 +8,5 @@ snmf_nuc3 <- snmf(geno_file,
                CPU=8,
                project = "new")
 
+
 save(snmf_nuc3, "snmf_Ivom384.RData")
