@@ -11,7 +11,7 @@
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 
 #path to reference
-REF1='/scratch/bjl31194/yaupon/references//scratch/bjl31194/yaupon/references/Ilex_vomitoria_var_GA_F_4_HAP1_V1_release/Ilex_vomitoria_var_GA_F_4/sequences/Ilex_vomitoria_var_GA_F_4.HAP1.mainGenome.fasta'
+REF1='/scratch/bjl31194/yaupon/references/Ilex_vomitoria_var_GA_F_4_HAP1_V1_release/Ilex_vomitoria_var_GA_F_4/sequences/Ilex_vomitoria_var_GA_F_4.HAP1.mainGenome.fasta'
 REF2='/scratch/bjl31194/yaupon/references/draft/I_vomitoria_GAF4_hap2_min50k.fa'
 # load module
 ml BWA/0.7.17-GCCcore-11.3.0
