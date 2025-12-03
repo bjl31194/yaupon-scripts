@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=bwa_ivo_array_hap1
+#SBATCH --job-name=bwa_ivo_array_hap2
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -16,15 +16,15 @@ name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plates1-5/r
 # command for making read array file:
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/align_hap1"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/align_hap2"
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR
 fi
 cd $OUTDIR
 
-# name of assembly file (using haplotype 1)
-assembly='/scratch/bjl31194/yaupon/references/Ilex_vomitoria_var_GA_F_4_HAP1_V1_release/Ilex_vomitoria_var_GA_F_4/sequences/Ilex_vomitoria_var_GA_F_4.HAP1.mainGenome.fasta'
+# name of assembly file (using haplotype 2)
+assembly='/scratch/bjl31194/yaupon/references/Ilex_vomitoria_var_GA_F_4_HAP2_V1_release/Ilex_vomitoria_var_GA_F_4/sequences/Ilex_vomitoria_var_GA_F_4.HAP2.mainGenome.fasta'
 
 # paths to reads
 R1='/scratch/bjl31194/yaupon/wgs/plates1-5/trimmed_reads/'${name}'_R1_trimmed.fastq.gz'
@@ -40,13 +40,3 @@ bwa mem -t 32 $assembly $R1 $R2 | samtools view -@ 32 -O BAM | samtools sort -@ 
 
 # index bam
 samtools index $name.Ivo.sorted.bam
-
-# ( for i in $OUTDIR/*.bam ; do samtools flagstat $i ; done) > mapping_stats_p5.txt
-
-# while read old new; do
-#   for bam in "$old"; do
-#     new_name=$new
-#     echo mv "$bam" "${bam%/*}/$new_name"  # add echo before mv to test
-#   done
-# done <name-change.txt
-
