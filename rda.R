@@ -546,6 +546,12 @@ ggplot(fst, aes(pos, fst, colour = outlier)) + geom_point()
 
 ggplot(fst,aes(fst)) + geom_histogram()
 
+## utility script for sorting sample names ##
 
-
+id_sex <- read.table("id-sex.txt", sep="\t")
+id_sex <- id_sex[-1,]
+sample_order <- read.table("sample_order.txt")
+id_sex$V1 <- factor(id_sex$V1, levels = sample_order$V1)
+id_sex <- id_sex[order(id_sex$V1),]
+write.csv(id_sex, "id_sex_sorted.csv")
 
