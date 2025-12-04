@@ -41,7 +41,7 @@ bwa mem -t 32 $assembly $R1 $R2 | samtools view -@ 32 -O BAM | samtools sort -@ 
 # index bam
 samtools index $name.Ivo.sorted.bam
 
-# ( for i in $OUTDIR/*.bam ; do samtools flagstat $i ; done) > mapping_stats_p5.txt
+# ( for i in $OUTDIR/*.bam ; do samtools flagstat $i | awk -F "[(|%]" 'NR == 7 {print $2}' ; done) > mapping_percentages.txt
 
 # while read old new; do
 #   for bam in "$old"; do
