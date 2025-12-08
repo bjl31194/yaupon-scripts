@@ -4,8 +4,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=64gb
-#SBATCH --time=7-00:00:00
+#SBATCH --mem=16gb
+#SBATCH --time=3-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -16,9 +16,9 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 
-VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/Ivom_plates1-5.vcf.gz"
+VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_plates1-5.vcf.gz"
 
 # load modules
 ml BCFtools/1.18-GCC-12.3.0
@@ -27,26 +27,26 @@ ml BCFtools/1.18-GCC-12.3.0
 cd $DATADIR
 
 # sort vcf files
-bcftools sort Ilex_plates1234_1.vcf.gz -Ou -o Ilex_plates1-5_1_sorted.bcf
-bcftools sort Ilex_plates1234_2.vcf.gz -Ou -o Ilex_plates1-5_2_sorted.bcf
-bcftools sort Ilex_plates1234_3.vcf.gz -Ou -o Ilex_plates1-5_3_sorted.bcf
-bcftools sort Ilex_plates1234_4.vcf.gz -Ou -o Ilex_plates1-5_4_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_5_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_6_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_7_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_8_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_9_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_10_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_11_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_12_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_13_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_14_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_15_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_16_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_17_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_18_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_19_sorted.bcf
-bcftools sort Ilex_plates1234_5.vcf.gz -Ou -o Ilex_plates1-5_20_sorted.bcf
+bcftools sort Ilex_plates1-5_1.vcf.gz -Ou -o Ilex_plates1-5_1_sorted.bcf
+bcftools sort Ilex_plates1-5_2.vcf.gz -Ou -o Ilex_plates1-5_2_sorted.bcf
+bcftools sort Ilex_plates1-5_3.vcf.gz -Ou -o Ilex_plates1-5_3_sorted.bcf
+bcftools sort Ilex_plates1-5_4.vcf.gz -Ou -o Ilex_plates1-5_4_sorted.bcf
+bcftools sort Ilex_plates1-5_5.vcf.gz -Ou -o Ilex_plates1-5_5_sorted.bcf
+bcftools sort Ilex_plates1-5_6.vcf.gz -Ou -o Ilex_plates1-5_6_sorted.bcf
+bcftools sort Ilex_plates1-5_7.vcf.gz -Ou -o Ilex_plates1-5_7_sorted.bcf
+bcftools sort Ilex_plates1-5_8.vcf.gz -Ou -o Ilex_plates1-5_8_sorted.bcf
+bcftools sort Ilex_plates1-5_9.vcf.gz -Ou -o Ilex_plates1-5_9_sorted.bcf
+bcftools sort Ilex_plates1-5_10.vcf.gz -Ou -o Ilex_plates1-5_10_sorted.bcf
+bcftools sort Ilex_plates1-5_11.vcf.gz -Ou -o Ilex_plates1-5_11_sorted.bcf
+bcftools sort Ilex_plates1-5_12.vcf.gz -Ou -o Ilex_plates1-5_12_sorted.bcf
+bcftools sort Ilex_plates1-5_13.vcf.gz -Ou -o Ilex_plates1-5_13_sorted.bcf
+bcftools sort Ilex_plates1-5_14.vcf.gz -Ou -o Ilex_plates1-5_14_sorted.bcf
+bcftools sort Ilex_plates1-5_15.vcf.gz -Ou -o Ilex_plates1-5_15_sorted.bcf
+bcftools sort Ilex_plates1-5_16.vcf.gz -Ou -o Ilex_plates1-5_16_sorted.bcf
+bcftools sort Ilex_plates1-5_17.vcf.gz -Ou -o Ilex_plates1-5_17_sorted.bcf
+bcftools sort Ilex_plates1-5_18.vcf.gz -Ou -o Ilex_plates1-5_18_sorted.bcf
+bcftools sort Ilex_plates1-5_19.vcf.gz -Ou -o Ilex_plates1-5_19_sorted.bcf
+bcftools sort Ilex_plates1-5_20.vcf.gz -Ou -o Ilex_plates1-5_20_sorted.bcf
 
 
 # concatenate vcf files 
