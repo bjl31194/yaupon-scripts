@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=runVariantStats_Ivom
+#SBATCH --job-name=filterVariants_Ilex
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=32gb
-#SBATCH --time=3-00:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -16,13 +16,13 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
-VCF_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom_only_384_filtered_names.vcf.gz"
-VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom384_no_maf.vcf.gz"
+VCF_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names.vcf.gz"
+VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names_filter.vcf.gz"
 
 # set filters
-MAF=0.00 # mean was 0.03, median 0.005
+MAF=0.01 # mean was 0.03, median 0.005
 MISS=0.9 # mean was 0.96 (only missing 4%)
 QUAL=30 # 0.01% error rate or lower
 MIN_DEPTH=7 # 1st quantile 7.23, mean was 8.3

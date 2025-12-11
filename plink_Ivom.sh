@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ivom_LD
+#SBATCH --job-name=plink_Ivom_bimbam
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=8
 #SBATCH --mem=32gb
-#SBATCH --time=7-00:00
+#SBATCH --time=1-00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -16,11 +16,18 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1234/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcf"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ivom_only_384_filtered_names.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_plates1-5.vcf.gz"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
+
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
+
+if [ ! -d $OUTDIR ]
+then
+    mkdir -p $OUTDIR
+fi
 
 # load modules
 ml PLINK/2.0.0-a.6.20-gfbf-2024a
@@ -30,6 +37,12 @@ ml PLINK/2.0.0-a.6.20-gfbf-2024a
 
 # move to the proper directory
 cd $DATADIR
+
+## Make .bed file for inputting to GEMMA and filter data
+
+plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+--maf 0.05 --geno 0.1 --mind 0.2 --snps-only \
+
 
 ## Estimating LD with plink
 
@@ -42,12 +55,12 @@ cd $DATADIR
 
 ## Run plink to get .bed file and PCA ##
 
-# identify prune sites
-# plink --vcf $VCF --double-id --allow-extra-chr \
-# --set-missing-var-ids @:# \
-# --indep-pairwise 50 10 0.1 --out Ilex384
+identify prune sites
+plink --vcf $VCF --double-id --allow-extra-chr \
+--set-missing-var-ids @:# \
+--indep-pairwise 50 10 0.1 --out Ilex384
 
-# # linkage prune and create pca files
+# linkage prune and create pca files
 plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
 --extract Ivom384.prune.in \
 --make-bed --pca var-wts --out Ivom384
