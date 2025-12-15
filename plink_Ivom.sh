@@ -56,7 +56,7 @@ plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --se
 --make-bed --pca var-wts --out Ilex_plates1-5
 
 ## attach phenotype data
-plink --bfile Ilex_plates1-5 --allow-no-sex --nonfounders --pheno Ilex_sex_phenotypes2.txt \
+plink --bfile Ilex_plates1-5 --allow-no-sex --pheno Ilex_sex_phenotypes.txt \
 --make-bed --out gemma_input
 
 ## Estimating LD with plink
