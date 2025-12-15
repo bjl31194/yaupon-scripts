@@ -52,7 +52,7 @@ plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --se
 
 ## select linkage pruned variants, attach phenotypes, and generate bed file
 plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
---extract Ilex_plates1-5.prune.in --pheno Ilex_sex_phenotypes.txt \
+--extract Ilex_plates1-5.prune.in --pheno Ilex_sex_phenotypes.txt --pheno-name "sex" \
 --make-bed --pca var-wts --out gemma_input
 
 
