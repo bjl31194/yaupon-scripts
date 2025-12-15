@@ -52,7 +52,7 @@ plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
 
 ## select linkage pruned variants and generate bed file
 plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
---extract Ivom384.prune.in \
+--extract Ilex_plates1-5.prune.in \
 --make-bed --pca var-wts --out Ilex_plates1-5
 
 ## Estimating LD with plink
