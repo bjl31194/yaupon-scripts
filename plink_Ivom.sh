@@ -46,14 +46,17 @@ cd $DATADIR
 # b) remove one of a pair of SNPs if the LD is greater than z
 # c) shift the window y SNPs forward and repeat the procedure
 
-plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
 --maf 0.05 --geno 0.1 --mind 0.2 --snps-only \
 --indep-pairwise 50 10 0.5 --out Ilex_plates1-5
 
 ## select linkage pruned variants and generate bed file
-plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
 --extract Ilex_plates1-5.prune.in \
 --make-bed --pca var-wts --out Ilex_plates1-5
+
+## attach phenotype data
+plink --bfile Ilex_plates-1-5 --allow-no-sex --nonfounders --pheno Ilex_sex_phenotypes.txt --make-bed --out gemma_input
 
 ## Estimating LD with plink
 
