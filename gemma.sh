@@ -36,4 +36,4 @@ cd $DATADIR
 gemma -bfile gemma_input -gk 1 -o RelMat
 
 ## run GEMMA (lmm=linear mixed model using kinship matrix, 2=likelihood ratio test)
-gemma -bfile gemma_input -k RelMat.cXX.txt -lmm 2 -o GWAS_results_sex.lmm
+gemma -bfile gemma_input -k output/RelMat.cXX.txt -lmm 2 -o GWAS_results_sex.lmm
