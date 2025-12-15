@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ivom_bimbam
+#SBATCH --job-name=plink_Ilex
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -16,9 +16,9 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcf"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_plates1-5.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names_filter_sexed.vcf.gz"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
 
@@ -39,10 +39,21 @@ ml PLINK/2.0.0-a.6.20-gfbf-2024a
 cd $DATADIR
 
 ## Make .bed file for inputting to GEMMA and filter data
+## identify prune sites and filter
+## KEY: --indep-pairwise x y z
+# a) consider a window of x SNPs
+# b) calculate LD between each pair of SNPs in the window
+# b) remove one of a pair of SNPs if the LD is greater than z
+# c) shift the window y SNPs forward and repeat the procedure
 
 plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
 --maf 0.05 --geno 0.1 --mind 0.2 --snps-only \
+--indep-pairwise 50 10 0.5 --out Ilex_plates1-5
 
+## select linkage pruned variants and generate bed file
+plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+--extract Ivom384.prune.in \
+--make-bed --pca var-wts --out Ilex_plates1-5
 
 ## Estimating LD with plink
 
@@ -53,17 +64,15 @@ plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
 # --ld-window-r2 0 \
 # --out Ivom384chr
 
-## Run plink to get .bed file and PCA ##
-
-identify prune sites
-plink --vcf $VCF --double-id --allow-extra-chr \
---set-missing-var-ids @:# \
---indep-pairwise 50 10 0.1 --out Ilex384
+## identify prune sites
+# plink --vcf $VCF --double-id --allow-extra-chr \
+# --set-missing-var-ids @:# \
+# --indep-pairwise 50 10 0.1 --out Ilex384
 
 # linkage prune and create pca files
-plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
---extract Ivom384.prune.in \
---make-bed --pca var-wts --out Ivom384
+# plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
+# --extract Ivom384.prune.in \
+# --make-bed --pca var-wts --out Ivom384
 
 # # generate structure input file
 # plink --bfile Ilex384 --allow-extra-chr --recode structure --out Ilex384forStructure
