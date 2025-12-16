@@ -69,3 +69,64 @@ K3_plot <- ggplot(K3Q, aes(x = sample, y = Ancestry, fill = Cluster)) +
   ) +
   labs(x = "Individuals", y = "Ancestry proportion")
 K3_plot
+
+## K=4 ##
+K4_Q <- as.data.frame(snmf_nuc_Q_K4) %>% #convert to a dataframe
+  mutate(sample = names$V1) %>% #change the name to sample
+  mutate(site = states$V1) # make a site column by shortening sample names - this will be different for you if you do it
+K4_Q$site <- factor(K4_Q$site, levels=pop_order)
+K4_Q <- K4_Q[order(K4_Q$site),]
+K4_Q$sample <- factor(K4_Q$sample, levels = K4_Q$sample) #set the order in which "sample" variable is plotted
+K4_Q$group <- max.col(K4_Q[,1:4]) #For my map, I assigned each individual to it's maximum identity group. 
+K4Q <- melt(K4_Q, id.vars = c("sample", "site"),
+            measure.vars = c("V1", "V2","V3", "V4"),
+            variable.name = "Cluster",
+            value.name = "Ancestry")
+
+cols <- c("red","blue","darkgreen", "orange")
+K4_plot <- ggplot(K4Q, aes(x = sample, y = Ancestry, fill = Cluster)) +
+  geom_bar(stat = "identity", width = 1) +
+  scale_fill_manual(values = cols) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "right"
+  ) +
+  labs(x = "Individuals", y = "Ancestry proportion")
+K4_plot
+
+## K=5 ##
+
+K5_Q <- as.data.frame(snmf_nuc_Q_K5) %>% #convert to a dataframe
+  mutate(sample = names$V1) %>% #change the name to sample
+  mutate(site = states$V1) # make a site column by shortening sample names - this will be different for you if you do it
+K5_Q$site <- factor(K5_Q$site, levels=pop_order)
+K5_Q <- K5_Q[order(K5_Q$site),]
+K5_Q$sample <- factor(K5_Q$sample, levels = K5_Q$sample) #set the order in which "sample" variable is plotted
+K5_Q$group <- max.col(K5_Q[,1:5]) #For my map, I assigned each individual to it's maximum identity group. 
+K5Q <- melt(K5_Q, id.vars = c("sample", "site"),
+            measure.vars = c("V1", "V2","V3","V4","V5"),
+            variable.name = "Cluster",
+            value.name = "Ancestry")
+
+cols <- c("red","blue","darkgreen","orange","darkviolet")
+K5_plot <- ggplot(K5Q, aes(x = sample, y = Ancestry, fill = Cluster)) +
+  geom_bar(stat = "identity", width = 1) +
+  scale_fill_manual(values = cols) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "right"
+  ) +
+  labs(x = "Individuals", y = "Ancestry proportion")
+K5_plot
+
+
+
+
+
+
