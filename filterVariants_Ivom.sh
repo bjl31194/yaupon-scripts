@@ -35,12 +35,14 @@ ml BCFtools/1.21-GCC-13.3.0
 # move to the vcf directory
 cd $DATADIR
 
+bcftools index Ilex_plates1-5_names_filter_sexed.vcf.gz
+
 # perform the filtering with vcftools
-vcftools --gzvcf $VCF_IN \
---remove-indels --maf $MAF --max-missing $MISS --minQ $QUAL \
---min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
---minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | gzip -c > \
-$VCF_OUT
+# vcftools --gzvcf $VCF_IN \
+# --remove-indels --maf $MAF --max-missing $MISS --minQ $QUAL \
+# --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
+# --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | gzip -c > \
+# $VCF_OUT
 
 # optional filtering by sample id to remove decidua individuals (requires txt file with list of sample names to keep)
 #bcftools view -Oz -S only_yaupon.txt Ivom_plate1_filter.vcf.gz > Ivom_plate1_sppfilter.vcf.gz
