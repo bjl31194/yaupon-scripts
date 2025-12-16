@@ -33,7 +33,7 @@ ml GEMMA/0.98.5-gfbf-2023b
 cd $DATADIR
 
 ## make kinship matrix
-gemma -bfile gemma_input_noLP -gk 1 -o RelMat_noLP
+gemma -bfile gemma_input_texas -gk 1 -o RelMat_texas
 
 ## run GEMMA (lmm=linear mixed model using kinship matrix, 2=likelihood ratio test)
-gemma -bfile gemma_input_noLP -k output/RelMat_noLP.cXX.txt -lmm 2 -o GWAS_results_sex_noLP.lmm
+gemma -bfile gemma_input_texas -k output/RelMat_texas.cXX.txt -lmm 2 -o GWAS_results_sex_texas.lmm

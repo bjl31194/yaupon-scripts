@@ -18,7 +18,7 @@
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names_filter_sexed.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names_filter_texas.vcf.gz"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
 
@@ -48,11 +48,11 @@ cd $DATADIR
 
 plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
 --maf 0.05 --geno 0.1 --mind 0.5 --snps-only \
---make-bed --out Ilex_plates1-5_noLP
+--make-bed --out Ilex_plates1-5_texas
 
 ## attach phenotype data
-plink --bfile Ilex_plates1-5_noLP --allow-no-sex --pheno Ilex_sex_phenotypes.txt \
---make-bed --out gemma_input_noLP
+plink --bfile Ilex_plates1-5_texas --allow-no-sex --pheno texas_sex_phenotypes.txt \
+--make-bed --out gemma_input_texas
 
 ## Estimating LD with plink
 

@@ -51,5 +51,5 @@ $VCF_OUT
 #bcftools reheader --samples ./namechange_Ilex384.txt -o Ilex384_filtered_names.vcf.gz
 
 ## for filtering sexed vomitoria individuals
-bcftools view -Oz -S only_sexed.txt Ilex_plates1-5_names_filter.vcf.gz > Ilex_plates1-5_names_filter_sexed.vcf.gz
+# bcftools view -Oz -S only_sexed.txt Ilex_plates1-5_names_filter.vcf.gz > Ilex_plates1-5_names_filter_sexed.vcf.gz
 
