@@ -18,9 +18,9 @@
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names_filter_sexed_gulf.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names_filter_sexed_atlantic.vcf.gz"
 
-SUBSET="gulf"
+SUBSET="atlantic"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
 

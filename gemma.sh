@@ -20,7 +20,7 @@ DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
-SUBSET="gulf"
+SUBSET="atlantic"
 
 if [ ! -d $OUTDIR ]
 then
