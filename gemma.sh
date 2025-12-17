@@ -20,6 +20,8 @@ DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
+SUBSET="gulf"
+
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR
@@ -33,7 +35,7 @@ ml GEMMA/0.98.5-gfbf-2023b
 cd $DATADIR
 
 ## make kinship matrix
-gemma -bfile gemma_input_texas -gk 1 -o RelMat_texas
+gemma -bfile gemma_input_${SUBSET} -gk 1 -o RelMat_${SUBSET}
 
 ## run GEMMA (lmm=linear mixed model using kinship matrix, 2=likelihood ratio test)
-gemma -bfile gemma_input_texas -k output/RelMat_texas.cXX.txt -lmm 2 -o GWAS_results_sex_texas.lmm
+gemma -bfile gemma_input_${SUBSET} -k output/RelMat_${SUBSET}.cXX.txt -lmm 2 -o GWAS_results_sex_${SUBSET}.lmm
