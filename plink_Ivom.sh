@@ -16,15 +16,15 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names_filter_sexed_atlantic.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_plates1-5_merged.vcf.gz"
 
 SUBSET="atlantic"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure"
 
 if [ ! -d $OUTDIR ]
 then
@@ -38,7 +38,7 @@ ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml Structure_threader/1.3.10-foss-2023a
 
 # move to the proper directory
-cd $DATADIR
+cd $OUTDIR
 
 ## Make .bed file for inputting to GEMMA and filter data
 ## identify prune sites and filter
@@ -48,13 +48,13 @@ cd $DATADIR
 # b) remove one of a pair of SNPs if the LD is greater than z
 # c) shift the window y SNPs forward and repeat the procedure
 
-plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
---maf 0.05 --geno 0.1 --mind 0.5 --snps-only \
---make-bed --out Ilex_plates1-5_${SUBSET}
+# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
+# --maf 0.05 --geno 0.1 --mind 0.5 --snps-only \
+# --make-bed --out Ilex_plates1-5_${SUBSET}
 
-## attach phenotype data
-plink --bfile Ilex_plates1-5_${SUBSET} --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
---make-bed --out gemma_input_${SUBSET}
+# ## attach phenotype data
+# plink --bfile Ilex_plates1-5_${SUBSET} --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
+# --make-bed --out gemma_input_${SUBSET}
 
 ## Estimating LD with plink
 
@@ -66,6 +66,18 @@ plink --bfile Ilex_plates1-5_${SUBSET} --allow-no-sex --pheno ${SUBSET}_sex_phen
 # --out Ivom384chr
 
 ## identify prune sites
+
+plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+--maf 0.01 --geno 0.1 --mind 0.5 --snps-only \
+--indep-pairwise 50 10 0.5 \
+--out Ilex_plates1-5
+
+plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+--extract Ilex_plates1-5.prune.in \
+--make-bed --pca var-wts --out Ilex_plates1-5
+
+plink --bfile Ilex_plates1-5 --allow-extra-chr --allow-no-sex --recode structure --out Ilex_plates1-5_forStructure
+
 # plink --vcf $VCF --double-id --allow-extra-chr \
 # --set-missing-var-ids @:# \
 # --indep-pairwise 50 10 0.1 --out Ilex384
