@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ilex
+#SBATCH --job-name=plink_Ivom
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -18,11 +18,13 @@
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_plates1-5_merged.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_filter.vcf.gz"
+
+PREFIX="Ivom1-5"
 
 SUBSET="atlantic"
 
-STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/structure/Ilex384forStructure.recode.strct_in"
+STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/Ilex_plates1-5_forStructure.recode.strct_in"
 
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure"
 
@@ -41,12 +43,6 @@ ml PLINK/2.0.0-a.6.20-gfbf-2024a
 cd $OUTDIR
 
 ## Make .bed file for inputting to GEMMA and filter data
-## identify prune sites and filter
-## KEY: --indep-pairwise x y z
-# a) consider a window of x SNPs
-# b) calculate LD between each pair of SNPs in the window
-# b) remove one of a pair of SNPs if the LD is greater than z
-# c) shift the window y SNPs forward and repeat the procedure
 
 # plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
 # --maf 0.05 --geno 0.1 --mind 0.5 --snps-only \
@@ -65,31 +61,25 @@ cd $OUTDIR
 # --ld-window-r2 0 \
 # --out Ivom384chr
 
-## identify prune sites
+## identify prune sites, LD prune, filter variants, and create bed, pca, and structure files
+## KEY: --indep-pairwise x y z
+# a) consider a window of x SNPs
+# b) calculate LD between each pair of SNPs in the window
+# b) remove one of a pair of SNPs if the LD is greater than z
+# c) shift the window y SNPs forward and repeat the procedure
 
 plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
 --maf 0.01 --geno 0.1 --mind 0.5 --snps-only \
 --indep-pairwise 50 10 0.5 \
---out Ilex_plates1-5
+--out $PREFIX
 
 plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---extract Ilex_plates1-5.prune.in \
---make-bed --pca var-wts --out Ilex_plates1-5
+--extract ${PREFIX}.prune.in \
+--make-bed --pca var-wts --out $PREFIX
 
-plink --bfile Ilex_plates1-5 --allow-extra-chr --allow-no-sex --recode structure --out Ilex_plates1-5_forStructure
+plink --bfile $PREFIX --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
 
-# plink --vcf $VCF --double-id --allow-extra-chr \
-# --set-missing-var-ids @:# \
-# --indep-pairwise 50 10 0.1 --out Ilex384
-
-# linkage prune and create pca files
-# plink --vcf $VCF --double-id --allow-extra-chr --set-missing-var-ids @:# \
-# --extract Ivom384.prune.in \
-# --make-bed --pca var-wts --out Ivom384
-
-# # generate structure input file
-# plink --bfile Ilex384 --allow-extra-chr --recode structure --out Ilex384forStructure
-# # generate  "0,1,2" coded genotype matrix
+## generate  "0,1,2" coded genotype matrix
 # plink --bfile Ilex384 --allow-extra-chr --recode A --out Ilex384forRDA
 
 ## run ADMIXTURE ##
@@ -115,8 +105,9 @@ plink --bfile Ilex_plates1-5 --allow-extra-chr --allow-no-sex --recode structure
 
 ## STRUCTURE - for running on cluster ##
 
-#structure_threader run -Klist 2 3 4 5 6 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile_Ivom384names -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-#structure_threader plot -i . -f structure -K 2 3 4 5 6 --ind indfile_Ivom384
+# structure_threader run -Klist 2 3 4 5 6 7 8 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile_Ivom384names -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+# structure_threader plot -i . -f structure -K 2 3 4 5 6 7 8 --ind indfile_Ivom384
+
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
