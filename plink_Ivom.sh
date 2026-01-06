@@ -16,7 +16,7 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure"
 
 VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_filter.vcf.gz"
 
@@ -24,7 +24,7 @@ PREFIX="Ivom1-5"
 
 SUBSET="atlantic"
 
-STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/Ilex_plates1-5_forStructure.recode.strct_in"
+STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/Ivom1-5_forStructure.recode.strct_in"
 
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure"
 
@@ -34,10 +34,10 @@ then
 fi
 
 # load modules
-ml PLINK/2.0.0-a.6.20-gfbf-2024a
+#ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
-#ml Structure/2.3.4-GCC-12.3.0
-#ml Structure_threader/1.3.10-foss-2023a
+ml Structure/2.3.4-GCC-12.3.0
+ml Structure_threader/1.3.10-foss-2023a
 
 # move to the proper directory
 cd $OUTDIR
@@ -68,16 +68,16 @@ cd $OUTDIR
 # b) remove one of a pair of SNPs if the LD is greater than z
 # c) shift the window y SNPs forward and repeat the procedure
 
-plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---maf 0.01 --geno 0.1 --mind 0.5 --snps-only \
---indep-pairwise 50 10 0.5 \
---out $PREFIX
+# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+# --maf 0.01 --geno 0.1 --mind 0.5 --snps-only \
+# --indep-pairwise 50 10 0.5 \
+# --out $PREFIX
 
-plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---extract ${PREFIX}.prune.in \
---make-bed --pca var-wts --out $PREFIX
+# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+# --extract ${PREFIX}.prune.in \
+# --make-bed --pca var-wts --out $PREFIX
 
-plink --bfile $PREFIX --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
+# plink --bfile $PREFIX --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
 
 ## generate  "0,1,2" coded genotype matrix
 # plink --bfile Ilex384 --allow-extra-chr --recode A --out Ilex384forRDA
@@ -105,8 +105,8 @@ plink --bfile $PREFIX --allow-extra-chr --allow-no-sex --recode structure --out 
 
 ## STRUCTURE - for running on cluster ##
 
-# structure_threader run -Klist 2 3 4 5 6 7 8 -R 3 -i $STRUCT_IN -o $DATADIR -t 16 --params mainparams_Ivom384 --ind indfile_Ivom384names -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-# structure_threader plot -i . -f structure -K 2 3 4 5 6 7 8 --ind indfile_Ivom384
+structure_threader run -Klist 2 3 4 5 6 7 8 -R 3 -i $STRUCT_IN -o $OUTDIR -t 16 --params mainparams_Ivom1-5 --ind indfile_Ivom1-5.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+structure_threader plot -i . -f structure -K 2 3 4 5 6 7 8 --ind indfile_Ivom1-5.csv
 
 ## other misc scripts ##
 
