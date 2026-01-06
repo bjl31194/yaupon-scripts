@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ivom
+#SBATCH --job-name=structure_Ivom
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=16
 #SBATCH --mem=32gb
-#SBATCH --time=1-00:00
+#SBATCH --time=7-00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
