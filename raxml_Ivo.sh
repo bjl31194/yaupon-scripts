@@ -17,7 +17,7 @@
 # set variables
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/phylo"
 VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_redrep_filter.vcf.gz"
-PHYLIP="/scratch/bjl31194/yaupon/wgs/plates1234/vcf/Ilex_redrep.min4.phy"
+PHYLIP="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_redrep.min4.phy"
 
 # load modules
 ml RAxML-NG/1.2.2-GCC-13.2.0
