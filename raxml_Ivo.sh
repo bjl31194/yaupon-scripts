@@ -17,17 +17,17 @@
 # set variables
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/phylo"
 VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_redrep_filter.vcf.gz"
-PHYLIP="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_redrep.min4.phy"
+PHYLIP="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/phylo/Ilex_redrep.min4.phy"
 
 # load modules
 ml RAxML-NG/1.2.2-GCC-13.2.0
-ml Python/3.12.3-GCCcore-13.3.0
+#ml Python/3.12.3-GCCcore-13.3.0
 
 # move to the vcf directory
 cd $OUTDIR
 
 # build phylip matrix from vcf
-python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $OUTDIR --output-prefix Ilex_redrep
+#python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $OUTDIR --output-prefix Ilex_redrep
 
 # perform ML tree search and optimization
 raxml-ng --all --bs-trees 1000 --msa $PHYLIP --model GTR+G
