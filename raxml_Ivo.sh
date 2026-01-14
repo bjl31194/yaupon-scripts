@@ -27,7 +27,7 @@ ml RAxML-NG/1.2.2-GCC-13.2.0
 cd $OUTDIR
 
 # build phylip matrix from vcf
-#python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $OUTDIR --output-prefix Ilex_redrep
+python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $OUTDIR --output-prefix Ilex_redrep
 
 # perform ML tree search and optimization
 raxml-ng --all --bs-trees 1000 --msa $PHYLIP --model GTR+G

@@ -55,3 +55,18 @@ bcftools index Ilex_plates1-5_names_filter_sexed.vcf.gz
 ## for filtering sexed vomitoria individuals
 # bcftools view -Oz -S only_sexed.txt Ilex_plates1-5_names_filter.vcf.gz > Ilex_plates1-5_names_filter_sexed.vcf.gz
 
+## filter out sets of individuals and remove monomorphic sites
+vcftools --gzvcf Ivom1-5_filter.vcf.gz \
+--keep all_florida.txt \
+--recode --recode-INFO-all --stdout | \
+bcftools view -i "MAC>=1" \
+-o Ivom1-5_florida.vcf.gz
+
+vcftools --gzvcf Ivom1-5_florida.vcf.gz \
+--keep all_florida.txt \
+--window-pi 50000 \
+--out florida_pi_50kb
+
+vcftools --gzvcf Ivom1-5_filter.vcf.gz \
+--TajimaD 50000 \
+--out Ivom1-5_TajD_50kb
