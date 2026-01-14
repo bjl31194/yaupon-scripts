@@ -30,4 +30,4 @@ cd $OUTDIR
 python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $OUTDIR --output-prefix Ilex_redrep
 
 # perform ML tree search and optimization
-raxml-ng --all --bs-trees 1000 --msa $PHYLIP --model GTR+G
+raxml-ng --all --bs-trees 500 --msa $PHYLIP --model GTR+G
