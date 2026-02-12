@@ -56,8 +56,8 @@ cd $OUTDIR
 
 plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders \
 --set-missing-var-ids @:# \
---maf 0.01 --geno 0.2 --mind 0.5 --chr Chr01 \
---thin 0.1 -r2 gz --ld-window 100 --ld-window-kb 1000 \
+--maf 0.01 --geno 0.2 --mind 0.5 --chr Chr02 \
+--thin 0.5 -r2 gz --ld-window 100 --ld-window-kb 1000 \
 --ld-window-r2 0 \
 --make-bed --out Ivom_chr1
 
