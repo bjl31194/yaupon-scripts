@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=raxml_Ilex
+#SBATCH --job-name=phy_Ivom
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -16,7 +16,7 @@
 
 # set variables
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/phylo"
-VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_redrep_filter.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_filter_names.vcf.gz"
 PHYLIP="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/phylo/Ilex_redrep.min4.phy"
 
 # load modules
@@ -27,7 +27,9 @@ ml RAxML-NG/1.2.2-GCC-13.2.0
 cd $OUTDIR
 
 # build phylip matrix from vcf
-python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $OUTDIR --output-prefix Ilex_redrep
+python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $OUTDIR --output-prefix Ivom1-5
 
 # perform ML tree search and optimization
-raxml-ng --all --bs-trees 500 --msa $PHYLIP --model GTR+G
+# raxml-ng --all --bs-trees 500 --msa $PHYLIP --model GTR+G
+
+# snphylo.sh -v Ivom1-5_filter_names_nochr.vcf -c 5 -p 20 -m 0.05 -a 20 -t 2
