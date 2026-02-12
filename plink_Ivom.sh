@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=structure_Ivom
+#SBATCH --job-name=ld_Ivom
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=32gb
-#SBATCH --time=7-00:00
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16gb
+#SBATCH --time=1-00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -26,7 +26,7 @@ SUBSET="atlantic"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/Ivom1-5_forStructure.recode.strct_in"
 
-OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure"
+OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/"
 
 if [ ! -d $OUTDIR ]
 then
@@ -34,10 +34,10 @@ then
 fi
 
 # load modules
-#ml PLINK/2.0.0-a.6.20-gfbf-2024a
+ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
-ml Structure/2.3.4-GCC-12.3.0
-ml Structure_threader/1.3.10-foss-2023a
+#ml Structure/2.3.4-GCC-12.3.0
+#ml Structure_threader/1.3.10-foss-2023a
 
 # move to the proper directory
 cd $OUTDIR
@@ -54,12 +54,12 @@ cd $OUTDIR
 
 ## Estimating LD with plink
 
-# plink --vcf $VCF --double-id --allow-extra-chr \
-# --set-missing-var-ids @:# \
-# --maf 0.01 --geno 0.1 --mind 0.5 --chr h1tg000051l \
-# -r2 gz --ld-window 100 --ld-window-kb 3000 \
-# --ld-window-r2 0 \
-# --out Ivom384chr
+plink --vcf $VCF --double-id --allow-extra-chr \
+--set-missing-var-ids @:# \
+--maf 0.01 --geno 0.1 --mind 0.5 --chr Chr01 \
+-r2 gz --ld-window 100 --ld-window-kb 3000 \
+--ld-window-r2 0 \
+--out Ivom_chr1
 
 ## identify prune sites, LD prune, filter variants, and create bed, pca, and structure files
 ## KEY: --indep-pairwise x y z
@@ -105,15 +105,15 @@ cd $OUTDIR
 
 ## STRUCTURE - for running on cluster ##
 
-structure_threader run -Klist 2 3 4 5 6 7 8 -R 3 -i $STRUCT_IN -o $OUTDIR -t 16 --params mainparams_Ivom1-5 --ind indfile_Ivom1-5.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-structure_threader plot -i . -f structure -K 2 3 4 5 6 7 8 --ind indfile_Ivom1-5.csv
-
+# structure_threader run -Klist 2 3 4 5 6 7 8 -R 3 -i $STRUCT_IN -o $OUTDIR -t 16 --params mainparams_Ivom1-5 --ind indfile_Ivom1-5.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+# structure_threader plot -i . -f structure -K 2 3 4 5 6 7 8 --ind indfile_Ivom1-5.csv
+ 
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
 # use Q matrix files from ADMIXTURE output
 #pong -m pong_filemap.txt -i ind2pop.txt
-#pong -m pong_filemap_Ilex384.txt -i ind2pop_Ilex384.txt
+# pong -m pong_filemap_Ivom1-5_K4.txt -i ind2pop_Ivom1-5.txt -n pop_order_Ivom1-5.txt
 #structure_threader run -Klist 2 3 4 5 6 -R 3 -i Ivom384forStructure.recode.strct_in -o . -t 16 --params mainparams_Ivom384 --ind indfile.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
 
 # structure mainparams:  onerowperind TRUE; label TRUE; popdata, popflag FALSE; locdata FALSE; phenotype FALSE; extracols 1; markernames, mapdistances TRUE
