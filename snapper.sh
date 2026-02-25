@@ -16,7 +16,7 @@
   module --quiet purge  # Reset the modules to the system default
   
   # Load the beast2 module.
-  module load Beast/2.7.0-GCC-11.3.0-CUDA-11.7.0
+  module load Beast/2.7.7-GCC-12.3.0-CUDA-12.1.1
 
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/phylo"
