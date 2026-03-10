@@ -61,7 +61,7 @@ java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom1-5_inland.vcf.gz nthreads=8 out=Ivo
 ## get fasta from candidate regions in GFF format
 # ml BEDTools/2.31.1-GCC-13.3.0
 # bedtools getfasta -fi /scratch/bjl31194/yaupon/references/Ilex_vomitoria_var_GA_F_4_HAP1_V1_release/Ilex_vomitoria_var_GA_F_4/sequences/Ilex_vomitoria_var_GA_F_4.HAP1.mainGenome.fasta \
-# -bed gulfxatl_chr2.gff3 -fo candidate_seqs_chr2.fasta
+# -bed coast_gene_hits.gff3 -fo coast_gene_seqs.fasta
 # # split fasta
 # awk -v RS='>' -v ORS='>' '(NR%100) == 1 { close(out); out="candidate_gene_seqs"(++n_seq)".fasta" } { print > out }' gulfxatl_candidate_seqs_wg.fasta
 
