@@ -55,8 +55,8 @@ cd $OUTDIR
 
 ## statistical phasing with BEAGLE on Sapelo2 cluster:
 
-java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom1-5_coastal.vcf.gz nthreads=8 out=Ivom1-5_coastal_phased 
-java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom1-5_inland.vcf.gz nthreads=8 out=Ivom1-5_inland_phased 
+java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom_Ipa_outgroup.vcf.gz nthreads=8 out=Ivom_Ipa_outgroup_phased.vcf.gz
+#java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom1-5_inland.vcf.gz nthreads=8 out=Ivom1-5_inland_phased 
 
 ## get fasta from candidate regions in GFF format
 # ml BEDTools/2.31.1-GCC-13.3.0
