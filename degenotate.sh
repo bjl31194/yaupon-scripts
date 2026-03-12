@@ -27,6 +27,10 @@ MAF=0.1
 
 cd $DATADIR
 
+# index vcf
+ml BCFtools/1.21-GCC-13.3.0
+bcftools index -t $VCF --threads 8 
+
 conda init
 
 # load conda environment
