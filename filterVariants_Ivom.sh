@@ -51,8 +51,9 @@ bcftools stats Ilex_plates1-5_merged.vcf.gz > Ilex_merged.stats
 
 #bcftools stats -S ./namechange_Ivom384.txt $VCF_IN > Ivom384_filtered_stats.vchk
 #plot-vcfstats -p . Ivom384_filtered_stats.vchk
+
 # rename samples in vcf header
-#bcftools reheader --samples ./namechange_Ilex384.txt -o Ilex384_filtered_names.vcf.gz
+# bcftools reheader --samples ./Ilex1-5_newnames.txt -o Ilex1-5_names.vcf.gz
 
 ## for filtering sexed vomitoria individuals
 # bcftools view -Oz -S only_sexed.txt Ilex_plates1-5_names_filter.vcf.gz > Ilex_plates1-5_names_filter_sexed.vcf.gz
