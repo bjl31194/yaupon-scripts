@@ -27,6 +27,8 @@ MAF=0.1
 
 cd $DATADIR
 
+conda init
+
 # load conda environment
 conda activate degenotate
 
