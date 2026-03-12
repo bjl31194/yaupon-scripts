@@ -16,7 +16,7 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 
 VCF_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names.vcf.gz"
 VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas/Ilex_plates1-5_names_filter.vcf.gz"
@@ -29,13 +29,15 @@ MIN_DEPTH=7 # 1st quantile 7.23, mean was 8.3
 MAX_DEPTH=25 # went with mean depth x 2 + a little extra judging from where most variants fell on histogram
 
 # load modules
-ml VCFtools/0.1.16-GCC-13.3.0
+# ml VCFtools/0.1.16-GCC-13.3.0
 ml BCFtools/1.21-GCC-13.3.0
 
 # move to the vcf directory
 cd $DATADIR
 
-bcftools index Ilex_plates1-5_names_filter_sexed.vcf.gz
+bcftools stats Ilex_plates1-5_merged.vcf.gz > Ilex_merged.stats
+
+# bcftools index Ilex_plates1-5_names_filter_sexed.vcf.gz
 
 # perform the filtering with vcftools
 # vcftools --gzvcf $VCF_IN \
@@ -56,17 +58,40 @@ bcftools index Ilex_plates1-5_names_filter_sexed.vcf.gz
 # bcftools view -Oz -S only_sexed.txt Ilex_plates1-5_names_filter.vcf.gz > Ilex_plates1-5_names_filter_sexed.vcf.gz
 
 ## filter out sets of individuals and remove monomorphic sites
-vcftools --gzvcf Ivom1-5_filter.vcf.gz \
---keep all_florida.txt \
---recode --recode-INFO-all --stdout | \
-bcftools view -i "MAC>=1" \
--o Ivom1-5_florida.vcf.gz
+# vcftools --gzvcf Ivom1-5_filter.vcf.gz \
+# --keep all_florida.txt \
+# --recode --recode-INFO-all --stdout | \
+# bcftools view -i "MAC>=1" \
+# -o Ivom1-5_florida.vcf.gz
 
-vcftools --gzvcf Ivom1-5_florida.vcf.gz \
---keep all_florida.txt \
---window-pi 50000 \
---out florida_pi_50kb
+# vcftools --gzvcf Ilex_plates1-5_names_filter.vcf.gz \
+# --keep redrep.txt \
+# --max-missing 1 \
+# --recode --recode-INFO-all --stdout | \
+# bcftools view -i "MAC>=1" \
+# -o Ilex_redrep_nomiss.vcf.gz
 
-vcftools --gzvcf Ivom1-5_filter.vcf.gz \
---TajimaD 50000 \
---out Ivom1-5_TajD_50kb
+# vcftools --gzvcf Ivom1-5_florida.vcf.gz \
+# --keep all_florida.txt \
+# --window-pi 50000 \
+# --out florida_pi_50kb
+
+# ## Tajima's D for genetic subpops
+# vcftools --gzvcf Ivom1-5_atlantic.vcf.gz \
+# --TajimaD 100000 \
+# --out Ivom1-5_atl_TajD_100kb
+
+# vcftools --gzvcf Ivom1-5_gulf.vcf.gz \
+# --TajimaD 100000 \
+# --out Ivom1-5_gulf_TajD_100kb
+
+# vcftools --gzvcf Ivom1-5_florida.vcf.gz \
+# --TajimaD 100000 \
+# --out Ivom1-5_fl_TajD_100kb
+
+## query VCF file for specific variants by position
+# vcftools --gzvcf Ivom1-5_filter.vcf.gz --chr Chr05 --from-bp 17957200 --to-bp 17957300 --recode --recode-INFO-all --out QTL_Chr05
+
+# bcftools view Ivom1-5_filter.vcf.gz -r Chr02:41050000-41540000,Chr03:1170000-1660000,Chr04:6770000-7260000,\
+# Chr06:27470000-27960000,Chr12:16970000-17460000,Chr13:6750000-7240000 \
+# -Ov -o EHH_cand_region_snps.vcf
