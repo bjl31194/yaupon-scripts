@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=filterVariants_Ilex
+#SBATCH --job-name=filterVariants_Ilex_bcftools
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=8
 #SBATCH --mem=32gb
 #SBATCH --time=1-00:00:00
 #SBATCH --mail-type=END,FAIL
@@ -35,7 +35,13 @@ ml BCFtools/1.21-GCC-13.3.0
 # move to the vcf directory
 cd $DATADIR
 
-bcftools stats Ilex_plates1-5_merged.vcf.gz > Ilex_merged.stats
+#######################
+## using bcftools ##
+#######################
+# biallelic SNPs with less than 20% missing data, <0.01% error rate, 250X total read depth across samples, and 7-60X depth per sample
+bcftools view -Oz --threads 8 -m2 -M2 -v snps -i 'F_MISSING<0.2 & QUAL > 30 & DP > 250 & FMT/DP > 7 & FMT/DP < 60' Ilex1-5_names.vcf.gz -o Ilex1-5_names_filter.vcf.gz
+
+# bcftools stats Ilex_plates1-5_merged.vcf.gz > Ilex_merged.stats
 
 # bcftools index Ilex_plates1-5_names_filter_sexed.vcf.gz
 
