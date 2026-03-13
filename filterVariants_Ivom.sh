@@ -39,7 +39,7 @@ cd $DATADIR
 ## using bcftools ##
 #######################
 # biallelic SNPs with less than 20% missing data, <0.01% error rate, 250X total read depth across samples, and 7-60X depth per sample
-bcftools view -Oz --threads 8 -m2 -M2 -v snps -i 'F_MISSING<0.2 & QUAL > 30 & DP > 250 & FMT/DP > 7 & FMT/DP < 60' Ilex1-5_names.vcf.gz -o Ilex1-5_names_filter.vcf.gz
+bcftools view -Oz --threads 8 -m2 -M2 -v snps -i 'F_MISSING<0.2 & QUAL > 30 & INFO/DP > 250 & FMT/DP > 7 & FMT/DP < 60' Ilex1-5_names.vcf.gz -o Ilex1-5_names_filter.vcf.gz
 
 # bcftools stats Ilex_plates1-5_merged.vcf.gz > Ilex_merged.stats
 
