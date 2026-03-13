@@ -37,4 +37,4 @@ conda init
 conda activate degenotate
 
 # run degenotate
-degenotate.py -a ${GFF} -g ${REF} -v ${VCF} -maf ${MAF} -e exclude.txt -u outgroup_Ipa.txt -o ${OUTDIR} -sfs
+degenotate.py -a ${GFF} -g ${REF} -v ${VCF} -maf ${MAF} -e exclude.txt -u outgroup_Ipa.txt -o ${OUTDIR} -sfs --overwrite
