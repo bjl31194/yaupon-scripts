@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --job-name=beagle
+#SBATCH --job-name=plink_Ilex
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=32gb
+#SBATCH --mem=64gb
 #SBATCH --time=3-00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
@@ -16,11 +16,11 @@
 # ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
 
 # set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure"
+DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_filter.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex1-5_names_filter.vcf.gz"
 
-PREFIX="Ivom1-5"
+PREFIX="Ilex1-5"
 
 SUBSET="atlantic"
 
@@ -34,11 +34,11 @@ then
 fi
 
 # load modules
-#ml PLINK/2.0.0-a.6.20-gfbf-2024a
+ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
 #ml Structure/2.3.4-GCC-12.3.0
 #ml Structure_threader/1.3.10-foss-2023a
-ml Beagle/5.4.22Jul22.46e-Java-11
+#ml Beagle/5.4.22Jul22.46e-Java-11
 
 # move to the proper directory
 cd $OUTDIR
@@ -46,7 +46,7 @@ cd $OUTDIR
 ## Make .bed file for inputting to GEMMA and filter data
 
 # plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
-# --maf 0.05 --geno 0.1 --mind 0.5 --snps-only \
+# --maf 0.0013 --geno 0.1 --mind 0.5 --snps-only \
 # --make-bed --out Ilex_plates1-5_${SUBSET}
 
 # ## attach phenotype data
@@ -55,7 +55,7 @@ cd $OUTDIR
 
 ## statistical phasing with BEAGLE on Sapelo2 cluster:
 
-java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom_Ipa_outgroup.vcf.gz nthreads=8 out=Ivom_Ipa_outgroup_phased
+#java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom_Ipa_outgroup.vcf.gz nthreads=8 out=Ivom_Ipa_outgroup_phased
 #java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom1-5_inland.vcf.gz nthreads=8 out=Ivom1-5_inland_phased 
 
 ## get fasta from candidate regions in GFF format
@@ -76,21 +76,24 @@ java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom_Ipa_outgroup.vcf.gz nthreads=8 out=
 
 ## identify prune sites, LD prune, filter variants, and create bed, pca, and structure files
 ## KEY: --indep-pairwise x y z
-# a) consider a window of x SNPs
+# a) consider SNPs in a window of x kb
 # b) calculate LD between each pair of SNPs in the window
 # b) remove one of a pair of SNPs if the LD is greater than z
 # c) shift the window y SNPs forward and repeat the procedure
 
-# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
-# --maf 0.01 --geno 0.1 --mind 0.5 --snps-only \
-# --indep-pairwise 50 10 0.5 \
-# --out $PREFIX
+plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+--maf 0.0013 --geno 0.1 --snps-only \
+--make-bed --out $PREFIX
 
-# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
-# --extract ${PREFIX}.prune.in \
-# --make-bed --pca var-wts --out $PREFIX
+plink -bfile $PREFIX --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+--indep-pairwise 100 5 0.7 \
+--out $PREFIX
 
-# plink --bfile $PREFIX --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
+plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+--extract ${PREFIX}.prune.in \
+--make-bed --pca var-wts --out ${PREFIX}_pruned
+
+# plink --bfile ${PREFIX}_pruned --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
 
 ## generate  "0,1,2" coded genotype matrix
 # plink --bfile Ilex384 --allow-extra-chr --recode A --out Ilex384forRDA
