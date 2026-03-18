@@ -21,7 +21,7 @@ DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 
 REF="/scratch/bjl31194/yaupon/references/Ilex_vomitoria_var_GA_F_4_HAP1_V1_release/Ilex_vomitoria_var_GA_F_4/sequences/Ilex_vomitoria_var_GA_F_4.HAP1.mainGenome.fasta"
 GFF="/scratch/bjl31194/yaupon/wgs/plates1-5/ann/Ivo_Ipa_singlecopy.gff3"
-VCF="Ilex1-5_names.vcf.gz"
+VCF="Ilex1-5_names_filter.vcf.gz"
 MAF=0.1
 
 
@@ -37,4 +37,4 @@ conda init
 conda activate degenotate
 
 # run degenotate
-degenotate.py -a ${GFF} -g ${REF} -v ${VCF} -maf ${MAF} -e exclude.txt -u outgroup_Ipa.txt -o ${OUTDIR} -sfs --overwrite
+/home/bjl31194/.conda/envs/degenotate/bin/degenotate.py -a ${GFF} -g ${REF} -v ${VCF} -maf ${MAF} -e exclude.txt -u outgroup_Ipa.txt -o ${OUTDIR} -sfs --overwrite
