@@ -39,13 +39,20 @@ cd $DATADIR
 ## using bcftools ##
 #######################
 # biallelic SNPs with less than 20% missing data, <0.01% error rate, 250X total read depth across samples, and 7-60X depth per sample
-bcftools view -Oz --threads 8 -m2 -M2 -v snps -i 'F_MISSING<0.2 & QUAL > 30 & INFO/DP > 250 & FMT/DP > 7 & FMT/DP < 60' Ilex1-5_names.vcf.gz -o Ilex1-5_names_filter.vcf.gz
+# bcftools view -Oz --threads 8 -m2 -M2 -v snps -i 'F_MISSING<0.2 & QUAL > 30 & INFO/DP > 250 & FMT/DP > 7 & FMT/DP < 60' Ilex1-5_names.vcf.gz -o Ilex1-5_names_filter.vcf.gz
 
 # bcftools stats Ilex_plates1-5_merged.vcf.gz > Ilex_merged.stats
 
-# bcftools index Ilex_plates1-5_names_filter_sexed.vcf.gz
+# subset big vcf for mkado
+bcftools view -Oz -S Ivom1-5_newnames.txt Ilex1-5_names_filter.vcf.gz > Ivom1-5_names_newfilter.vcf.gz
+bcftools view -Oz -S outgroup_Ipa.txt Ilex1-5_names_filter.vcf.gz > MC-IP-2.vcf.gz
 
-# perform the filtering with vcftools
+bcftools index -t Ivom1-5_names_newfilter.vcf.gz
+bcftools index -t MC-IP-2.vcf.gz
+
+##########################################
+## perform filtering with vcftools - NOT UPDATED ##
+##########################################
 # vcftools --gzvcf $VCF_IN \
 # --remove-indels --maf $MAF --max-missing $MISS --minQ $QUAL \
 # --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
