@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=filterVariants_Ilex_bcftools
+#SBATCH --job-name=bcftools
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -44,11 +44,11 @@ cd $DATADIR
 # bcftools stats Ilex_plates1-5_merged.vcf.gz > Ilex_merged.stats
 
 # subset big vcf for mkado
-bcftools view -Oz -S Ivom1-5_newnames.txt Ilex1-5_names_filter.vcf.gz > Ivom1-5_names_newfilter.vcf.gz
-bcftools view -Oz -S outgroup_Ipa.txt Ilex1-5_names_filter.vcf.gz > MC-IP-2.vcf.gz
+bcftools view --threads 8 -Oz -S Ivom1-5_newnames.txt Ilex1-5_names_filter.vcf.gz > Ivom1-5_names_newfilter.vcf.gz
+bcftools view --threads 8 -Oz -S outgroup_Ipa.txt Ilex1-5_names_filter.vcf.gz > MC-IP-2.vcf.gz
 
-bcftools index -t Ivom1-5_names_newfilter.vcf.gz
-bcftools index -t MC-IP-2.vcf.gz
+bcftools index --threads 8 -t Ivom1-5_names_newfilter.vcf.gz
+bcftools index --threads 8 -t MC-IP-2.vcf.gz
 
 ##########################################
 ## perform filtering with vcftools - NOT UPDATED ##
