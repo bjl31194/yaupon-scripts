@@ -27,11 +27,18 @@ MAF=0.1
 GENES="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gene_IDs.txt"
 
 
-cd $OUTDIR
+cd $DATADIR
 
 # index vcf
-#ml BCFtools/1.21-GCC-13.3.0
-#bcftools index -t $VCF --threads 8 
+ml BCFtools/1.21-GCC-13.3.0
+ml tabix/0.2.6-GCCcore-13.3.0
+# bcftools index -t $VCF --threads 8 
+
+# call variants in outgroup
+bcftools mpileup -f $REF /scratch/bjl31194/yaupon/wgs/plates1-5/align/25055FL-03-01-91_S91_L007.Ivo.sorted.bam | \
+    bcftools call -m -v -Oz -o ${DATADIR}/MC-IP-02.vcf.gz
+tabix -p vcf MC-IP-02.vcf.gz
+tabix -p vcf /scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_names_newfilter.vcf.gz
 
 conda init
 
@@ -43,4 +50,4 @@ conda activate mkado
 # /home/bjl31194/.conda/envs/degenotate/bin/degenotate.py -a ${GFF} -g ${REF} -v ${VCF} -maf ${MAF} -e exclude.txt -u outgroup_Ipa.txt -o ${OUTDIR} -sfs --overwrite
 
 # run mkado
-/home/bjl31194/.conda/envs/mkado/bin/mkado vcf --vcf ${VCF} --outgroup-vcf ${OUT} --ref ${REF} --gff ${GFF} --per-gene --workers 8 --format tsv --verbose -a 
+/home/bjl31194/.conda/envs/mkado/bin/mkado vcf --vcf ${VCF} --outgroup-vcf ${OUT} --ref ${REF} --gff ${GFF} --per-gene --workers 8 -f tsv --verbose -a 
