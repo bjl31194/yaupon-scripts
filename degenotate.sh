@@ -43,4 +43,4 @@ conda activate mkado
 # /home/bjl31194/.conda/envs/degenotate/bin/degenotate.py -a ${GFF} -g ${REF} -v ${VCF} -maf ${MAF} -e exclude.txt -u outgroup_Ipa.txt -o ${OUTDIR} -sfs --overwrite
 
 # run mkado
-mkado vcf --vcf ${VCF} --outgroup-vcf ${OUT} --ref ${REF} --gff ${GFF} --per-gene --workers 8 --format tsv --verbose -a 
+/home/bjl31194/.conda/envs/mkado/bin/mkado vcf --vcf ${VCF} --outgroup-vcf ${OUT} --ref ${REF} --gff ${GFF} --per-gene --workers 8 --format tsv --verbose -a 
