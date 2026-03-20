@@ -82,11 +82,11 @@ cd $OUTDIR
 # c) shift the window y SNPs forward and repeat the procedure
 
 plink --threads 8 --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---maf 0.0013 --geno 0.1 --snps-only \
+--maf 0.05 --geno 0.1 --snps-only --biallelic-only strict \
 --make-bed --out $PREFIX
 
 plink --threads 8 -bfile $PREFIX --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---indep-pairwise 50 10 0.2 \
+--indep-pairwise 100 10 0.2 \
 --out $PREFIX
 
 plink --threads 8 -bfile ${PREFIX} --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
