@@ -3,8 +3,8 @@
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=24gb
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32gb
 #SBATCH --time=3-00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
@@ -81,21 +81,21 @@ cd $OUTDIR
 # b) remove one of a pair of SNPs if the LD is greater than z
 # c) shift the window y SNPs forward and repeat the procedure
 
-# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
-# --maf 0.0013 --geno 0.1 --snps-only \
-# --make-bed --out $PREFIX
+plink --threads 8 --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+--maf 0.0013 --geno 0.1 --snps-only \
+--make-bed --out $PREFIX
 
-# plink -bfile $PREFIX --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
-# --indep-pairwise 100 5 0.7 \
-# --out $PREFIX
+plink --threads 8 -bfile $PREFIX --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+--indep-pairwise 50 10 0.2 \
+--out $PREFIX
 
-# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
-# --extract ${PREFIX}.prune.in \
-# --make-bed --pca var-wts --out ${PREFIX}_pruned
+plink --threads 8 -bfile ${PREFIX} --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+--extract ${PREFIX}.prune.in \
+--make-bed --pca var-wts --out ${PREFIX}_pruned
 
-plink -bfile ${PREFIX}_pruned --recode vcf --out ${PREFIX}_pruned
+plink --threads 8 -bfile ${PREFIX}_pruned --export vcf bgz --out ${PREFIX}_pruned
 
-# plink --bfile ${PREFIX}_pruned --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
+plink --threads 8 --bfile ${PREFIX}_pruned --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
 
 ## generate  "0,1,2" coded genotype matrix
 # plink --bfile Ilex384 --allow-extra-chr --recode A --out Ilex384forRDA
