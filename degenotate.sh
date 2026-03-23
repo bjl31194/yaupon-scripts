@@ -22,7 +22,7 @@ DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 REF="/scratch/bjl31194/yaupon/references/Ilex_vomitoria_var_GA_F_4_HAP1_V1_release/Ilex_vomitoria_var_GA_F_4/sequences/Ilex_vomitoria_var_GA_F_4.HAP1.mainGenome.fasta"
 GFF="/scratch/bjl31194/yaupon/wgs/plates1-5/ann/Ilex_Hap1.filter.gff3"
 VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_names_newfilter.vcf.gz"
-OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/MC-IP-2.vcf.gz"
+OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/MC-IP-02.vcf.gz"
 MAF=0.1
 GENES="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gene_IDs.txt"
 
@@ -35,8 +35,8 @@ ml tabix/0.2.6-GCCcore-13.3.0
 # bcftools index -t $VCF --threads 8 
 
 # call variants in outgroup
-bcftools mpileup -f $REF /scratch/bjl31194/yaupon/wgs/plates1-5/align/25055FL-03-01-91_S91_L007.Ivo.sorted.bam | \
-    bcftools call -m -v -Oz -o ${DATADIR}/MC-IP-02.vcf.gz
+bcftools mpileup -a AD,DP,SP,INFO/AD -Ou -f $REF /scratch/bjl31194/yaupon/wgs/plates1-5/align_hap1/25055FL-03-01-91_S91_L007.Ivo.sorted.bam | \
+    bcftools call --threads 8 -mv -Oz -o ${DATADIR}/MC-IP-02.vcf.gz
 tabix -p vcf MC-IP-02.vcf.gz
 tabix -p vcf /scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_names_newfilter.vcf.gz
 
