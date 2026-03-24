@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=mkado
+#SBATCH --job-name=mkado_imputed
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -49,5 +49,9 @@ conda activate mkado
 # run degenotate
 # /home/bjl31194/.conda/envs/degenotate/bin/degenotate.py -a ${GFF} -g ${REF} -v ${VCF} -maf ${MAF} -e exclude.txt -u outgroup_Ipa.txt -o ${OUTDIR} -sfs --overwrite
 
-# run mkado
-/home/bjl31194/.conda/envs/mkado/bin/mkado vcf --vcf ${VCF} --outgroup-vcf ${OUT} --ref ${REF} --gff ${GFF} --per-gene --workers 8 -f tsv --verbose -a 
+# run mkado (asymptotic MK)
+# /home/bjl31194/.conda/envs/mkado/bin/mkado vcf --vcf ${VCF} --outgroup-vcf ${OUT} --ref ${REF} --gff ${GFF} --per-gene --workers 8 -f tsv --verbose -a 
+
+# run mkado (imputed MK)
+/home/bjl31194/.conda/envs/mkado/bin/mkado vcf --vcf ${VCF} --outgroup-vcf ${OUT} --ref ${REF} --gff ${GFF} --per-gene --workers 8 -f tsv --verbose --imputed
+
