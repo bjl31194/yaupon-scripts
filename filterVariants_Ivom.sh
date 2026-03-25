@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=bcftools
+#SBATCH --job-name=bcftools_stats
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=32gb
 #SBATCH --time=1-00:00:00
 #SBATCH --mail-type=END,FAIL
@@ -42,13 +42,14 @@ cd $DATADIR
 # bcftools view -Oz --threads 8 -m2 -M2 -v snps -i 'F_MISSING<0.2 & QUAL > 30 & INFO/DP > 250 & FMT/DP > 7 & FMT/DP < 60' Ilex1-5_names.vcf.gz -o Ilex1-5_names_filter.vcf.gz
 
 # bcftools stats Ilex_plates1-5_merged.vcf.gz > Ilex_merged.stats
-
+bcftools stats Ilex1-5_pruned.vcf.gz > Ilex_pruned.stats
+bcftools stats Ivom1-5_filter.vcf.gz > Ivom1-5_old.stats
 # subset big vcf for mkado
-bcftools view --threads 8 -Oz -S Ivom1-5_newnames.txt Ilex1-5_names_filter.vcf.gz > Ivom1-5_names_newfilter.vcf.gz
-bcftools view --threads 8 -Oz -S outgroup_Ipa.txt Ilex1-5_names_filter.vcf.gz > MC-IP-2.vcf.gz
+# bcftools view --threads 8 -Oz -S Ivom1-5_newnames.txt Ilex1-5_names_filter.vcf.gz > Ivom1-5_names_newfilter.vcf.gz
+# bcftools view --threads 8 -Oz -S outgroup_Ipa.txt Ilex1-5_names_filter.vcf.gz > MC-IP-2.vcf.gz
 
-bcftools index --threads 8 -t Ivom1-5_names_newfilter.vcf.gz
-bcftools index --threads 8 -t MC-IP-2.vcf.gz
+# bcftools index --threads 8 -t Ivom1-5_names_newfilter.vcf.gz
+# bcftools index --threads 8 -t MC-IP-2.vcf.gz
 
 ##########################################
 ## perform filtering with vcftools - NOT UPDATED ##
