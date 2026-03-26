@@ -55,7 +55,7 @@ cd $DATADIR
 ##########################################
 ## perform filtering with vcftools ##
 ##########################################
-bcftools reheader --threads 8 --samples ./Ilex1-5_newnames.txt -o Ilex1-5_names.vcf.gz
+bcftools reheader --threads 8 --samples ./Ilex1-5_newnames.txt Ilex_plates1-5_merged.vcf.gz -o Ilex1-5_names.vcf.gz
 
 vcftools --gzvcf $VCF_IN \
 --remove-indels --maf $MAF --minQ $QUAL \
