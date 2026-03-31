@@ -30,8 +30,8 @@ GENES="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gene_IDs.txt"
 cd $DATADIR
 
 # index vcf
-# ml BCFtools/1.21-GCC-13.3.0
-# ml tabix/0.2.6-GCCcore-13.3.0
+ml BCFtools/1.21-GCC-13.3.0
+ml tabix/0.2.6-GCCcore-13.3.0
 # bcftools index -t $VCF --threads 8 
 
 # call variants in outgroup
