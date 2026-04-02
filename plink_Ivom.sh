@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=plink_Ilex
+#SBATCH --job-name=plink_ld_chr2
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -18,7 +18,7 @@
 # set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 
-VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex1-5_names_filter.vcf.gz"
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_names_nofilter.vcf.gz"
 
 PREFIX="Ilex1-5"
 
@@ -60,12 +60,11 @@ cd $OUTDIR
 
 ## Estimating LD with plink
 
-# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders \
-# --set-missing-var-ids @:# \
-# --maf 0.01 --geno 0.2 --mind 0.5 --chr Chr02 \
-# --thin 0.5 -r2 gz --ld-window 100 --ld-window-kb 1000 \
-# --ld-window-r2 0 \
-# --make-bed --out Ivom_chr2
+plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders \
+--set-missing-var-ids @:# --threads 8 \
+--chr Chr02 \
+-r2 gz --ld-window 100 --ld-window-kb 1000 \
+--out Ivom_chr2_r2
 
 ## identify prune sites, LD prune, filter variants, and create bed, pca, and structure files
 ## KEY: --indep-pairwise x y z
@@ -74,21 +73,21 @@ cd $OUTDIR
 # b) remove one of a pair of SNPs if the LD is greater than z
 # c) shift the window y SNPs forward and repeat the procedure
 
-plink --threads 8 --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---maf 0.05 --geno 0.1 --snps-only --biallelic-only strict \
---make-bed --out $PREFIX
+# plink --threads 8 --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+# --maf 0.05 --geno 0.1 --snps-only --biallelic-only strict \
+# --make-bed --out $PREFIX
 
-plink --threads 8 -bfile $PREFIX --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---indep-pairwise 100 10 0.2 \
---out $PREFIX
+# plink --threads 8 -bfile $PREFIX --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+# --indep-pairwise 100 10 0.2 \
+# --out $PREFIX
 
-plink --threads 8 -bfile ${PREFIX} --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---extract ${PREFIX}.prune.in \
---make-bed --pca var-wts --out ${PREFIX}_pruned
+# plink --threads 8 -bfile ${PREFIX} --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+# --extract ${PREFIX}.prune.in \
+# --make-bed --pca var-wts --out ${PREFIX}_pruned
 
-plink --threads 8 -bfile ${PREFIX}_pruned --export vcf bgz --out ${PREFIX}_pruned
+# plink --threads 8 -bfile ${PREFIX}_pruned --export vcf bgz --out ${PREFIX}_pruned
 
-plink --threads 8 --bfile ${PREFIX}_pruned --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
+# plink --threads 8 --bfile ${PREFIX}_pruned --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
 
 ## generate  "0,1,2" coded genotype matrix
 # plink --bfile Ilex384 --allow-extra-chr --recode A --out Ilex384forRDA
