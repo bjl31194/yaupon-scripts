@@ -16,6 +16,6 @@ cd $OUTDIR
 
 module load PAUP/4.0a168-centos64
 
-paup Ilex_spp.nex -L Ilex_spp.log
+paup Ilex_spp.nex -L Ilex_spp.log -n
 
 svdquartets evalquartets=all nthreads=8 bootstrap;
