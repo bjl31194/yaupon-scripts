@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=plink_ld_chr2
+#SBATCH --job-name=beagle
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -34,12 +34,12 @@ then
 fi
 
 # load modules
-ml PLINK/2.0.0-a.6.20-gfbf-2024a
+#ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
 #ml Structure/2.3.4-GCC-12.3.0
 #ml Structure_threader/1.3.10-foss-2023a
-#ml Beagle/5.4.22Jul22.46e-Java-11
-
+ml Beagle/5.4.22Jul22.46e-Java-11
+#ml BCFtools/1.21-GCC-13.3.0
 # move to the proper directory
 cd $OUTDIR
 
@@ -55,17 +55,17 @@ cd $OUTDIR
 
 ## statistical phasing with BEAGLE on Sapelo2 cluster:
 
-#java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom_Ipa_outgroup.vcf.gz nthreads=8 out=Ivom_Ipa_outgroup_phased
-#java -jar ${EBROOTBEAGLE}/beagle.jar gt=Ivom1-5_inland.vcf.gz nthreads=8 out=Ivom1-5_inland_phased 
+java -jar ${EBROOTBEAGLE}/beagle.jar gt=dune.vcf.gz nthreads=8 out=dune_phased
+java -jar ${EBROOTBEAGLE}/beagle.jar gt=inland.vcf.gz nthreads=8 out=inland_phased 
 
 ## Estimating LD with plink
 
-plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders \
---set-missing-var-ids @:# --threads 8 \
---maf 0.01 --geno 0.1 --mind 0.5 \
---chr Chr01 --thin 0.5 \
--r2 gz --ld-window 100 --ld-window-kb 1000 --ld-window-r2 0 \
---make-bed --out Ivom_chr1_r2
+# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders \
+# --set-missing-var-ids @:# --threads 8 \
+# --maf 0.01 --geno 0.1 --mind 0.5 \
+# --chr Chr01 --thin 0.5 \
+# -r2 gz --ld-window 100 --ld-window-kb 1000 --ld-window-r2 0 \
+# --make-bed --out Ivom_chr1_r2
 
 ## identify prune sites, LD prune, filter variants, and create bed, pca, and structure files
 ## KEY: --indep-pairwise x y z
