@@ -114,6 +114,7 @@ cd $DATADIR
 # bcftools view Ivom1-5_filter.vcf.gz -r Chr02:41050000-41540000,Chr03:1170000-1660000,Chr04:6770000-7260000,\
 # Chr06:27470000-27960000,Chr12:16970000-17460000,Chr13:6750000-7240000 \
 # -Ov -o EHH_cand_region_snps.vcf
+bcftools view Ivom_wild_filter.vcf -Oz -o Ivom_wild_filter.vcf.gz
 
-bcftools view Ivom_wild_filter.vcf -R cand_regions_EHH_dune.txt \
+bcftools view Ivom_wild_filter.vcf.gz -R cand_regions_EHH_dune.txt \
 -Ov -o EHH_dune_cand_region_snps.vcf
