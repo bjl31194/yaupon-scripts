@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=bcftools_stats
+#SBATCH --job-name=bcftools_getcandsnps
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=32gb
 #SBATCH --time=1-00:00:00
 #SBATCH --mail-type=END,FAIL
@@ -29,7 +29,7 @@ MIN_DEPTH=7 # 1st quantile 7.23, mean was 8.3
 MAX_DEPTH=60 # went with mean depth x 2 + a little extra judging from where most variants fell on histogram
 
 # load modules
-ml VCFtools/0.1.16-GCC-13.3.0
+#ml VCFtools/0.1.16-GCC-13.3.0
 ml BCFtools/1.21-GCC-13.3.0
 
 # move to the vcf directory
@@ -55,13 +55,13 @@ cd $DATADIR
 ##########################################
 ## perform filtering with vcftools ##
 ##########################################
-bcftools reheader --threads 8 --samples ./Ilex1-5_newnames.txt Ilex_plates1-5_merged.vcf.gz -o Ilex1-5_names.vcf.gz
+# bcftools reheader --threads 8 --samples ./Ilex1-5_newnames.txt Ilex_plates1-5_merged.vcf.gz -o Ilex1-5_names.vcf.gz
 
-vcftools --gzvcf $VCF_IN \
---remove-indels --maf $MAF --minQ $QUAL \
---min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
---minDP $MIN_DEPTH --maxDP $MAX_DEPTH --max-missing $MISS --recode --stdout | bgzip -c > \
-$VCF_OUT
+# vcftools --gzvcf $VCF_IN \
+# --remove-indels --maf $MAF --minQ $QUAL \
+# --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
+# --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --max-missing $MISS --recode --stdout | bgzip -c > \
+# $VCF_OUT
 
 # optional filtering by sample id to remove decidua individuals (requires txt file with list of sample names to keep)
 #bcftools view -Oz -S only_yaupon.txt Ivom_plate1_filter.vcf.gz > Ivom_plate1_sppfilter.vcf.gz
@@ -110,6 +110,10 @@ $VCF_OUT
 ## query VCF file for specific variants by position
 # vcftools --gzvcf Ivom1-5_filter.vcf.gz --chr Chr05 --from-bp 17957200 --to-bp 17957300 --recode --recode-INFO-all --out QTL_Chr05
 
+## query for EHH cand region SNPs
 # bcftools view Ivom1-5_filter.vcf.gz -r Chr02:41050000-41540000,Chr03:1170000-1660000,Chr04:6770000-7260000,\
 # Chr06:27470000-27960000,Chr12:16970000-17460000,Chr13:6750000-7240000 \
 # -Ov -o EHH_cand_region_snps.vcf
+
+bcftools view Ivom1-5_names_nofilter.vcf.gz -R cand_regions_EHH_dune.txt \
+-Ov -o EHH_dune_cand_region_snps.vcf
