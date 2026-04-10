@@ -115,5 +115,5 @@ cd $DATADIR
 # Chr06:27470000-27960000,Chr12:16970000-17460000,Chr13:6750000-7240000 \
 # -Ov -o EHH_cand_region_snps.vcf
 
-bcftools view Ivom1-5_names_nofilter.vcf.gz -R cand_regions_EHH_dune.txt \
+bcftools view Ivom_wild_filter.vcf -R cand_regions_EHH_dune.txt \
 -Ov -o EHH_dune_cand_region_snps.vcf
