@@ -110,7 +110,10 @@ cd $DATADIR
 ## query VCF file for specific variants by position
 # vcftools --gzvcf Ivom1-5_filter.vcf.gz --chr Chr05 --from-bp 17957200 --to-bp 17957300 --recode --recode-INFO-all --out QTL_Chr05
 
-## query for EHH cand region SNPs
+###################################
+## query for EHH cand region SNPs ##
+###################################
+
 # bcftools view Ivom1-5_filter.vcf.gz -r Chr02:41050000-41540000,Chr03:1170000-1660000,Chr04:6770000-7260000,\
 # Chr06:27470000-27960000,Chr12:16970000-17460000,Chr13:6750000-7240000 \
 # -Ov -o EHH_cand_region_snps.vcf
