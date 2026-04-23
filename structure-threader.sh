@@ -7,8 +7,8 @@
 #SBATCH --mem=64gb
 #SBATCH --time=7-00:00
 #SBATCH --mail-type=END,FAIL
-#SBATCH --output=path/to/logs.out
-#SBATCH --error=path/to/logs.error
+#SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
+#SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 
 ## set parameters
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/wild_only"
