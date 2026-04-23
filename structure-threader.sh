@@ -17,7 +17,7 @@ VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom_wild_filter.vcf.gz"
 
 PREFIX="Ivom1-5_wild"
 
-STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/Ivom_wild_forStructure.recode.strct_in"
+STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/wild_only/Ivom1-5_wild_forStructure.recode.strct_in"
 
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/wild_only"
 
@@ -43,18 +43,19 @@ cd $OUTDIR
 # b) calculate LD between each pair of SNPs in the window
 # b) remove one of a pair of SNPs if the LD is greater than z
 # c) shift the window y SNPs forward and repeat the procedure
-plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---maf 0.01 --geno 0.1 --mind 0.5 --snps-only \
---indep-pairwise 50 10 0.5 \
---out $PREFIX
 
-## This line uses the list of pruned/filtered SNPs from the previous line and makes a BED file from them, as well as eigenvalues/vectors for PCA
-plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
---extract ${PREFIX}.prune.in \
---make-bed --pca var-wts --out $PREFIX
+# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+# --maf 0.01 --geno 0.1 --mind 0.5 --snps-only \
+# --indep-pairwise 50 10 0.5 \
+# --out $PREFIX
 
-## This takes the BED file and spits out a (mostly) structure-formatted file 
-plink --bfile $PREFIX --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
+# ## This line uses the list of pruned/filtered SNPs from the previous line and makes a BED file from them, as well as eigenvalues/vectors for PCA
+# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --set-missing-var-ids @:# \
+# --extract ${PREFIX}.prune.in \
+# --make-bed --pca var-wts --out $PREFIX
+
+# ## This takes the BED file and spits out a (mostly) structure-formatted file 
+# plink --bfile $PREFIX --allow-extra-chr --allow-no-sex --recode structure --out ${PREFIX}_forStructure
 
 
 ## STRUCTURE - for running on cluster ##
