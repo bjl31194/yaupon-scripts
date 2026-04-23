@@ -36,8 +36,6 @@ fi
 # load modules
 #ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
-#ml Structure/2.3.4-GCC-12.3.0
-#ml Structure_threader/1.3.10-foss-2023a
 ml Beagle/5.4.22Jul22.46e-Java-11
 #ml BCFtools/1.21-GCC-13.3.0
 # move to the proper directory
@@ -114,11 +112,6 @@ java -jar ${EBROOTBEAGLE}/beagle.jar gt=inland.vcf.gz nthreads=8 out=inland_phas
 # yoink cross validation errors out of log files
 #awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $FILE.cv.error
 
-## STRUCTURE - for running on cluster ##
-
-# structure_threader run -Klist 2 3 4 5 6 7 8 -R 3 -i $STRUCT_IN -o $OUTDIR -t 16 --params mainparams_Ivom1-5 --ind indfile_Ivom1-5.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-# structure_threader plot -i . -f structure -K 2 3 4 5 6 7 8 --ind indfile_Ivom1-5.csv
- 
 ## other misc scripts ##
 
 # run pong locally for ADMIXTURE visualization
