@@ -3,8 +3,8 @@
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=64gb
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=40gb
 #SBATCH --time=7-00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
@@ -61,8 +61,8 @@ cd $OUTDIR
 ## STRUCTURE - for running on cluster ##
 ## structure mainparams:  onerowperind TRUE; label TRUE; popdata, popflag FALSE; locdata FALSE; \
 ## phenotype FALSE; extracols 1; markernames, mapdistances TRUE
-structure_threader run -Klist 2 3 4 5 6 7 8 9 10 -R 3 -i $STRUCT_IN -o $OUTDIR -t 16 --params mainparams_Ivom_wild --ind indfile_Ivom_wild.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
-structure_threader plot -i . -f structure -K 2 3 4 5 6 7 8 9 10 --ind indfile_Ivom_wild.csv
+structure_threader run -Klist 2 3 4 5 6 7 8 -R 3 -i $STRUCT_IN -o $OUTDIR -t 32 --params mainparams_Ivom_wild --ind indfile_Ivom_wild.csv -st /apps/eb/Structure/2.3.4-GCC-12.3.0/bin/structure
+structure_threader plot -i . -f structure -K 2 3 4 5 6 7 8 --ind indfile_Ivom_wild.csv
 
 ## pong - can install via conda and use locally for STRUCTURE/ADMIXTURE visualization
 ## use the admixture proportions from STRUCTURE output (*.f)
