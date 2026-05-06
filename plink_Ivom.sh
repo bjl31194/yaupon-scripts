@@ -22,7 +22,7 @@ VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ivom1-5_names_nofilter.vcf.gz
 
 PREFIX="Ilex1-5"
 
-SUBSET="atlantic"
+SUBSET="Ivom_wild"
 
 STRUCT_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/structure/Ivom1-5_forStructure.recode.strct_in"
 
@@ -34,9 +34,9 @@ then
 fi
 
 # load modules
-#ml PLINK/2.0.0-a.6.20-gfbf-2024a
+ml PLINK/2.0.0-a.6.20-gfbf-2024a
 #ml ADMIXTURE/1.3.0
-ml Beagle/5.4.22Jul22.46e-Java-11
+#ml Beagle/5.4.22Jul22.46e-Java-11
 #ml BCFtools/1.21-GCC-13.3.0
 # move to the proper directory
 cd $OUTDIR
@@ -48,13 +48,13 @@ cd $OUTDIR
 # --make-bed --out Ilex_plates1-5_${SUBSET}
 
 # ## attach phenotype data
-# plink --bfile Ilex_plates1-5_${SUBSET} --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
-# --make-bed --out gemma_input_${SUBSET}
+plink --bfile ${SUBSET}_sexed.bed --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
+--make-bed --out gemma_input_${SUBSET}
 
 ## statistical phasing with BEAGLE on Sapelo2 cluster:
 
-java -jar ${EBROOTBEAGLE}/beagle.jar gt=dune.vcf.gz nthreads=8 out=dune_phased
-java -jar ${EBROOTBEAGLE}/beagle.jar gt=inland.vcf.gz nthreads=8 out=inland_phased 
+#java -jar ${EBROOTBEAGLE}/beagle.jar gt=dune.vcf.gz nthreads=8 out=dune_phased
+#java -jar ${EBROOTBEAGLE}/beagle.jar gt=inland.vcf.gz nthreads=8 out=inland_phased 
 
 ## Estimating LD with plink
 

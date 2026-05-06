@@ -26,17 +26,23 @@ QUERY="/scratch/bjl31194/yaupon/TCS1_CDS.fasta"
 
 # download genomes
 #curl http://ftp.ensemblgenomes.org/pub/plants/release-52/fasta/zea_mays/dna/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.dna.toplevel.fa.gz > ${SEQDIR}/Zm-B73-REFERENCE-NAM-5.0.fa.gz
-
+#sed -n '1~4s/^@/>/p;2~4p' ${SEQDIR}/P2_A01.1.fq_trimmed.fq > ${SEQDIR}/P2_A01.1_trimmed.fasta
 
 # modules
 ml BLAST+/2.2.31
+ml ncbiblastdb/20260501
 
-#sed -n '1~4s/^@/>/p;2~4p' ${SEQDIR}/P2_A01.1.fq_trimmed.fq > ${SEQDIR}/P2_A01.1_trimmed.fasta
+#################################################
+## for blasting yaupon sequences to NCBI ##
+#################################################
 
-# make blast database
-#
-makeblastdb -dbtype nucl -in $SUBJECT -out ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb
-#fi
+blastx -query RDA_EHH_gene_seqs.fasta -out RDA_EHH_gene_hits.out -db swissprot
 
-# blast sequence
-blastn -num_threads 4 -query $QUERY -db ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb -out ${OUTDIR}/TCS1_blastresults.tsv -max_target_seqs 10
+
+#################################################
+## for blasting things to the yaupon genome ##
+#################################################
+## make blast database
+# makeblastdb -dbtype nucl -in $SUBJECT -out ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb
+## blast sequence
+# blastn -num_threads 4 -query $QUERY -db ${SEQDIR}/I_vomitoria_GAF4_hap1_min50k_blastdb.ndb -out ${OUTDIR}/TCS1_blastresults.tsv -max_target_seqs 10
