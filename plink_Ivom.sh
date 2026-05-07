@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --job-name=beagle
+#SBATCH --job-name=gemma_input
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=32gb
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=8gb
 #SBATCH --time=3-00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
@@ -48,7 +48,7 @@ cd $OUTDIR
 # --make-bed --out Ilex_plates1-5_${SUBSET}
 
 # ## attach phenotype data
-plink --bfile ${SUBSET}_sexed.bed --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
+plink --bfile ${SUBSET}_sexed --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
 --make-bed --out gemma_input_${SUBSET}
 
 ## statistical phasing with BEAGLE on Sapelo2 cluster:
