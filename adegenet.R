@@ -10,8 +10,8 @@ library("ggplot2")
 library("adegenet")
 library("hierfstat")
 library(vcfR)
-
-setwd("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1234")
+library(tidyr)
+setwd("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1-5")
 
 Ivom384 <- read.structure("Ivom384forStructureRecode.STR", 
                           n.ind=366,
@@ -34,6 +34,7 @@ sites <- read.table("sites_Ivom384.txt")
 states <- read.table("states.txt")
 #attach pop info
 Ivom384@pop <- as.factor(sites$V1)
+Ivom384@pop <- as.factor(states$V1)
 Ivom384_noMAF@pop <- as.factor(sites$V1)
 strata(Ivom384_noMAF) <- data.frame(Ivom384_noMAF@pop, pop_clust$V1, states$V1)
 nameStrata(Ivom384_noMAF) <- ~pop/clust/state
@@ -124,10 +125,6 @@ assignplot(dapc1, subset=1:49)
 gen <- as(Ivom384, "matrix")
 sum(is.na(gen))
 
-## calculate nucleotide diversity (pi)
-
-genind2loci(Ivom384)
-
 ## calculate latlong correlation with first two PCs ##
 pca_latlong <- coords %>% 
   mutate(PC1 = pca$PC1) %>%
@@ -136,7 +133,8 @@ pca_latlong <- coords %>%
 cor(pca_latlong)
 
 ## Pairwise Fst heatmap ##
-pwFst <- read.csv("pairwiseFst_Ivom384.csv", row.names = 1)
+require(ape)
+pwFst <- read.csv("/Users/ben/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1234/pairwiseFst_Ivom384.csv", row.names = 1)
 
 pwFst2 <- pwFst %>%
   rownames_to_column() %>%
@@ -149,6 +147,16 @@ colnames(pwFst2) <- c("pop1","pop2","Fst")
 pwFst_heat <- ggplot(pwFst2, aes(x = pop1, y = pop2, fill = Fst)) +
   geom_tile()
 pwFst_heat
+
+pwFst <- as.matrix(pwFst)
+
+Ivom384.tree <- nj(pwFst)
+plot(Ivom384.tree, type="unr", tip.col=funky(nPop(Ivom384)), font=2, )
+annot <- round(Ivom384.tree$edge.length,2)
+edgelabels(annot[annot>0], which(annot>0), frame="n")
+add.scale.bar()
+
+table.paint(pwFst, col.labels=colnames(pwFst))
 
 ## count private alleles ##
 install.packages("poppr")
@@ -166,6 +174,116 @@ ggplot(pralleles) + geom_tile(aes(x = population, y = allele, fill = count))
 
 private_alleles_by_state <- private_alleles(Ivom384_noMAF, form = alleles ~ state, report = "data.frame")
 
+## nucleotide diversity
+
+gulf_pi <- read_table("gulf_pi_50kb.windowed.pi")
+atl_pi <- read_table("atlantic_pi_50kb.windowed.pi")
+fl_pi <- read_table("florida_pi_50kb.windowed.pi")
+
+gulf_pi <- gulf_pi %>%
+  mutate(CHROM = gsub("[a-zA-Z ]", "", gulf_pi$CHROM)) 
+atl_pi <- atl_pi %>%
+  mutate(CHROM = gsub("[a-zA-Z ]", "", atl_pi$CHROM))
+fl_pi <- fl_pi %>%
+  mutate(CHROM = gsub("[a-zA-Z ]", "", fl_pi$CHROM))
+
+gulf_pi$CHROM <- as.numeric(gulf_pi$CHROM)
+atl_pi$CHROM <- as.numeric(atl_pi$CHROM)
+fl_pi$CHROM <- as.numeric(fl_pi$CHROM)
+
+gulf_avg_pi <- mean(gulf_pi$PI)
+atl_avg_pi <- mean(atl_pi$PI)
+fl_avg_pi <- mean(fl_pi$PI)
+
+manhattan(gulf_pi, chr="CHROM", snp="N_VARIANTS", bp="BIN_START", p="PI", logp=FALSE, ylim=c(0,0.0015))
+manhattan(atl_pi, chr="CHROM", snp="N_VARIANTS", bp="BIN_START", p="PI", logp=FALSE, ylim=c(0,0.0015))
+manhattan(fl_pi, chr="CHROM", snp="N_VARIANTS", bp="BIN_START", p="PI", logp=FALSE, ylim=c(0,0.0015))
+
+## Tajima's D ##
+require(qqman)
+require(tidyr)
+
+Ivom_TajD <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1-5/Ivom1-5_TajD_50kb.Tajima.D")
+
+Ivom_TajD <- Ivom_TajD %>%
+  mutate(CHROM = gsub("[a-zA-Z ]", "", Ivom_TajD$CHROM))
+
+Ivom_TajD$CHROM <- as.numeric(Ivom_TajD$CHROM)
+
+Ivom_TajD$TajimaD <- na_if(Ivom_TajD$TajimaD, "nan")
+
+Ivom_TajD <- Ivom_TajD %>%
+  drop_na(TajimaD)
+
+Ivom_TajD$TajimaD <- as.numeric(Ivom_TajD$TajimaD)
+
+Ivom_TajD <- Ivom_TajD %>%
+  filter(N_SNPS > 20)
+
+manhattan(Ivom_TajD, chr="CHROM", snp="N_SNPS", bp="BIN_START", p="TajimaD", logp=FALSE, ylim=c(-5,8))
+
+Ivom_avg_D <- mean(Ivom_TajD$TajimaD)
+
+
+ggplot(data=Ivom_TajD)  +
+         geom_line(aes(x=N_SNPS,y=TajimaD))
+
+# by pop
+gulf_D <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1-5/Ivom1-5_gulf_TajD_100kb.Tajima.D")
+atl_D <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1-5/Ivom1-5_atl_TajD_100kb.Tajima.D")
+fl_D <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1-5/Ivom1-5_fl_TajD_100kb.Tajima.D")
+
+gulf_D <- gulf_D %>%
+  mutate(CHROM = gsub("[a-zA-Z ]", "", gulf_D$CHROM)) 
+atl_D <- atl_D %>%
+  mutate(CHROM = gsub("[a-zA-Z ]", "", atl_D$CHROM))
+fl_D <- fl_D %>%
+  mutate(CHROM = gsub("[a-zA-Z ]", "", fl_D$CHROM))
+
+gulf_D$CHROM <- as.numeric(gulf_D$CHROM)
+atl_D$CHROM <- as.numeric(atl_D$CHROM)
+fl_D$CHROM <- as.numeric(fl_D$CHROM)
+
+gulf_D$TajimaD <- na_if(gulf_D$TajimaD, "nan")
+gulf_D <- gulf_D %>%
+  drop_na(TajimaD)
+gulf_D$TajimaD <- as.numeric(gulf_D$TajimaD)
+
+atl_D$TajimaD <- na_if(atl_D$TajimaD, "nan")
+atl_D <- atl_D %>%
+  drop_na(TajimaD)
+atl_D$TajimaD <- as.numeric(atl_D$TajimaD)
+
+fl_D$TajimaD <- na_if(fl_D$TajimaD, "nan")
+fl_D <- fl_D %>%
+  drop_na(TajimaD)
+fl_D$TajimaD <- as.numeric(fl_D$TajimaD)
+
+DATASET <- fl_D
+
+manhattan(DATASET, chr="CHROM", snp="N_SNPS", bp="BIN_START", p="TajimaD", logp=FALSE, ylim=c(-5,8))
+
+gulf_avg_D <- mean(gulf_D$TajimaD)
+atl_avg_D <- mean(atl_D$TajimaD)
+fl_avg_D <- mean(fl_D$TajimaD)
+
+ggplot(data=Ivom_TajD)  +
+  geom_line(aes(x=N_SNPS,y=TajimaD))
+
+# NJ tree using ape
+redrepvcf <- read.vcfR("Ilex_redrep_filter.vcf.gz")
+redrepbin <- vcfR2DNAbin(redrepvcf, extract.haps = FALSE, unphased_as_NA = FALSE, verbose = TRUE)
+dist <- dist.dna(redrepbin, model = "TN93", gamma = TRUE)
+nj <- njs(dist)
+plot.phylo(nj, type = "phylogram", use.edge.length = FALSE, cex=0.5)
+
+
+ape::image.DNAbin(Ilex_redrep_align[,ape::seg.sites(Ilex_redrep_align)],cex.lab=0.5)
+
+heatmap <- as.data.frame(as.matrix(dist))
+table.paint(heatmap, cleg=0, clabel.row=.5, clabel.col=.5)
+
+
 ##########
 ## SNMF ##
 ##########
@@ -174,38 +292,55 @@ install.packages("BiocManager")
 BiocManager::install("LEA", force = TRUE)
 library(LEA)
 
-Ivom_tidy <- anole_vcf %>% 
-  extract_gt_tidy() %>% 
-  select(-gt_DP, -gt_CATG, -gt_GT_alleles) %>% 
-  mutate(gt1 = str_split_fixed(gt_GT, "/", n = 2)[,1],
-         gt2 = str_split_fixed(gt_GT, "/", n = 2)[,2],
-         geno_code = case_when(
-           # homozygous for reference allele = 0
-           gt1 == 0 & gt2 == 0 ~ 0,
-           # heterozygous = 1
-           gt1 == 0 & gt2 == 1 ~ 1,
-           gt1 == 1 & gt2 == 0 ~ 1,
-           # homozygous for alternate allele = 2
-           gt1 == 1 & gt2 == 1 ~ 2,
-           # missing data = 9
-           gt1 == "" | gt2 == "" ~ 9
-         )) %>% 
-  select(-gt_GT, -gt1, -gt2)
-## Extracting gt element GT
-## Extracting gt element DP
-## Extracting gt element CATG
-## Warning: `as_data_frame()` is deprecated as of tibble 2.0.0.
-## Please use `as_tibble()` instead.
-## The signature and semantics have changed, see `?as_tibble`.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.
+### BEGIN Kelly Petersen Code ###
 
-# now you need to rotate the table so individuals are columns and genotypes are rows
-anole_geno <- anole_tidy %>% 
-  pivot_wider(names_from = Indiv, values_from = geno_code) %>% 
-  select(-Key)
+genind2structure <- function(obj, file="", pops=TRUE){
+if(!"genind" %in% class(obj)){
+  warning("Function was designed for genind objects.")
+}
 
-#vcf2geno("Ivom384_filtered_names.vcf", "Ivom384")
+# get the max ploidy of the dataset
+pl <- max(obj@ploidy)
+# get the number of individuals
+S <- adegenet::nInd(obj)
+# column of individual names to write; set up data.frame
+tab <- data.frame(ind=rep(adegenet::indNames(obj), each=pl))
+# column of pop ids to write
+if(pops){
+  popnums <- 1:adegenet::nPop(obj)
+  names(popnums) <- as.character(unique(adegenet::pop(obj)))
+  popcol <- rep(popnums[as.character(adegenet::pop(obj))], each=pl)
+  tab <- cbind(tab, data.frame(pop=popcol))
+}
+loci <- adegenet::locNames(obj) 
+# add columns for genotypes
+tab <- cbind(tab, matrix(-9, nrow=dim(tab)[1], ncol=adegenet::nLoc(obj),
+                         dimnames=list(NULL,loci)))
+
+# begin going through loci
+for(L in loci){
+  thesegen <- obj@tab[,grep(paste("^", L, "\\.", sep=""), 
+                            dimnames(obj@tab)[[2]]), 
+                      drop = FALSE] # genotypes by locus
+  al <- 1:dim(thesegen)[2] # numbered alleles
+  for(s in 1:S){
+    if(all(!is.na(thesegen[s,]))){
+      tabrows <- (1:dim(tab)[1])[tab[[1]] == adegenet::indNames(obj)[s]] # index of rows in output to write to
+      tabrows <- tabrows[1:sum(thesegen[s,])] # subset if this is lower ploidy than max ploidy
+      tab[tabrows,L] <- rep(al, times = thesegen[s,])
+    }
+  }
+}
+
+# export table
+write.table(tab, file=file, sep="\t", quote=FALSE, row.names=FALSE)
+}
+
+genind2structure(Ivom384, file="structure_Ivom384.txt", pops=TRUE)
+
+
+
+### END Kelly Petersen Code ###
 
 geno <- read.geno("Ivom384.geno")
 
@@ -261,3 +396,10 @@ tutorial = snmf("genotypes.geno",
 
 # plot cross-entropy criterion of all runs of the project
 plot(tutorial, cex = 1.2, col = "lightblue", pch = 19)
+
+## plot He by Ho
+
+temp <- summary(Ivom384)
+
+plot(temp$Hexp, temp$Hobs, pch=5, cex=1, xlim=c(0,1), ylim=c(0,1))
+abline(0,1,lty=2)

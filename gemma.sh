@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=gemma_Ilex
+#SBATCH --job-name=gemma_Ivom_wild
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -10,32 +10,36 @@
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
 
-# name=$(awk "NR==${SLURM_ARRAY_TASK_ID}" /scratch/bjl31194/yaupon/wgs/plate1/read_array.txt)
-
-# command for making read array file:
-# ls -1 | sed 's/_L006_R.*//' | uniq > read_array.txt
-
-# set parameters
-DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
-
+## set variables
 OUTDIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/gwas"
 
-SUBSET="atlantic"
+SUBSET="Ivom_wild"
+
+VCF="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex_plates1-5_names_filter_sexed_atlantic.vcf.gz"
 
 if [ ! -d $OUTDIR ]
 then
     mkdir -p $OUTDIR
 fi
 
-# load modules
+## load modules
 ml PLINK/2.0.0-a.6.20-gfbf-2024a
 ml GEMMA/0.98.5-gfbf-2023b
 
-## move to the proper directory
-cd $DATADIR
+## move to the proper directory 
+cd $OUTDIR
 
-## make kinship matrix
+## Make .bed file for inputting to GEMMA and filter data ##
+# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
+# --maf 0.05 --geno 0.1 --mind 0.5 --snps-only \
+# --make-bed --out Ilex_plates1-5_${SUBSET}
+
+## attach phenotype data ##
+# plink --bfile Ilex_plates1-5_${SUBSET} --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
+# --make-bed --out gemma_input_${SUBSET}
+
+## make kinship matrix ##
 gemma -bfile gemma_input_${SUBSET} -gk 1 -o RelMat_${SUBSET}
 
-## run GEMMA (lmm=linear mixed model using kinship matrix, 2=likelihood ratio test)
+## run GEMMA (lmm=linear mixed model using kinship matrix, 2=likelihood ratio test) ##
 gemma -bfile gemma_input_${SUBSET} -k output/RelMat_${SUBSET}.cXX.txt -lmm 2 -o GWAS_results_sex_${SUBSET}.lmm

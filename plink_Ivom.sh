@@ -41,16 +41,6 @@ ml PLINK/2.0.0-a.6.20-gfbf-2024a
 # move to the proper directory
 cd $OUTDIR
 
-## Make .bed file for inputting to GEMMA and filter data
-
-# plink --vcf $VCF --double-id --allow-extra-chr --allow-no-sex --nonfounders --set-missing-var-ids @:# \
-# --maf 0.0013 --geno 0.1 --mind 0.5 --snps-only \
-# --make-bed --out Ilex_plates1-5_${SUBSET}
-
-# ## attach phenotype data
-plink --bfile ${SUBSET}_sexed --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
---make-bed --out gemma_input_${SUBSET}
-
 ## statistical phasing with BEAGLE on Sapelo2 cluster:
 
 #java -jar ${EBROOTBEAGLE}/beagle.jar gt=dune.vcf.gz nthreads=8 out=dune_phased

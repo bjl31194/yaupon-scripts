@@ -18,4 +18,8 @@ module load PAUP/4.0a168-centos64
 
 paup Ilex_spp.nex -L Ilex_spp.log -n
 
-svdquartets evalquartets=all nthreads=8 bootstrap;
+> svdquartets evalquartets=all nthreads=8 bootstrap;
+
+> saveTrees file=Ilex_spp_rooted.tre root=yes brLens=yes treeWts=yes supportValues=Both format=nex savebootp=nodelabels from=1 to=1;
+
+#paup < commands.txt

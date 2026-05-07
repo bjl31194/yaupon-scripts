@@ -345,7 +345,19 @@ colnames(quant_metabolites)[1] <- "Genotype"
 quant_metabolites$Age <- factor(quant_metabolites$Age, levels = c("young", "softwood", "mature"))
 
 # get group stats
-aggregate(quant_metabolites[, 5:8], list(quant_metabolites$Age), range)
+group_stats <- aggregate(quant_metabolites[, 5:8], list(quant_metabolites$Age), sd)
+group_means <- aggregate(quant_metabolites[, 5:8], list(quant_metabolites$Age), mean)
+colnames(group_means) <- c("Group","caf_mean","theo_mean","thea_mean","cga_mean")
+group_se <- group_stats %>% 
+  mutate(se_caff = Caffeine/sqrt(length(Caffeine))) %>%
+  mutate(se_theo = Theobromine/sqrt(length(Theobromine))) %>%
+  mutate(se_thea = Theacrine/sqrt(length(Theacrine))) %>%
+  mutate(se_cga = CGA/sqrt(length(CGA))) %>%
+  select(se_caff,se_theo,se_thea,se_cga)
+stats_by_age <- bind_cols(group_means, group_se) %>%
+  mutate(result_caff = print(caf_mean,"±",se_caff))
+
+write_csv(stats_by_age, "quant_stats_by_age.csv")
 
 ## t tests for treatment and genotype effect ##
 
@@ -463,6 +475,7 @@ my_theme <- theme(
   legend.title = element_text(size=11),
   plot.title = element_text(size = 14, face = "bold"))
 fs <- 4
+write.csv(quant_metabolites, "quant_metabolites.csv")
 
 #individual plots
 caffeine <- quant_metabolites %>%
@@ -624,8 +637,7 @@ volcano_neg <- neg %>% #create plot
   scale_x_continuous(breaks = seq(-3, 7, 1)) + # to customise the breaks in the x axis
   ggtitle('Chemicals in negative mode significantly affected by the roasting process') + # Plot title
   geom_text_repel(size = 6, max.overlaps = Inf, show.legend = FALSE) + # To show all labels 
-  vol_theme +
-  theme(legend.position="none")
+  vol_theme
 volcano_neg  
 
 ## Volcano plots - POS - TREATMENT ##

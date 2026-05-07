@@ -28,7 +28,7 @@ cd $OUTDIR
 
 # build phylip matrix from vcf
 python /home/bjl31194/yaupon/yaupon-scripts/vcf2phylip.py -i $VCF --output-folder $OUTDIR --output-prefix Ivom1-5
-
+python /Users/ben/yaupon/yaupon-scripts/vcf2phylip.py -i Ilex_redrep.vcf --output-folder . --output-prefix Ilex_redrep_full
 # perform ML tree search and optimization
 # raxml-ng --all --bs-trees 500 --msa $PHYLIP --model GTR+G
 
