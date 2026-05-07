@@ -35,8 +35,8 @@ cd $OUTDIR
 # --make-bed --out Ilex_plates1-5_${SUBSET}
 
 ## attach phenotype data ##
-# plink --bfile Ilex_plates1-5_${SUBSET} --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
-# --make-bed --out gemma_input_${SUBSET}
+plink --bfile ${SUBSET}_sexed --allow-no-sex --pheno ${SUBSET}_sex_phenotypes.txt \
+--make-bed --out gemma_input_${SUBSET}
 
 ## make kinship matrix ##
 gemma -bfile gemma_input_${SUBSET} -gk 1 -o RelMat_${SUBSET}
