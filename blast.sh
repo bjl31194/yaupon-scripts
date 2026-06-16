@@ -31,12 +31,27 @@ QUERY="/scratch/bjl31194/yaupon/TCS1_CDS.fasta"
 # modules
 ml BLAST+/2.2.31
 ml ncbiblastdb/20260501
+ml DIAMOND/2.1.23-GCC-13.3.0
+
+#################################################
+## DIAMOND annotation ##
+#################################################
+
+# Variables
+prot_file=predictions/bin_${SLURM_ARRAY_TASK_ID}.genes.no_metadata.faa
+out_file=$(basename ${prot_file} .faa)
+db=/nesi/nobackup/nesi02659/MGSS_2024/resources/databases/uniprot.20240724.dmnd
+
+# Run DIAMOND
+diamond blastp --threads $SLURM_CPUS_PER_TASK --max-target-seqs 5 --evalue 0.001 \
+               --db $db --query ${prot_file} --outfmt 6 \
+               --out gene_annotations/${out_file}.uniprot.txt
 
 #################################################
 ## for blasting yaupon sequences to NCBI ##
 #################################################
 
-blastx -query RDA_EHH_gene_seqs.fasta -out RDA_EHH_gene_hits.out -db swissprot
+# blastx -num_threads 16 -max_target_seqs 10 -query ref_set_genes_seqs.fasta -out refset_blastresults.out -db swissprot
 
 
 #################################################

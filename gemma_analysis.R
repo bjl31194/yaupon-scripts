@@ -6,7 +6,7 @@ library(ggplot2)
 install.packages("qqman")
 library(qqman)
 
-gemmaResults <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1234/GWAS_results_sex_noLP.lmm.assoc.txt")       
+gemmaResults <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1-5/GWAS_results_sex_Ivom_wild.lmm.assoc.txt")       
 gemmaResults_texas <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1234/GWAS_results_sex_texas.lmm.assoc.txt")
 gemmaResults_gulf <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1234/GWAS_results_sex_gulf.lmm.assoc.txt")
 gemmaResults_atlantic <- read_table("~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1234/GWAS_results_sex_atlantic.lmm.assoc.txt")

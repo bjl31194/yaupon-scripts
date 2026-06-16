@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=bcftools_getcandsnps
+#SBATCH --job-name=vcftools_makeTajDvcf
 #SBATCH --partition=batch
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=8
 #SBATCH --mem=32gb
 #SBATCH --time=1-00:00:00
 #SBATCH --mail-type=END,FAIL
@@ -19,7 +19,7 @@
 DATADIR="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew"
 
 VCF_IN="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex1-5_names.vcf.gz"
-VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex1-5_vcftools_filter.vcf.gz"
+VCF_OUT="/scratch/bjl31194/yaupon/wgs/plates1-5/vcfnew/Ilex1-5_noMAF.vcf.gz"
 
 # set filters
 MAF=0.01 # mean was 0.03, median 0.005
@@ -29,8 +29,9 @@ MIN_DEPTH=7 # 1st quantile 7.23, mean was 8.3
 MAX_DEPTH=60 # went with mean depth x 2 + a little extra judging from where most variants fell on histogram
 
 # load modules
-#ml VCFtools/0.1.16-GCC-13.3.0
+ml VCFtools/0.1.16-GCC-13.3.0
 ml BCFtools/1.21-GCC-13.3.0
+ml vcflib/1.0.9-gfbf-2024a-R-4.4.2
 
 # move to the vcf directory
 cd $DATADIR
@@ -94,7 +95,14 @@ cd $DATADIR
 # --window-pi 50000 \
 # --out florida_pi_50kb
 
-# ## Tajima's D for genetic subpops
+## Filter and subset specifically for Tajima's D (no filter on MAF, random sample)
+
+bcftools view ${VCF_IN} | vcfrandomsample -r 0.015 -p 10749288 | \
+vcftools --remove-indels --minQ $QUAL \
+--min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
+--minDP $MIN_DEPTH --maxDP $MAX_DEPTH --max-missing $MISS --recode --stdout | bgzip -c > \
+$VCF_OUT
+
 # vcftools --gzvcf Ivom1-5_atlantic.vcf.gz \
 # --TajimaD 100000 \
 # --out Ivom1-5_atl_TajD_100kb
@@ -111,7 +119,7 @@ cd $DATADIR
 # vcftools --gzvcf Ivom1-5_filter.vcf.gz --chr Chr05 --from-bp 17957200 --to-bp 17957300 --recode --recode-INFO-all --out QTL_Chr05
 
 ###################################
-## query for EHH cand region SNPs ##
+## query for cand region SNPs ##
 ###################################
 
 # bcftools view Ivom1-5_filter.vcf.gz -r Chr02:41050000-41540000,Chr03:1170000-1660000,Chr04:6770000-7260000,\
@@ -119,6 +127,6 @@ cd $DATADIR
 # -Ov -o EHH_cand_region_snps.vcf
 
 #bcftools view Ivom_wild_filter.vcf -Oz -o Ivom_wild_filter.vcf.gz
-bcftools index -t --threads 4 Ivom_wild_filter.vcf.gz
-bcftools view Ivom_wild_filter.vcf.gz -R cand_regions_EHH_dune.txt \
--Ov -o EHH_dune_cand_region_snps.vcf
+# bcftools index -t --threads 4 Ivom_wild_filter.vcf.gz
+# bcftools view Ivom_wild_filter.vcf.gz -R cand_regions_EHH_dune.txt \
+# -Ov -o EHH_dune_cand_region_snps.vcf

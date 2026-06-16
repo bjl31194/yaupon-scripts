@@ -26,6 +26,7 @@ Ivom_ig_gt <- gen_tibble("Ivom1-5_filter_names.ann.intergenic.vcf")
 #Ivom_ig_gt <- gt_load("Ivom1-5_filter_names.ann.intergenic.gt")
 # add population metadata
 pops <- read.csv("Ilex_meta.csv")
+wild_pops <- read.csv("Ivom1-5_wild_meta.csv")
 pops <- as_tibble(pops)
 Ilex_gt <- Ilex_gt %>% left_join(pops, by = "id")
 #Ivom_ig_gt <- Ivom_ig_gt %>% left_join(pops, by = "id")
@@ -99,30 +100,25 @@ Ivom_gt <- Ilex_gt %>%
 # remove monomorphic loci
 Ivom_gt <- Ivom_gt %>% select_loci_if(loci_maf(genotypes) > 0)
 
-## prepare dataset for rangeExpansion ##
-
-ra_gt <- Ilex_gt %>%
-  filter(spp == "vomitoria" | spp == "repanda")
-ra_gt <- ra_gt %>% select_loci_if(loci_maf(genotypes) > 0)
-ra_gt <- ra_gt %>%
+## prepare data for gemma ##
+sexed_gt <- Ilex_gt %>%
+  filter(spp == "vomitoria") %>%
   filter(population != "cultivated") %>%
   filter(id %!in% flagged_feral) %>%
   filter(site != "MC-AR") %>%
-  filter(site != "LA-JK") %>%
-  filter(site != "AR-TR") %>%
-  filter(site != "NC-KW") %>%
-  filter(site != "NC-CB") %>%
-  filter(site != "FL-BW")
-ra_gt <- ra_gt %>% select_loci_if(loci_maf(genotypes) > 0.05)
-ra_gt <- ra_gt %>% select_loci_if(loci_missingness(genotypes) < 0.1)
-ra_gt <- gt_update_backingfile(ra_gt, backingfile = "ra_gt.rds")
-ra_gt <- gt_impute_simple(ra_gt, method = "mode")
-ra_gt <- ra_gt %>%
-  select_loci_if(loci_ld_clump(ra_gt, thr_r2 = 0.2))
+  filter(sex == "M" | sex == "F")
+sexed_gt <- sexed_gt %>% select_loci_if(loci_maf(genotypes) > 0.05)
+sexed_gt <- sexed_gt %>% select_loci_if(loci_missingness(genotypes) < 0.1)
+sexed_gt <- gt_update_backingfile(sexed_gt, backingfile = "sexed_gt.rds")
+sexed_gt <- gt_impute_simple(sexed_gt, method = "mode")
 
-gt_as_plink(ra_gt, file = "Ivom_wild_rp_out.bed", type = "bed")
+gt_as_plink(sexed_gt, file = "Ivom_wild_sexed.bed", type = "bed")
+sexed_gt %>%
+  select(id,sex) %>%
+  write_tsv("Ivom_wild_sex_phenotypes.txt")
 
-# less stringent filtering
+## prepare dataset for rangeExpansion ##
+
 rp_gt <- Ilex_gt %>%
   filter(spp == "vomitoria" | spp == "mxsubspp")
 
@@ -168,6 +164,8 @@ Ivom_gt <- gt_update_backingfile(Ivom_gt, backingfile = tempfile())
 Ivom_gt_imp <- gt_impute_simple(Ivom_gt, method = "mode")
 #Ivom_ig_gt_imp <- gt_impute_simple(Ivom_ig_gt, method = "mode")
 
+
+
 ###########################
 ## Population allele frequencies ##
 ###########################
@@ -177,6 +175,7 @@ pop_freqs <- loci_alt_freq(Ivom_gt)
 Ivom_wild_gt <- Ivom_wild_gt %>%
   group_by(site)
 pop_freqs <- loci_alt_freq(Ivom_wild_gt)
+
 ############
 ## PCA ##
 ############
@@ -315,14 +314,15 @@ Ivom_wild_gt <- Ivom_gt %>%
   filter(population != "cultivated") %>%
   filter(id %!in% flagged_feral) %>%
   filter(site != "MC-AR")
-
 Ivom_wild_gt <- Ivom_wild_gt %>% select_loci_if(loci_maf(genotypes) > 0)
 Ivom_wild_gt <- gt_update_backingfile(Ivom_wild_gt, backingfile = tempfile())
 Ivom_wild_gt_imp <- gt_impute_simple(Ivom_wild_gt, method = "mode")
 
+Ivom_wild_gt$cluster <- wild_pops$cluster
+
 Ivom_wild_pca <- gt_pca_partialSVD(Ivom_wild_gt_imp)
 autoplot(Ivom_wild_pca, type = "screeplot")
-autoplot(Ivom_wild_pca, type = "scores", k = c(1,2)) +
+autoplot(Ivom_wild_pca, type = "scores", k = c(1,3)) +
   aes(color = Ivom_wild_gt$site) +
   labs(color = "site")
 
@@ -479,13 +479,13 @@ anole_map
 #########################
 ## Heterozygosity ##
 #########################
-Ivom_gt <- Ivom_wild_gt
-Ivom_gt <- Ivom_gt %>% mutate(het_obs = indiv_het_obs(genotypes))
-het <- Ivom_gt %>% 
+#Ivom_gt <- Ivom_wild_gt
+Ivom_wild_gt <- Ivom_wild_gt %>% mutate(het_obs = indiv_het_obs(genotypes))
+het <- Ivom_wild_gt %>% 
   group_by(site) %>%
   dplyr::summarize(mean = mean(het_obs))
 
-write.csv(het, "./results_expanded_data/het_by_site_Ivom1-5.csv")
+write.csv(het, "./results_expanded_data/het_by_site_Ivom_wild.csv")
 
 # add site coords
 site_coords <- read.csv("coordinates_Ivom384.csv", header=TRUE)
@@ -503,22 +503,57 @@ ggplot() +
     ylim = c(20, 42)
   ) +
   theme_minimal()
- 
+
+############################
+## Mantel Test for IBD ##
+############################
+
+# generate allele sharing matrix
+X <- attr(Ivom_wild_gt$genotypes, "fbm")
+GSM <- snp_allele_sharing(X)
+
+#visualize correlation
+par(mar=c(4,4,0,0))
+dens <- MASS::kde2d(Dgeodist, Dgen, n=300)
+plot(Dgeodist, GSM, pch=20, cex=0.5,  
+     xlab="Geographic Distance", ylab="Genetic Distance")
+image(dens, col=transp(myPal(300), 0.7), add=TRUE)
+abline(lm(GSM ~ Dgeodist))
+lines(loess.smooth(Dgeodist, GSM), col="red")
+
+Dgen <- dist(GSM)
+Dgeo <- dist(cbind(pcs$lat,pcs$lon), diag=T, upper=T)
+Dgeodist <- geodist(cbind(pcs$lon,pcs$lat))
+mtest <- vegan::mantel(Dgen,Dgeodist, method="spearman")
+
 ################
 ## Fst ##
 ################
 
-## pairwise Fst (Weir and Cockerham 1984) ##
-Ivom_gt <- Ivom_gt %>% group_by(site)
-pop_Fst <- as_tibble(pop_fst(Ivom_gt))
+# population Fst
+single_sample <- c("FL-BW", "LA-JK","NC-KW","AR-TR","NC-CB")
+Ivom_wild_gt <- Ivom_wild_gt %>% 
+  group_by(site)
+pop_Fst <- as_tibble(pop_fst(Ivom_wild_gt))
+pop_Fst <- pop_Fst %>%
+  filter(site %!in% single_sample)
+write_tsv(pop_Fst, "pop_specific_Fst.tsv")
 pop_Fst <- pop_Fst %>%
   mutate(site = het$site, geometry = het$geometry)
-pairwise_pop_Fst <- pairwise_pop_fst(Ivom_gt, type="tidy", method="WC84")
-# calculate pairwise Fst by state
-Ivom_gt <- Ivom_gt %>% group_by(state)
-pairwise_state_Fst <- pairwise_pop_fst(Ivom_gt, type="tidy", method="WC84")
 
-write.csv(pairwise_pop_Fst, "pairwise_pop_Fst_site_Ivom1-5.csv")
+## pairwise Fst (Weir and Cockerham 1984) ##
+
+pairwise_pop_Fst <- Ivom_wild_gt %>%
+  group_by(site) %>%
+  filter(site %!in% single_sample) %>%
+  pairwise_pop_fst(type="tidy", method="WC84")
+
+Ivom_wild_gt <- Ivom_wild_gt %>% group_by(cluster)
+pairwise_cluster_Fst <- pairwise_pop_fst(Ivom_wild_gt, type="tidy", method="WC84")
+
+write.csv(pairwise_cluster_Fst, "pairwise_pop_Fst_cluster_Ivomwild.csv")
+
+
 pop_Fst <- pop_Fst %>%
   filter(value != "NaN")
 pairwise_pop_Fst <- pairwise_pop_Fst %>%
@@ -719,22 +754,26 @@ chrom_fst
 ###################################
 ## nucleotide diversity (pi) ##
 ###################################
+species_pi <- Ivom_wild_gt %>%
+  ungroup() %>%
+  loci_pi()
+mean(species_pi)
 
-superpop_pi <- Ivom_gt %>% 
-  group_by(population) %>%
+cluster_pi <- Ivom_wild_gt %>% 
+  group_by(cluster) %>%
   loci_pi()
 
 state_pi <- Ivom_gt %>%
   group_by(state) %>%
   loci_pi()
 
-site_pi <- Ivom_gt %>%
+site_pi <- Ivom_wild_gt %>%
   group_by(site) %>%
   loci_pi()
 # calculate averages
-superpop_pi_avgs <- superpop_pi %>%
+cluster_pi_avgs <- cluster_pi %>%
   group_by(group) %>%
-  summarize(avg_pi = mean(value))
+  dplyr::summarize(avg_pi = mean(value))
 state_pi_avgs <- state_pi %>%
   group_by(group) %>%
   summarize(avg_pi = mean(value))
@@ -947,14 +986,17 @@ chrom_TajD
 ## Private alleles ##
 ########################
 
-#get frequencies by site and turn them into binary data
-allele_freqs <- Ivom_gt %>%
-  group_by(state) %>%
+#get frequencies by X and turn them into binary data
+
+allele_freqs <- Ivom_wild_gt %>%
+  group_by(cluster) %>%
   loci_maf() %>%
   mutate(present = case_when(value > 0 ~ 1,
                              value == 0 ~ 0), 
         value = NULL
          )
+
+
 #pivot data 
 allele_freqs <- allele_freqs %>% pivot_wider(names_from = group, values_from = present)
 
@@ -1380,10 +1422,17 @@ in_ihs_rsb_xp <- inner_join(cand_regions_ihs, cand_regions_rsb) %>% inner_join(c
 cand_regions_overlap_23 <- bind_rows(cand_regions_overlap_2, in_ihs_rsb_xp)
 
 # find genes in region
-genes_list <- vector("list", length = nrow(cand_regions_xp))
-for (i in 1:nrow(cand_regions_xp)) {
-  hits <- gene_gff %>% 
-    filter(chr == cand_regions_xp[i,1], start > cand_regions_xp[i,2]-1000, end < cand_regions_xp[i,3]+1000)
+genes_list <- vector("list", length = nrow(cand_regions_xp_atl))
+for (i in 1:nrow(cand_regions_xp_atl)) {
+  hits <- ann_gene_gff %>% 
+    filter(chr == cand_regions_xp_atl[i,1], start > cand_regions_xp_atl[i,2]-1000, end < cand_regions_xp_atl[i,3]+1000)
+  genes_list[[i]] <- hits
+}
+
+genes_list <- vector("list", length = nrow(cand_regions_xp_gulf))
+for (i in 1:nrow(cand_regions_xp_gulf)) {
+  hits <- ann_gene_gff %>% 
+    filter(chr == cand_regions_xp_gulf[i,1], start > cand_regions_xp_gulf[i,2]-1000, end < cand_regions_xp_gulf[i,3]+1000)
   genes_list[[i]] <- hits
 }
 # for putting all regions together
@@ -1395,22 +1444,38 @@ gene_hits_gulf <- gene_hits
 cand_regions_xp_atl <- cand_regions_xp
 cand_regions_xp_gulf <- cand_regions_xp
 
+gene_hits_atl$ann <- substr(gene_hits_atl$ann, 6, 1000)
+gene_hits_gulf$ann <- substr(gene_hits_gulf$ann, 6, 1000)
+
+gene_hits_atl_nona <- gene_hits_atl %>%
+  filter(ann != "NA")
+
 gene_hits_overlap_atl_gulf <- inner_join(gene_hits_atl, gene_hits_gulf)
 write_tsv(gene_hits_overlap_atl_gulf, "gene_hits_overlap_atl_gulf.tsv", col_names = FALSE)
-write_tsv(gene_hits_atl, "gene_hits_EHH_atl.tsv", col_names = FALSE)
+write_tsv(gene_hits_atl_nona, "gene_hits_EHH_atl.tsv", col_names = FALSE)
 write_tsv(gene_hits_gulf, "gene_hits_EHH_gulf.tsv", col_names = FALSE)
 
+# make background gene set #
+random_gene_gff <- ann_gene_gff[sample(nrow(ann_gene_gff), 5000), ]
+random_gene_gff$ann <- substr(random_gene_gff$ann, 6, 1000)
+write_tsv(random_gene_gff, "background_gene_set5000.tsv", col_names = FALSE)
+
 # make regions file for querying using bcftools
+cand_regions_xp_atlgulf <- bind_rows(cand_regions_xp_atl,cand_regions_xp_gulf)
 cand_regions_xp$region <- NULL
-gt_as_vcf(Ivom_wild_gt, "Ivom_wild_filter.vcf")
+write_tsv(cand_regions_xp_atlgulf, "cand_regions_xp_atlgulf.tsv", col_names = TRUE)
 # find snps overlapping between EHH and RDA
-EHH_snps <- read_tsv("EHH_cand_regions_snps.tsv")
-RDA_snps <- read.csv("./rda_cand_snps.csv")
+EHH_snps <- read_tsv("cand_region_snps_xp_atlgulf.txt")
+EHH_snps <- EHH_snps %>%
+  select(CHROM,POS,ID)
+RDA_snps <- read.csv("./results_expanded_data/Chapter2/rda_cand_snps.csv")
 EHH_snps <- EHH_snps %>% mutate(snp = paste(CHROM,"_",POS, sep=""))
 RDA_snps$snp <- substr(RDA_snps$snp,1,nchar(RDA_snps$snp)-2)
 RDA_coast_snps <- RDA_snps %>% filter(predictor == "COAST")
 EHH_RDA_overlap <- RDA_snps %>%
   filter(snp %in% EHH_snps$snp)
+
+
 
 # another way
 EHH_snps <- read_tsv("EHH_cand_regions_snps.tsv")
@@ -1421,18 +1486,20 @@ cand$snp <- substr(cand$snp,1,nchar(cand$snp)-2)
 RDA_EHH_overlap <- inner_join(EHH_snps, cand, by = "snp")
 
 # extract candidate regions around SNPs
-
-overlap_regions <- RDA_EHH_overlap %>%
+EHH_RDA_overlap <- separate_wider_delim(EHH_RDA_overlap, 
+                     cols = snp, delim = "_", names = c("CHROM", "POS"))
+EHH_RDA_overlap$POS <- as.numeric(EHH_RDA_overlap$POS)
+overlap_regions <- EHH_RDA_overlap %>%
   mutate(START = POS - 12500,
          END = POS + 12500)
 
 # find genes in region
 genes_list <- vector("list", length = nrow(overlap_regions))
 for (i in 1:nrow(overlap_regions)) {
-  chrom <- as.character(overlap_regions[i,1])
-  lower_bound <- as.numeric(overlap_regions[i,15]-10000)
-  upper_bound <- as.numeric(overlap_regions[i,16]+10000)
-  hits <- gene_gff %>% 
+  chrom <- as.character(overlap_regions[i,3])
+  lower_bound <- as.numeric(overlap_regions[i,15]-1000)
+  upper_bound <- as.numeric(overlap_regions[i,16]+1000)
+  hits <- ann_gene_gff %>% 
     filter(chr == chrom, start > lower_bound, end < upper_bound)
   genes_list[[i]] <- hits
 }  
@@ -1442,6 +1509,7 @@ RDA_EHH_gene_hits <- bind_rows(genes_list)
 length(RDA_EHH_gene_hits$attribute[duplicated(RDA_EHH_gene_hits$attribute)])
 RDA_EHH_gene_hits <- RDA_EHH_gene_hits[!duplicated(RDA_EHH_gene_hits$attribute),]
 
+RDA_EHH_gene_hits$ann <- substr(RDA_EHH_gene_hits$ann, 6, 1000)
 write_tsv(RDA_EHH_gene_hits, "RDA_EHH_gene_hits.gff3", col_names = FALSE)  
 
 
@@ -1721,19 +1789,38 @@ write_tsv(mk_imputed_GFF, gff_name, col_names = FALSE)
 
 gene_gff <- separate_wider_delim(gene_gff, cols = attribute, delim = ";", names = c("ID", "locus"))
 mk_top_20$transcript <- substr(mk_top_20$transcript, 2, 13)
-gene_gff$ID <- substr(gene_gff$ID, 2, 13)
+ann_gene_gff$ID <- substr(ann_gene_gff$ID, 2, 13)
 
-mkGFF <- gene_gff %>% 
+mkGFF <- ann_gene_gff %>% 
   filter(ID %in% mk_top_20$transcript) %>%
   distinct()
 gff_name <- "mk_top20.gff3"
+mkGFF <- mkGFF %>%
+  mutate(ann = ann$sseqid)
 write_tsv(mkGFF, gff_name, col_names = FALSE)
 
 write_tsv(tibble(gene_gff$ID), "gene_IDs.txt", col_names = FALSE)
 
+## Add functional annotations from DIAMOND BLAST ##
 
-
-
-
-
+blast_results <- read_tsv("gene_annotations_swissprot.txt", col_names = FALSE)
+colnames(blast_results) <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+blast_results_1 <- blast_results %>% 
+  distinct(qseqid, .keep_all = TRUE)
+blast_results_1 %>%
+  select(sseqid) %>%
+  write_tsv("ann_gis.txt")
+gene_gff <- gff %>% 
+  filter(feature == "gene")
+gene_gff <- gene_gff %>% 
+  arrange(start, end)
+gene_gff <- separate_wider_delim(gene_gff, cols = attribute, delim = ";", names = c("ID", "locus"))
+gene_gff$ID <- substr(gene_gff$ID, 4, 16)
+blast_results_1$qseqid <- substr(blast_results_1$qseqid, 1, 13)
+ann_gene_gff <- gene_gff %>% 
+  mutate(ann = blast_results_1[match(gene_gff$ID,blast_results_1$qseqid),2])
+ann_gene_gff <- ann_gene_gff %>%
+  mutate(ann = paste("Name=",ann$sseqid, sep = ""))
+ann_gene_gff <- ann_gene_gff %>%
+  mutate(attribute = paste(ID,locus,ann, sep=";"))
 
