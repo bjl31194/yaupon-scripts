@@ -97,8 +97,8 @@ cd $DATADIR
 
 ## Filter and subset specifically for Tajima's D (no filter on MAF, random sample)
 
-bcftools view ${VCF_IN} | vcfrandomsample -r 0.015 -p 10749288 | \
-vcftools --remove-indels --minQ $QUAL \
+bcftools view ${VCF_IN} | vcfrandomsample -r 0.015 -p 10749288 > Ilex1-5_random_subset.vcf
+vcftools --vcf Ilex1-5_random_subset.vcf --remove-indels --minQ $QUAL \
 --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
 --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --max-missing $MISS --recode --stdout | bgzip -c > \
 $VCF_OUT
