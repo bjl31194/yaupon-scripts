@@ -32,6 +32,7 @@ MAX_DEPTH=60 # went with mean depth x 2 + a little extra judging from where most
 ml VCFtools/0.1.16-GCC-13.3.0
 ml BCFtools/1.21-GCC-13.3.0
 ml vcflib/1.0.9-gfbf-2024a-R-4.4.2
+ml GATK/4.6.0.0-GCCcore-13.2.0-Java-17
 
 # move to the vcf directory
 cd $DATADIR
@@ -97,7 +98,7 @@ cd $DATADIR
 
 ## Filter and subset specifically for Tajima's D (no filter on MAF, random sample)
 
-bcftools view ${VCF_IN} | vcfrandomsample -r 0.015 -p 10749288 > Ilex1-5_random_subset.vcf
+gatk SelectVariants --select-random-fraction 0.015 -V Ilex1-5_names.vcf.gz --select-type-to-include SNP -O Ilex1-5_random_subset.vcf
 vcftools --vcf Ilex1-5_random_subset.vcf --remove-indels --minQ $QUAL \
 --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
 --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --max-missing $MISS --recode --stdout | bgzip -c > \
