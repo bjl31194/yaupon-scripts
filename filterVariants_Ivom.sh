@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32gb
-#SBATCH --time=1-00:00:00
+#SBATCH --time=7-00:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=/scratch/bjl31194/logs/%x_%j.out
 #SBATCH --error=/scratch/bjl31194/logs/%x_%j.error
@@ -98,7 +98,7 @@ cd $DATADIR
 
 ## Filter and subset specifically for Tajima's D (no filter on MAF, random sample)
 
-gatk SelectVariants --select-random-fraction 0.015 -V Ilex1-5_names.vcf.gz --select-type-to-include SNP -O Ilex1-5_random_subset.vcf
+gatk SelectVariants --select-random-fraction 0.015 -V Ilex1-5_names.vcf.gz --select-type-to-include SNP --restrict-alleles-to BIALLELIC -O Ilex1-5_random_subset.vcf
 vcftools --vcf Ilex1-5_random_subset.vcf --remove-indels --minQ $QUAL \
 --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
 --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --max-missing $MISS --recode --stdout | bgzip -c > \
