@@ -100,7 +100,7 @@ cd $DATADIR
 
 gatk SelectVariants --select-random-fraction 0.015 -V Ilex1-5_names.vcf.gz --select-type-to-include SNP --restrict-alleles-to BIALLELIC -O Ilex1-5_random_subset.vcf
 vcftools --vcf Ilex1-5_random_subset.vcf --remove-indels --minQ $QUAL \
---min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
+--min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH --mac 1 \
 --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --max-missing $MISS --recode --stdout | bgzip -c > \
 $VCF_OUT
 
