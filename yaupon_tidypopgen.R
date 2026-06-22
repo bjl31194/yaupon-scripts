@@ -526,6 +526,8 @@ Dgeo <- dist(cbind(pcs$lat,pcs$lon), diag=T, upper=T)
 Dgeodist <- geodist(cbind(pcs$lon,pcs$lat))
 mtest <- vegan::mantel(Dgen,Dgeodist, method="spearman")
 
+cor(Ivom_wild_gt$lon, Ivom_wild_gt$het_obs)
+
 ################
 ## Fst ##
 ################
@@ -849,12 +851,20 @@ genomewide_pi
 ## Tajima's D ##
 ###################
 
+Ivom_noMAF_gt <- gen_tibble("Ilex1-5_noMAF.vcf.gz")
+Ivom_noMAF_gt <- Ivom_noMAF_gt %>% left_join(pops, by = "id")
+Ivom_noMAF_gt <- Ivom_noMAF_gt %>%
+  filter(spp == "vomitoria") %>%
+  filter(population != "cultivated") %>%
+  filter(id %!in% flagged_feral) %>%
+  filter(site != "MC-AR")
+Ivom_noMAF_gt <- Ivom_noMAF_gt %>% select_loci_if(loci_maf(genotypes) > 0)
 ## estimate global Tajima's D values by superpop 
-taj_d_by_site <- Ivom_wild_gt %>% 
+taj_d_by_site <- Ivom_noMAF_gt %>% 
   group_by(site) %>%
   pop_tajimas_d()
 
-wild_sites <- Ivom_wild_gt$site %>%
+wild_sites <- Ivom_noMAF_gt$site %>%
   unique() %>%
   sort()
 

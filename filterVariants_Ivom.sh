@@ -98,10 +98,9 @@ cd $DATADIR
 
 ## Filter and subset specifically for Tajima's D (no filter on MAF, random sample)
 
-gatk SelectVariants --select-random-fraction 0.015 -V Ilex1-5_names.vcf.gz --select-type-to-include SNP --restrict-alleles-to BIALLELIC -O Ilex1-5_random_subset.vcf
+# gatk SelectVariants --select-random-fraction 0.015 -V Ilex1-5_names.vcf.gz --select-type-to-include SNP --restrict-alleles-to BIALLELIC -O Ilex1-5_random_subset.vcf
 vcftools --vcf Ilex1-5_random_subset.vcf --remove-indels --minQ $QUAL \
---min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH --mac 1 \
---minDP $MIN_DEPTH --maxDP $MAX_DEPTH --max-missing $MISS --recode --stdout | bgzip -c > \
+--recode --stdout | bgzip -c > \
 $VCF_OUT
 
 # vcftools --gzvcf Ivom1-5_atlantic.vcf.gz \

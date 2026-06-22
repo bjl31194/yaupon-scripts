@@ -22,12 +22,50 @@ setwd("~/yaupon/sdm")
 
 install.packages("dismo")
 library("dismo")
+install.packages("envirem")
+library(envirem)
+
+bradypus <- read_csv(paste0(system.file(package="dismo"), "/ex/bradypus.csv"))
+files <- list.files(path=paste(system.file(package="dismo"), '/ex',
+                               sep=''), pattern='grd', full.names=TRUE )
+# we use the first file to create a RasterLayer
+mask <- raster(files[1])
+
+
+my_extent <- ext(-105, -75, 24, 42) 
+
+# 2. Create the blank template raster object
+# Set the resolution (e.g., 0.5 degrees per pixel) and coordinate system (WGS84)
+bioclim_ext <- crop(bioclim, my_extent)
+terra::plot(my_raster)
+
+my_raster <- crop(bioclim[1], my_extent)
+mask <- raster(my_raster)
+set.seed(1963)
+bg <- randomPoints(mask, 500)
+par(mfrow=c(1,2))
+plot(!is.na(mask), legend=FALSE)
+points(bg, cex=0.5)
+
+bio_values_1 = extract(bioclim_ext, bg)
+bio_values_df = cbind.data.frame(coordinates(bg), bio_values_1)
+head(bio_values_df)
 
 IVV_occurences <- read_csv("/Users/ben/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/sdm/occurrences/Ilex_vomitoria.csv")
+
+
 
 IVV_data = bioclim %>%
   terra::extract(dplyr::select(IVV_occurences, x, y)) %>%
   bind_cols(IVV_occurences)
+
+logistic_regr_model <- glm(present ~ tmin + precip,
+                           family = binomial(link = "logit"),
+                           data = hooded_warb_data)
+summary(logistic_regr_model)
+
+
+
 
 input_TA <- "~/yaupon/sdm/rasters/wc2-5/*.bil"
 RCP45 <- "~/yaupon/sdm/rasters/wc2-5/*.bil"
