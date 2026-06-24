@@ -29,6 +29,7 @@ pops <- read.csv("Ilex_meta.csv")
 wild_pops <- read.csv("Ivom1-5_wild_meta.csv")
 pops <- as_tibble(pops)
 Ilex_gt <- Ilex_gt %>% left_join(pops, by = "id")
+flagged_feral <- c("VA-FR-2","VA-FR-2X","FL-BE-1","VA-FR-1","VA-FR-1X","NC-CB-1","VA-FR-3","VA-FR-3X","NC-KW-2","NC-CB-2")
 #Ivom_ig_gt <- Ivom_ig_gt %>% left_join(pops, by = "id")
 Ilex_gt %>% glimpse()
 
@@ -54,7 +55,6 @@ ggplot() +
 
 # prepare for export to RDA
 # non-cultivated IVV only 
-flagged_feral <- c("VA-FR-2","VA-FR-2X","FL-BE-1","VA-FR-1","VA-FR-1X","NC-CB-1","VA-FR-3","VA-FR-3X","NC-KW-2","NC-CB-2")
 Ivom_wild_gt <- Ivom_gt %>%
   filter(population != "cultivated") %>%
   filter(id %!in% flagged_feral) %>%
@@ -859,6 +859,8 @@ Ivom_noMAF_gt <- Ivom_noMAF_gt %>%
   filter(id %!in% flagged_feral) %>%
   filter(site != "MC-AR")
 Ivom_noMAF_gt <- Ivom_noMAF_gt %>% select_loci_if(loci_maf(genotypes) > 0)
+Ivom_noMAF_gt <- Ivom_noMAF_gt %>% select_loci_if(loci_missingness(genotypes) < 0.1)
+Ivom_noMAF_gt <- Ivom_noMAF_gt %>% select_loci_if(loci_maf(genotypes) > 0.0012)
 ## estimate global Tajima's D values by superpop 
 taj_d_by_site <- Ivom_noMAF_gt %>% 
   group_by(site) %>%

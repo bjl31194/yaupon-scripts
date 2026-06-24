@@ -27,10 +27,10 @@
 #     which should end in '.tsv' as it will be a tab-separated values text file.
 
 GFF_file <- "~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1-5/Ilex_Hap1.filter.gff3"
-VCF_file <- "<.vcf File name here>"
-VCF_header.int <- as.integer("<Number of header lines in .vcf file here>")
-upstream.int <- as.integer("<Number of bases upstream of a feature a SNP can be")
-output_name <- "Output_file_name_here.tsv"
+VCF_file <- "~/Library/CloudStorage/OneDrive-UniversityofGeorgia/yaupon/vcf/plates1-5/Ivom1-5_filter_names.vcf"
+VCF_header.int <- as.integer(57)
+upstream.int <- as.integer(1000)
+output_name <- "Ivom1-5_filter_names_ann.tsv"
 
 # Setup ========================================================================
 
@@ -43,10 +43,10 @@ library(dplyr)
 setwd("~/bioinfo-notebook/data")
 
 # Defining headers for GFF and VCF files
-gff_headers <- c("sequence", "source", "feature", "start", "end", "score",
-                 "strand", "phase", "attributes")
+gff_headers <- c("chr", "source", "feature", "start", "end", "score",
+                 "strand", "frame", "attribute")
 vcf_headers <- c("sequence", "POS", "ID", "REF", "ALT", "QUAL", "FILTER", "INFO",
-                 "FORMAT", "SAMPLE")
+                 "FORMAT")
 
 # Reading in files and applying format headers =================================
 
@@ -76,7 +76,7 @@ colnames(SNPs.df) <- vcf_headers
 
 # Joining data frames with genome annotation and SNPs
 SNPs_with_annotations.df <- inner_join(genome_annotation.df, SNPs.df, 
-                                       by = "sequence") %>%
+                                       by = "chr") %>%
                                        select(-ID, -FORMAT, -FILTER) %>%
                                        filter(POS >= (start - upstream) &
                                               POS <= end)

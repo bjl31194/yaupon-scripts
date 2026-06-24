@@ -176,7 +176,7 @@ plot_snp <- function(locus) {
     }
   }
 }
-snpfreqs <- filter(pop_freqs, loci == "Chr02_39132033")
+snpfreqs <- filter(pop_freqs, loci == "Chr01_46778815")
 
 cand_by_loading <- cand %>%
   arrange(loading)
